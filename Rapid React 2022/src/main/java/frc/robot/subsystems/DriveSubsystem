@@ -37,8 +37,8 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   //Encoders
-  private final Encoder m_leftEncoder = new Encoder(Constants.DriveConstants.kLeftEncoderPorts[0], Constants.DriveConstants.kLeftEncoderPorts[1]);
-  private final Encoder m_rightEncoder = new Encoder(Constants.DriveConstants.kRightEncoderPorts[0], Constants.DriveConstants.kRightEncoderPorts[1]);
+  private final Encoder m_leftEncoders = new Encoder(Constants.DriveConstants.kLeftEncoderPorts[0], Constants.DriveConstants.kLeftEncoderPorts[1]);
+  private final Encoder m_rightEncoders = new Encoder(Constants.DriveConstants.kRightEncoderPorts[0], Constants.DriveConstants.kRightEncoderPorts[1]);
 
   //Gyro
   private final AnalogGyro m_gyro = new AnalogGyro(1);
@@ -54,8 +54,6 @@ public class DriveSubsystem extends SubsystemBase {
   private Field2d m_fieldSim;
   private AnalogGyroSim m_gyroSim;
   public DifferentialDrivetrainSim m_driveTrainSim;
-
-
 
 
   /** Creates a new DriveSubsystem. */
@@ -211,4 +209,10 @@ public class DriveSubsystem extends SubsystemBase {
   public double getHeading(){
     return Math.IEEEremainder(m_gyro.getAngle(), 360);
   }
-}
+}    
+
+//invert right-side motors
+@Override
+    public void robotInit() {
+    m_Rightmotors.setInverted(true);
+    }   
