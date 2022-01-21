@@ -24,12 +24,12 @@ public class Constants {
         public static final double kRobotDiameter = 0.582;
 
         // Encoder
-        public static final int kLeftMotor1Port = 0,
-            kLeftMotor2Port = 1,
-            kLeftMotor3Port = 2,
-            kRightMotor1Port = 3,
-            kRightMotor2Port = 4,
-            kRightMotor3Port = 5;
+        public static final int kLeftEnc1 = 0,
+            kLeftEnc2 = 1,
+            kLeftEnc3 = 2,
+            kRightEnc1 = 3,
+            kRightEnc2 = 4,
+            kRightEnc3 = 5;
         // Maps Pulse to Distance (m/pulse)
         public static final double kEncoderDistancePerPulse = 1.0 / 2048.0 * Math.PI * 0.1524;
         // Random Error Avg Number

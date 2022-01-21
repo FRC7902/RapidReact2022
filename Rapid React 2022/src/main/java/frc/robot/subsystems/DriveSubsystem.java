@@ -30,12 +30,12 @@ import frc.robot.Constants;
 public class DriveSubsystem extends SubsystemBase {
 
   //SpeedController Groups
-  private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(new PWMVictorSPX(Constants.DriveConstants.kLeftMotor1Port), new PWMVictorSPX(Constants.DriveConstants.kLeftMotor2Port));
-  private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(new PWMVictorSPX(Constants.DriveConstants.kRightMotor1Port), new PWMVictorSPX(Constants.DriveConstants.kRightMotor2Port));
+  private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(new PWMVictorSPX(Constants.DriveConstants.FL), new PWMVictorSPX(Constants.DriveConstants.BL));
+  private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(new PWMVictorSPX(Constants.DriveConstants.FR), new PWMVictorSPX(Constants.DriveConstants.BR));
 
   //Encoders
-  private final Encoder m_leftEncoders = new Encoder(Constants.DriveConstants.kLeftEncoderPorts[8], Constants.DriveConstants.kLeftEncoderPorts[9]);
-  private final Encoder m_rightEncoders = new Encoder(Constants.DriveConstants.kRightEncoderPorts[8], Constants.DriveConstants.kRightEncoderPorts[9]);
+  private final Encoder m_leftEncoders = new Encoder(Constants.DriveConstants.kLeftEnc1, Constants.DriveConstants.kLeftEnc2, Constants.DriveConstants.kLeftEnc3, true);
+  private final Encoder m_rightEncoders = new Encoder(Constants.DriveConstants.kRightEnc1, Constants.DriveConstants.kRightEnc2, Constants.DriveConstants.kRightEnc3, true);
 
   //Gyro
   private final AnalogGyro m_gyro = new AnalogGyro(1);
