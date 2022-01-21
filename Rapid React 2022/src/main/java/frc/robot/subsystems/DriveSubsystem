@@ -37,8 +37,8 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   //Encoders
-  private final Encoder m_leftEncoders = new Encoder(Constants.DriveConstants.kLeftEncoderPorts[0], Constants.DriveConstants.kLeftEncoderPorts[1]);
-  private final Encoder m_rightEncoders = new Encoder(Constants.DriveConstants.kRightEncoderPorts[0], Constants.DriveConstants.kRightEncoderPorts[1]);
+  private final Encoder m_leftEncoders = new Encoder(Constants.DriveConstants.kLeftEncoderPorts[8], Constants.DriveConstants.kLeftEncoderPorts[9]);
+  private final Encoder m_rightEncoders = new Encoder(Constants.DriveConstants.kRightEncoderPorts[8], Constants.DriveConstants.kRightEncoderPorts[9]);
 
   //Gyro
   private final AnalogGyro m_gyro = new AnalogGyro(1);
