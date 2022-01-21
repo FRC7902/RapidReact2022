@@ -6,15 +6,15 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.simulation.AnalogGyroSim;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
@@ -23,18 +23,15 @@ import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim.KitbotMotor;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim.KitbotWheelSize;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Units;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
 
-
-
   //SpeedController Groups
   private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(new PWMVictorSPX(Constants.DriveConstants.kLeftMotor1Port), new PWMVictorSPX(Constants.DriveConstants.kLeftMotor2Port));
   private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(new PWMVictorSPX(Constants.DriveConstants.kRightMotor1Port), new PWMVictorSPX(Constants.DriveConstants.kRightMotor2Port));
-
 
   //Encoders
   private final Encoder m_leftEncoders = new Encoder(Constants.DriveConstants.kLeftEncoderPorts[8], Constants.DriveConstants.kLeftEncoderPorts[9]);
@@ -59,8 +56,8 @@ public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
     //Set Encoder pulses
-    m_leftEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
-    m_rightEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
+    m_leftEncoders.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
+    m_rightEncoders.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
     resetEncoders();
 
 
@@ -74,14 +71,13 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putData("Field", m_fieldSim);
 
     //Connect the simulators with their counterparts
-    m_leftEncoderSim = new EncoderSim(m_leftEncoder);
-    m_rightEncoderSim = new EncoderSim(m_rightEncoder);
+    m_leftEncoderSim = new EncoderSim(m_leftEncoders);
+    m_rightEncoderSim = new EncoderSim(m_rightEncoders);
     m_gyroSim = new AnalogGyroSim(m_gyro);
 
     //Invert the speed controller groups
     m_leftMotors.setInverted(true);
-    m_rightMotors.setInverted(true);
-    
+    m_rightMotors.setInverted(true);    
   }
 
   @Override
@@ -90,8 +86,8 @@ public class DriveSubsystem extends SubsystemBase {
     //update the position of the robot
     m_odometry.update( 
       Rotation2d.fromDegrees(getHeading()),
-      m_leftEncoder.getDistance(),
-      m_rightEncoder.getDistance()
+      m_leftEncoders.getDistance(),
+      m_rightEncoders.getDistance()
     );
     m_fieldSim.setRobotPose(getPose());
 
@@ -139,7 +135,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   //get the wheel speeds
   public DifferentialDriveWheelSpeeds getWheelSpeeds(){
-    return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
+    return new DifferentialDriveWheelSpeeds(m_leftEncoders.getRate(), m_rightEncoders.getRate());
   }
 
   //reset the robots position
@@ -178,26 +174,26 @@ public class DriveSubsystem extends SubsystemBase {
 
   //reset the encoders
   public void resetEncoders(){
-    m_leftEncoder.reset();
-    m_rightEncoder.reset();
+    m_leftEncoders.reset();
+    m_rightEncoders.reset();
   }
 
 
 
   //get the robot distance
   public double getAvgEncoderDistance(){
-    return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
+    return (m_leftEncoders.getDistance() + m_rightEncoders.getDistance()) / 2.0;
   }
 
 
   //return left encoder
   public Encoder getLeftEncoder(){
-    return m_leftEncoder;
+    return m_leftEncoders;
   }
 
   //return right encoder
   public Encoder getRightEncoder(){
-    return m_rightEncoder;
+    return m_rightEncoders;
   }
 
   //reset the gyro
@@ -209,10 +205,5 @@ public class DriveSubsystem extends SubsystemBase {
   public double getHeading(){
     return Math.IEEEremainder(m_gyro.getAngle(), 360);
   }
-}    
 
-//invert right-side motors
-@Override
-    public void robotInit() {
-    m_Rightmotors.setInverted(true);
-    }   
+}
