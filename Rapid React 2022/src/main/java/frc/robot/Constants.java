@@ -1,40 +1,48 @@
 package frc.robot;
 
 public class Constants {
-
     public static final class DriveConstants {
-        // Drive Controllers
-        public static final int FL = 4, 
-            FR = 9, 
-            BL = 3, 
-            BR = 8;
+        public static final int kLeftMotor1Port = 3;
+        public static final int kLeftMotor2Port = 4;
+        public static final int kRightMotor1Port = 8;
+        public static final int kRightMotor2Port = 9;
 
-        // Drive Limiters
-        public static final double kLimit = 1;
-        public static final double kDriveSpeed = 1;
+
+        public static final int[] kLeftEncoderPorts = {0, 1, 2};
+        public static final int[] kRightEncoderPorts = {3, 4, 5};
+
+        public static final int kEncoderCPR = 1024;
+        public static final double kWheelDiameterMeters = 0.1524;
+        public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
+
+
         public static final double kTurnSpeed = 0.9;
-        // Travel Speed
-        public static final double kAutoSpeed = 0.75;
-        // Turn Speed
-        public static final double kAutoTurnSpeed = 0.5;
-        // Avoid Zero Error 
-        public static final double kNoZero = 0.001;
-
-        // Diameter of Robot in meters
-        public static final double kRobotDiameter = 0.582;
-
-        // Encoder
-        public static final int kLeftEnc1 = 0,
-            kLeftEnc2 = 1,
-            kLeftEnc3 = 2,
-            kRightEnc1 = 3,
-            kRightEnc2 = 4,
-            kRightEnc3 = 5;
-        // Maps Pulse to Distance (m/pulse)
-        public static final double kEncoderDistancePerPulse = 1.0 / 2048.0 * Math.PI * 0.1524;
-        // Random Error Avg Number
-        public static final int kAvgNum = 5;
-        // Minimum Rate Cap (m/s)
-        public static final double kMinRate = 1.0;
+        public static final double kSlowSpeed = 0.5;
     }
+
+    // Joystick USB Slot
+    public static final int JOY = 0,
+    OP = 1;
+
+    // Joystick - Button
+    public static final int A = 1,
+    B = 2,
+    X = 3,
+    Y = 4,
+    LB = 5, // Bumper
+    RB = 6, // Bumper
+    M = 7, // menu
+    S = 8, // start
+    LA = 9, // Press left axis
+    RA = 10; // Press right axis
+
+    // Joystick - Axis
+    public static final int LX = 0,
+    LY = 1,
+    LT = 2, // Trigger
+    RT = 3, // Trigger
+    RX = 4,
+    RY = 5, 
+    PX = 6, // D-Pad
+    PY = 7; // D-Pad
 }
