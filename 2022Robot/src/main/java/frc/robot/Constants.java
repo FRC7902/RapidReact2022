@@ -12,4 +12,16 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {}
+public final class Constants {
+    public final static class DriveConstants {
+
+        //Sensitivities (1 -> quadratic, 0 -> linear)
+        public static final double kForwardSens = 1;
+        public static final double kTurnSens = 0.5;
+        public static final double kTurnMax = 1;
+
+        public static final int kEncoderCPR = 1024;
+        public static final double kWheelDiameterMeters = 0.1524;
+        public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
+    }
+}
