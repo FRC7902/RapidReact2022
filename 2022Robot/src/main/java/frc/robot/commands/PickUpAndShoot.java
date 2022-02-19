@@ -7,6 +7,10 @@ package frc.robot.commands;
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.TransferSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -19,11 +23,11 @@ public class PickUpAndShoot extends SequentialCommandGroup {
     addCommands(
       new ParallelRaceGroup(
         new DriveToDistance(3.0, driveSubsystem),
-        new Suck()
+        new Suck(intakeSubsystem, transferSubsystem)
       ),
 
       new DriveToDistance(-3.0, driveSubsystem),
-      new Shoot().withTimeout(3.0)
+      new Shoot(transferSubsystem, shooterSubsystem).withTimeout(3.0)
       
     );
   }

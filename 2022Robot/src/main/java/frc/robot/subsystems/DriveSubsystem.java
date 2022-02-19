@@ -118,6 +118,11 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
+  public void stop(){
+    m_leftLeader.stopMotor();
+    m_rightLeader.stopMotor();
+  }
+
   public void driveArcade(double fwd, double rot){
     m_leftLeader.set(ControlMode.PercentOutput, fwd + rot);
     m_rightLeader.set(ControlMode.PercentOutput, fwd - rot);

@@ -12,12 +12,15 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.commands.DoNothing;
+import frc.robot.commands.DriveAndTurn;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.ExampleCommand;
 
 import frc.robot.subsystems.CameraSubsystem;
 
 import frc.robot.commands.LeaveTarmac;
+import frc.robot.commands.PickUpAndShoot;
 import frc.robot.subsystems.DriveSubsystem;
 
 import frc.robot.subsystems.ExampleSubsystem;
@@ -47,15 +50,16 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
 
-
-  
-  private final DriveToDistance m_driveForward = new DriveToDistance(2.0, m_robotDrive);
+  private final DoNothing m_DoNothing = new DoNothing();
+  private final PickUpAndShoot m_pickUpAndShoot = new PickUpAndShoot(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
+  private final LeaveTarmac m_leaveTarmac = new LeaveTarmac(m_robotDrive);
+  private final DriveAndTurn m_driveAndTurn = new DriveAndTurn(m_robotDrive);
+  // private final DriveToDistance m_driveForward = new DriveToDistance(2.0, m_robotDrive);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
 
 
-  private final Joystick m_joystick = new Joystick(0);
-  private final LeaveTarmac m_leaveTarmac = new LeaveTarmac(m_robotDrive);
+  // private final Joystick m_joystick = new Joystick(0);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -73,8 +77,11 @@ public class RobotContainer {
     );
 
 
-    m_chooser.setDefaultOption("Drive Forward 2 metres", m_driveForward);
+    // m_chooser.setDefaultOption("Drive Forward 2 metres", m_driveForward);
     m_chooser.setDefaultOption("Leave Tarmac", m_leaveTarmac);
+    m_chooser.addOption("Do nothing", m_DoNothing);
+    m_chooser.addOption("Pick Up and Shoot", m_pickUpAndShoot);
+    m_chooser.addOption("Drive and Turn", m_driveAndTurn);
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
   }
@@ -87,9 +94,6 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new JoystickButton(m_joystick, 5)
-      .whenPressed(() -> m_robotShooter.shoot(), m_robotShooter)
-      .whenReleased(() -> m_robotShooter.stop(), m_robotShooter);
 
     new JoystickButton(m_driverStick, 1)
       .whenReleased(() -> m_robotDrive.zeroHeading(), m_robotDrive);
@@ -104,6 +108,10 @@ public class RobotContainer {
     new JoystickButton(m_driverStick, 4)
       .whenPressed(() -> m_robotDrive.activateSlowTurn(), m_robotDrive)
       .whenReleased(() -> m_robotDrive.deactivateSlowTurn(), m_robotDrive);
+    
+    new JoystickButton(m_driverStick, 5)
+      .whenPressed(() -> m_robotShooter.shoot(), m_robotShooter)
+      .whenReleased(() -> m_robotShooter.stop(), m_robotShooter);
 
   }
 

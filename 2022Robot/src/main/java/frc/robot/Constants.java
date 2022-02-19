@@ -14,9 +14,6 @@ package frc.robot;
  */
 public final class Constants {
 
-    public final static class ShooterConstants {
-        public final static double kSpeed = 1;
-    }
     public final static class DriveConstants {
 
         //Sensitivities (1 -> quadratic, 0 -> linear)
@@ -28,5 +25,24 @@ public final class Constants {
         public static final double kWheelDiameterMeters = 0.1524;
         public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
 
+    }
+
+    public final static class IntakeConstants {
+        public final static double suckSpeed = 0.7;
+        public final static double spitSpeed = -0.5;
+
+    }
+
+    public final static class TransferConstants {
+        public final static double horiForwardSpeed = 0.7;
+        public final static double horiBackwardsSpeed = -0.5;
+
+
+        public final static double vertForwardSpeed = 1;
+        public final static double vertBackwardsSpeed = -0.4;
+    }
+    
+    public final static class ShooterConstants {
+        public final static double kSpeed = 1;
     }
 }
