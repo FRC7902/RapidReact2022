@@ -44,7 +44,7 @@ public class DriveToDistance extends PIDCommand {
   @Override
   public void end(boolean interrupted){
     // m_driveSubsystem.refreshOdometry();
-    // m_driveSubsystem.resetEncoders();
+    m_driveSubsystem.resetEncoders();
     // m_driveSubsystem.resetEncoderSims();
   }
 }

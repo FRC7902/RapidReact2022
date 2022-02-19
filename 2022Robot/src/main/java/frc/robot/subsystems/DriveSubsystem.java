@@ -17,6 +17,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
@@ -29,31 +30,40 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
+
+  //Motor Controllers
   private final WPI_TalonSRX m_leftLeader = new WPI_TalonSRX(4);
   private final WPI_VictorSPX m_leftFollower = new WPI_VictorSPX(3);
   private final WPI_TalonSRX m_rightLeader = new WPI_TalonSRX(12);
   private final WPI_VictorSPX m_rightFollower = new WPI_VictorSPX(11);
+  
+  //Encoders
+  private final Encoder m_leftEncoder = new Encoder(0, 1);
+  private final Encoder m_rightEncoder = new Encoder(3, 4);
 
+  //Gyro (Pigeon)
+  private final WPI_PigeonIMU m_pigeon = new WPI_PigeonIMU(1);
+
+  //Slow State Booleans
   private boolean isForwardSlow = false;
   private boolean isTurnSlow = false;  
 
 
-  private final TalonSRXSimCollection m_leftDriveSim = m_leftLeader.getSimCollection();
-  private final TalonSRXSimCollection m_rightDriveSim = m_rightLeader.getSimCollection();
+  //SIMULATION
 
+  //Talon simulators
+  private TalonSRXSimCollection m_leftDriveSim;
+  private TalonSRXSimCollection m_rightDriveSim;
 
-  private final WPI_PigeonIMU m_pigeon = new WPI_PigeonIMU(1);
+  //Pigeon simulators
+  private BasePigeonSimCollection m_pigeonSim;
 
-
-  private final BasePigeonSimCollection m_pigeonSim = m_pigeon.getSimCollection();
-
-  private final Encoder m_leftEncoder = new Encoder(0, 1);
-  private final Encoder m_rightEncoder = new Encoder(3, 4);
-
-  private final EncoderSim m_leftEncoderSim = new EncoderSim(m_leftEncoder);
-  private final EncoderSim m_rightEncoderSim = new EncoderSim(m_rightEncoder);
+  //Encoder simulators
+  private EncoderSim m_leftEncoderSim;
+  private EncoderSim m_rightEncoderSim;
   
 
+  //Other Simulation Classes
   private DifferentialDrivetrainSim m_drivetrainSim;
   private Field2d m_fieldSim;
   private DifferentialDriveOdometry m_odometry;
@@ -61,10 +71,13 @@ public class DriveSubsystem extends SubsystemBase {
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
+
+    //Encoder config
     m_leftEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
     m_rightEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
     resetEncoders();
 
+    //Motor controller config
     m_rightLeader.configFactoryDefault();
     m_rightFollower.configFactoryDefault();
     m_rightFollower.follow(m_rightLeader);
@@ -82,15 +95,26 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightLeader.setSensorPhase(false);
 
 
-    
-    
-    m_odometry = new DifferentialDriveOdometry(m_pigeon.getRotation2d(), new Pose2d(7, 5, new Rotation2d(Units.degreesToRadians(120))));
-    m_drivetrainSim = DifferentialDrivetrainSim.createKitbotSim(KitbotMotor.kDualCIMPerSide, 
-      KitbotGearing.k10p71, 
-      KitbotWheelSize.kSixInch, 
-      null);
-    m_fieldSim = new Field2d();
-    SmartDashboard.putData("Field", m_fieldSim);
+    //SIMULATION
+
+    if(RobotBase.isSimulation()){
+      m_leftDriveSim = m_leftLeader.getSimCollection();
+      m_rightDriveSim = m_rightLeader.getSimCollection();
+
+      m_pigeonSim = m_pigeon.getSimCollection();
+
+      m_leftEncoderSim = new EncoderSim(m_leftEncoder);
+      m_rightEncoderSim = new EncoderSim(m_rightEncoder);
+
+      //Simulation class initialization
+      m_odometry = new DifferentialDriveOdometry(m_pigeon.getRotation2d(), new Pose2d(7, 5, new Rotation2d(Units.degreesToRadians(120))));
+      m_drivetrainSim = DifferentialDrivetrainSim.createKitbotSim(KitbotMotor.kDualCIMPerSide, 
+        KitbotGearing.k10p71, 
+        KitbotWheelSize.kSixInch, 
+        null);
+      m_fieldSim = new Field2d();
+      SmartDashboard.putData("Field", m_fieldSim);
+    }
 
   }
 
@@ -206,14 +230,15 @@ public class DriveSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
-    m_odometry.update(m_pigeon.getRotation2d(),
-                      m_leftEncoder.getDistance(),
-                      m_rightEncoder.getDistance());
-    m_fieldSim.setRobotPose(m_odometry.getPoseMeters());
+    if(RobotBase.isSimulation()){
+      m_odometry.update(m_pigeon.getRotation2d(),
+                        m_leftEncoder.getDistance(),
+                        m_rightEncoder.getDistance());
+      m_fieldSim.setRobotPose(m_odometry.getPoseMeters());
 
 
-    SmartDashboard.putNumber("Heading", getHeading());
-
+      SmartDashboard.putNumber("Heading", getHeading());
+    }
   }
 
   @Override
