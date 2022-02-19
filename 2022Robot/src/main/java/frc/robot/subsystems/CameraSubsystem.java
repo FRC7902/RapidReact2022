@@ -18,9 +18,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class CameraSubsystem extends SubsystemBase {
 
   UsbCamera camera;
-  Mat mat;
-  CvSource outputStream;
-  CvSink cvSink;
+  // Mat mat;
+  // CvSource outputStream;
+  // CvSink cvSink;
 
   
   /** Creates a new CameraSubsystem. */
@@ -28,11 +28,11 @@ public class CameraSubsystem extends SubsystemBase {
     camera = CameraServer.startAutomaticCapture(0);
     camera.setResolution(640, 480);
 
-    cvSink = CameraServer.getVideo();
+    // cvSink = CameraServer.getVideo();
 
-    outputStream = CameraServer.putVideo("Stream", 640, 480);
+    // outputStream = CameraServer.putVideo("Stream", 640, 480);
 
-    mat = new Mat();
+    // mat = new Mat();
 
   }
 
