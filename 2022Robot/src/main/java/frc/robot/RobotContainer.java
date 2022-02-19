@@ -17,6 +17,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.LeaveTarmac;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -29,8 +30,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+
+  private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  
 
 
   
@@ -38,6 +42,8 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
 
+
+  private final Joystick m_joystick = new Joystick(0);
   private final LeaveTarmac m_leaveTarmac = new LeaveTarmac(m_robotDrive);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -70,6 +76,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
+    new JoystickButton(m_joystick, 5)
+      .whenPressed(() -> m_robotShooter.shoot(), m_robotShooter)
+      .whenReleased(() -> m_robotShooter.stop(), m_robotShooter);
+
     new JoystickButton(m_driverStick, 1)
       .whenReleased(() -> m_robotDrive.zeroHeading(), m_robotDrive);
 
@@ -83,6 +93,7 @@ public class RobotContainer {
     new JoystickButton(m_driverStick, 4)
       .whenPressed(() -> m_robotDrive.activateSlowTurn(), m_robotDrive)
       .whenReleased(() -> m_robotDrive.deactivateSlowTurn(), m_robotDrive);
+
   }
 
   /**

@@ -13,6 +13,10 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+    public final static class ShooterConstants {
+        public final static double kSpeed = 1;
+    }
     public final static class DriveConstants {
 
         //Sensitivities (1 -> quadratic, 0 -> linear)
@@ -23,5 +27,6 @@ public final class Constants {
         public static final int kEncoderCPR = 1024;
         public static final double kWheelDiameterMeters = 0.1524;
         public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
+
     }
 }
