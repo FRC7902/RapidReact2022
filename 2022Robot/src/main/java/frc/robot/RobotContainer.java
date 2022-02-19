@@ -14,8 +14,12 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.ExampleCommand;
+
+import frc.robot.subsystems.CameraSubsystem;
+
 import frc.robot.commands.LeaveTarmac;
 import frc.robot.subsystems.DriveSubsystem;
+
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,11 +32,16 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
+
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
+
+  private final CameraSubsystem m_robotCamera = new CameraSubsystem();
+
   private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
 

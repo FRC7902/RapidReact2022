@@ -1,11 +1,16 @@
 {
   "HALProvider": {
+    "Other Devices": {
+      "Victor SPX[8]": {
     "Encoders": {
       "0": {
         "header": {
           "open": true
         }
       },
+
+      "Victor SPX[9]": {
+
       "1": {
         "header": {
           "open": true
@@ -17,6 +22,7 @@
     },
     "Other Devices": {
       "Pigeon IMU[1]": {
+
         "header": {
           "open": true
         }
@@ -26,6 +32,13 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+
+      "/LiveWindow/ExampleSubsystem": "Subsystem",
+      "/LiveWindow/ShooterSubsystem": "Subsystem",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Victor SPX [8]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [9]": "Motor Controller"
+
       "/LiveWindow/DriveSubsystem": "Subsystem",
       "/LiveWindow/ExampleSubsystem": "Subsystem",
       "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
@@ -59,6 +72,7 @@
   "NetworkTables": {
     "SmartDashboard": {
       "open": true
+
     }
   }
 }
