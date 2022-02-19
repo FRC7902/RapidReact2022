@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.DeployIntake;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveAndTurn;
 import frc.robot.commands.DriveToDistance;
@@ -21,6 +23,10 @@ import frc.robot.subsystems.CameraSubsystem;
 
 import frc.robot.commands.LeaveTarmac;
 import frc.robot.commands.PickUpAndShoot;
+import frc.robot.commands.RetractIntake;
+import frc.robot.commands.Shoot;
+import frc.robot.commands.Spit;
+import frc.robot.commands.Suck;
 import frc.robot.subsystems.DriveSubsystem;
 
 import frc.robot.subsystems.ExampleSubsystem;
@@ -28,6 +34,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -49,6 +56,7 @@ public class RobotContainer {
   private final CameraSubsystem m_robotCamera = new CameraSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
+  private final RetractIntake m_retractIntake = new RetractIntake(m_robotIntake);
 
   private final DoNothing m_DoNothing = new DoNothing();
   private final PickUpAndShoot m_pickUpAndShoot = new PickUpAndShoot(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
@@ -76,6 +84,8 @@ public class RobotContainer {
         m_robotDrive)
     );
 
+    
+
 
     // m_chooser.setDefaultOption("Drive Forward 2 metres", m_driveForward);
     m_chooser.setDefaultOption("Leave Tarmac", m_leaveTarmac);
@@ -83,7 +93,11 @@ public class RobotContainer {
     m_chooser.addOption("Pick Up and Shoot", m_pickUpAndShoot);
     m_chooser.addOption("Drive and Turn", m_driveAndTurn);
 
-    Shuffleboard.getTab("Autonomous").add(m_chooser);
+    // Shuffleboard.getTab("CompetitionView").add(m_chooser);
+
+    SmartDashboard.putData("CompetitionView/Autonomous Selector", m_chooser);
+
+    // Shuffleboard.getTab("Autonomous").add(m_chooser);
   }
 
   /**
@@ -94,24 +108,58 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
+    new JoystickButton(m_driverStick, 1) //Retract intake
+      .whenHeld(new RetractIntake(m_robotIntake));
 
-    new JoystickButton(m_driverStick, 1)
-      .whenReleased(() -> m_robotDrive.zeroHeading(), m_robotDrive);
+    new JoystickButton(m_driverStick, 2) //Shoot
+      .whenHeld(new Shoot(m_robotTransfer, m_robotShooter));
 
-    new JoystickButton(m_driverStick, 2)
-      .whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d(7, 5, new Rotation2d(Units.degreesToRadians(-120)))));
+    new JoystickButton(m_driverStick, 3);
 
-    new JoystickButton(m_driverStick, 3)
-      .whenPressed(() -> m_robotDrive.activateSlowForward(), m_robotDrive)
-      .whenReleased(() -> m_robotDrive.deactivateSlowForward(), m_robotDrive);
+    new JoystickButton(m_driverStick, 4) //Deploy intake
+      .whenHeld(new DeployIntake(m_robotIntake));
 
-    new JoystickButton(m_driverStick, 4)
-      .whenPressed(() -> m_robotDrive.activateSlowTurn(), m_robotDrive)
-      .whenReleased(() -> m_robotDrive.deactivateSlowTurn(), m_robotDrive);
+    new JoystickButton(m_driverStick, 5) //
+      .whenHeld(new Spit(m_robotIntake, m_robotTransfer));
+
+    new JoystickButton(m_driverStick, 6)
+      .whenHeld(new Suck(m_robotIntake, m_robotTransfer));
+
+    new JoystickButton(m_driverStick, 7);
+
+    new JoystickButton(m_driverStick, 8);
     
-    new JoystickButton(m_driverStick, 5)
-      .whenPressed(() -> m_robotShooter.shoot(), m_robotShooter)
-      .whenReleased(() -> m_robotShooter.stop(), m_robotShooter);
+    new JoystickButton(m_driverStick, 9)
+      .whenPressed(() -> m_robotDrive.activateSlowForward())
+      .whenReleased(() -> m_robotDrive.deactivateSlowForward());
+
+    new JoystickButton(m_driverStick, 10)
+      .whenPressed(() -> m_robotDrive.activateSlowTurn())
+      .whenReleased(() -> m_robotDrive.deactivateSlowTurn());
+
+
+    
+
+
+    // new JoystickButton(m_driverStick, 1) //Retract Intake
+    //   // .whenReleased(() -> m_robotDrive.zeroHeading(), m_robotDrive);
+    //   .whenHeld(new RetractIntake(m_robotIntake));
+
+    // new JoystickButton(m_driverStick, 2)
+    //   .whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d(7, 5, new Rotation2d(Units.degreesToRadians(-120)))));
+
+    // new JoystickButton(m_driverStick, 3)
+    //   .whenPressed(() -> m_robotDrive.activateSlowForward(), m_robotDrive)
+    //   .whenReleased(() -> m_robotDrive.deactivateSlowForward(), m_robotDrive);
+
+    // new JoystickButton(m_driverStick, 4)
+    //   // .whenPressed(() -> m_robotDrive.activateSlowTurn(), m_robotDrive)
+    //   // .whenReleased(() -> m_robotDrive.deactivateSlowTurn(), m_robotDrive);
+    //   .whenHeld(new DeployIntake(m_robotIntake));
+    
+    // new JoystickButton(m_driverStick, 5)
+    //   .whenPressed(() -> m_robotShooter.shoot(), m_robotShooter)
+    //   .whenReleased(() -> m_robotShooter.stop(), m_robotShooter);
 
   }
 

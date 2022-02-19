@@ -234,6 +234,17 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("CompetitionView/Left Drive Motors", m_leftLeader.getMotorOutputPercent());
+    SmartDashboard.putNumber("CompetitionView/Right Drive Motors", m_rightLeader.getMotorOutputPercent());
+    SmartDashboard.putBoolean("CompetitionView/Slow Turn", isTurnSlow);
+    SmartDashboard.putBoolean("CompetitionView/Slow Drive", isForwardSlow);
+
+    SmartDashboard.putNumber("DriveSubsystem/Left Drive Motors", m_leftLeader.getMotorOutputPercent());
+    SmartDashboard.putNumber("DriveSubsystem/Right Drive Motors", m_rightLeader.getMotorOutputPercent());
+    SmartDashboard.putBoolean("DriveSubsystem/Slow Turn", isTurnSlow);
+    SmartDashboard.putBoolean("DriveSubsystem/Slow Drive", isForwardSlow);
+
+    
 
     if(RobotBase.isSimulation()){
       m_odometry.update(m_pigeon.getRotation2d(),
