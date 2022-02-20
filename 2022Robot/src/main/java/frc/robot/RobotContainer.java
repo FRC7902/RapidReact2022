@@ -51,12 +51,16 @@ public class RobotContainer {
     new JoystickButton(m_climbController, Constants.LB).whenPressed(m_retractElevator.withTimeout(3));
     new JoystickButton(m_climbController, Constants.RT).whileHeld(m_extendElevator).whenReleased(() -> m_climbSubsystem.stopElevator());
     new JoystickButton(m_climbController, Constants.LT).whileHeld(m_retractElevator).whenReleased(() -> m_climbSubsystem.stopElevator());
+
     // Main Winch
     new JoystickButton(m_climbController, Constants.Y).whileHeld(() -> m_climbSubsystem.setMainWinch(1.0)).whenReleased(() -> m_climbSubsystem.stopMainWinch());
     new JoystickButton(m_climbController, Constants.A).whileHeld(() -> m_climbSubsystem.setMainWinch(-1.0)).whenReleased(() -> m_climbSubsystem.stopMainWinch());
+
     // Adjustment Winch
-    new JoystickButton(m_climbController, Constants.B).whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(1.0)).whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
-    new JoystickButton(m_climbController, Constants.X).whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(-1.0)).whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
+    // m_climbSubsystem.setAdjustmentWinch(m_climbController.getRawAxis(Constants.PY) / Math.abs(m_climbController.getRawAxis(Constants.PY)));
+    new JoystickButton(m_climbController, Constants.PY).whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(1.0)).whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
+    new JoystickButton(m_climbController, Constants.PX).whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(-1.0)).whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
+
     // Auto-Traverse Rungs
     new JoystickButton(m_climbController, Constants.S).whenPressed(m_traverseRungs);
   }
