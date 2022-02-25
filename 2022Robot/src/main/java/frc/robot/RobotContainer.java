@@ -19,6 +19,11 @@ import frc.robot.commands.DriveAndTurn;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.ExampleCommand;
 
+import frc.robot.commands.ExtendElevator;
+import frc.robot.commands.RetractElevator;
+import frc.robot.commands.TraverseRungs;
+import frc.robot.subsystems.ClimbSubsystem;
+
 import frc.robot.subsystems.CameraSubsystem;
 
 import frc.robot.commands.LeaveTarmac;
@@ -47,13 +52,12 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
-
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final IntakeSubsystem m_robotIntake = new IntakeSubsystem();
   private final TransferSubsystem m_robotTransfer = new TransferSubsystem();
   private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
   private final CameraSubsystem m_robotCamera = new CameraSubsystem();
+  private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();  
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
   private final RetractIntake m_retractIntake = new RetractIntake(m_robotIntake);
@@ -64,14 +68,14 @@ public class RobotContainer {
   private final DriveAndTurn m_driveAndTurn = new DriveAndTurn(m_robotDrive);
   // private final DriveToDistance m_driveForward = new DriveToDistance(2.0, m_robotDrive);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
-
-
-  // private final Joystick m_joystick = new Joystick(0);
+  private final ExtendElevator m_extendElevator = new ExtendElevator(m_climbSubsystem);
+  private final RetractElevator m_retractElevator = new RetractElevator(m_climbSubsystem);
+  private final TraverseRungs m_traverseRungs = new TraverseRungs(m_climbSubsystem);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   private final Joystick m_driverStick = new Joystick(0);
+  private final XboxController m_climbController = new XboxController(1);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -83,9 +87,6 @@ public class RobotContainer {
         () -> m_robotDrive.driveJoystick(-m_driverStick.getRawAxis(1), m_driverStick.getRawAxis(4)), 
         m_robotDrive)
     );
-
-    
-
 
     // m_chooser.setDefaultOption("Drive Forward 2 metres", m_driveForward);
     m_chooser.setDefaultOption("Leave Tarmac", m_leaveTarmac);
@@ -108,7 +109,25 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // Climb Elevator
+    new JoystickButton(m_climbController, Constants.RB).whenPressed(m_extendElevator.withTimeout(3));
+    new JoystickButton(m_climbController, Constants.LB).whenPressed(m_retractElevator.withTimeout(3));
+    new JoystickButton(m_climbController, Constants.RT).whileHeld(m_extendElevator).whenReleased(() -> m_climbSubsystem.stopElevator());
+    new JoystickButton(m_climbController, Constants.LT).whileHeld(m_retractElevator).whenReleased(() -> m_climbSubsystem.stopElevator());
 
+    // Climb Main Winch
+    new JoystickButton(m_climbController, Constants.Y).whileHeld(() -> m_climbSubsystem.setMainWinch(1.0)).whenReleased(() -> m_climbSubsystem.stopMainWinch());
+    new JoystickButton(m_climbController, Constants.A).whileHeld(() -> m_climbSubsystem.setMainWinch(-1.0)).whenReleased(() -> m_climbSubsystem.stopMainWinch());
+
+    // Climb Adjustment Winch
+    // m_climbSubsystem.setAdjustmentWinch(m_climbController.getRawAxis(Constants.PY) / Math.abs(m_climbController.getRawAxis(Constants.PY)));
+    new JoystickButton(m_climbController, Constants.PY).whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(1.0)).whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
+    new JoystickButton(m_climbController, Constants.PX).whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(-1.0)).whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
+
+    // Climb Auto-Traverse Rungs
+    new JoystickButton(m_climbController, Constants.S).whenPressed(m_traverseRungs);
+
+    // Driver Stick
     new JoystickButton(m_driverStick, 1) //Retract intake
       .whenHeld(new RetractIntake(m_robotIntake));
 
@@ -138,10 +157,6 @@ public class RobotContainer {
       .whenPressed(() -> m_robotDrive.activateSlowTurn())
       .whenReleased(() -> m_robotDrive.deactivateSlowTurn());
 
-
-    
-
-
     // new JoystickButton(m_driverStick, 1) //Retract Intake
     //   // .whenReleased(() -> m_robotDrive.zeroHeading(), m_robotDrive);
     //   .whenHeld(new RetractIntake(m_robotIntake));
@@ -161,7 +176,6 @@ public class RobotContainer {
     // new JoystickButton(m_driverStick, 5)
     //   .whenPressed(() -> m_robotShooter.shoot(), m_robotShooter)
     //   .whenReleased(() -> m_robotShooter.stop(), m_robotShooter);
-
   }
 
   /**
