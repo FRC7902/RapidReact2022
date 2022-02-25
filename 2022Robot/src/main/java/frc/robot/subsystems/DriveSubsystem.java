@@ -32,17 +32,17 @@ import frc.robot.Constants;
 public class DriveSubsystem extends SubsystemBase {
 
   //Motor Controllers
-  private final WPI_TalonSRX m_leftLeader = new WPI_TalonSRX(4);
-  private final WPI_VictorSPX m_leftFollower = new WPI_VictorSPX(3);
-  private final WPI_TalonSRX m_rightLeader = new WPI_TalonSRX(12);
-  private final WPI_VictorSPX m_rightFollower = new WPI_VictorSPX(11);
+  private final WPI_TalonSRX m_leftLeader = new WPI_TalonSRX(Constants.DriveConstants.kLeftLeaderCAN);
+  private final WPI_VictorSPX m_leftFollower = new WPI_VictorSPX(Constants.DriveConstants.kLeftFollowerCAN);
+  private final WPI_TalonSRX m_rightLeader = new WPI_TalonSRX(Constants.DriveConstants.kRightLeaderCAN);
+  private final WPI_VictorSPX m_rightFollower = new WPI_VictorSPX(Constants.DriveConstants.kRightFollowerCAN);
   
   //Encoders
-  private final Encoder m_leftEncoder = new Encoder(0, 1);
-  private final Encoder m_rightEncoder = new Encoder(3, 4);
+  private final Encoder m_leftEncoder = new Encoder(Constants.DriveConstants.kLeftEncoderIDs[0], Constants.DriveConstants.kLeftEncoderIDs[1]);
+  private final Encoder m_rightEncoder = new Encoder(Constants.DriveConstants.kRightEncoderIDs[0], Constants.DriveConstants.kRightEncoderIDs[1]);
 
   //Gyro (Pigeon)
-  private final WPI_PigeonIMU m_pigeon = new WPI_PigeonIMU(1);
+  private final WPI_PigeonIMU m_pigeon = new WPI_PigeonIMU(Constants.DriveConstants.kGyroCAN);
 
   //Slow State Booleans
   private boolean isForwardSlow = false;

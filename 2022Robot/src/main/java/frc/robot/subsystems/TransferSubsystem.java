@@ -12,8 +12,9 @@ import frc.robot.Constants;
 
 public class TransferSubsystem extends SubsystemBase {
 
-  public final WPI_VictorSPX horiTransfer = new WPI_VictorSPX(6);
-  public final WPI_VictorSPX vertTransfer = new WPI_VictorSPX(5);
+  public final WPI_VictorSPX horiTransfer = new WPI_VictorSPX(Constants.TransferConstants.kHoriTransferCAN);
+  public final WPI_VictorSPX vertTransfer = new WPI_VictorSPX(Constants.TransferConstants.kVertTransferCAN);
+  
 
   public String status = "Off";
 

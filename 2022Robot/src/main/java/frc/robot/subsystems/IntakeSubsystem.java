@@ -13,8 +13,8 @@ import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-  public final WPI_VictorSPX intakePower = new WPI_VictorSPX(13);
-  public final WPI_VictorSPX intakeDepl = new WPI_VictorSPX(10);
+  public final WPI_VictorSPX intakePower = new WPI_VictorSPX(Constants.IntakeConstants.kIntakePowerCAN);
+  public final WPI_VictorSPX intakeDepl = new WPI_VictorSPX(Constants.IntakeConstants.kIntakeDeplCAN);
 
   public String status = "Off";
 

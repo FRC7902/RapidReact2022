@@ -14,8 +14,8 @@ import frc.robot.Constants;
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
 
-  public final WPI_VictorSPX master = new WPI_VictorSPX(8);// left
-  public final WPI_VictorSPX follower = new WPI_VictorSPX(9); //right
+  public final WPI_VictorSPX master = new WPI_VictorSPX(Constants.ShooterConstants.kMasterCAN);// left
+  public final WPI_VictorSPX follower = new WPI_VictorSPX(Constants.ShooterConstants.kFollowerCAN); //right
 
   public String status = "Off";
 

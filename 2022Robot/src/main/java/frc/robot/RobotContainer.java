@@ -80,7 +80,7 @@ public class RobotContainer {
 
     m_robotDrive.setDefaultCommand(
       new RunCommand(
-        () -> m_robotDrive.driveJoystick(-m_driverStick.getRawAxis(1), m_driverStick.getRawAxis(0)), 
+        () -> m_robotDrive.driveJoystick(-m_driverStick.getRawAxis(1), m_driverStick.getRawAxis(4)), 
         m_robotDrive)
     );
 
@@ -92,6 +92,7 @@ public class RobotContainer {
     m_chooser.addOption("Do nothing", m_DoNothing);
     m_chooser.addOption("Pick Up and Shoot", m_pickUpAndShoot);
     m_chooser.addOption("Drive and Turn", m_driveAndTurn);
+    m_chooser.addOption("Just Shoot", new Shoot(m_robotTransfer, m_robotShooter).withTimeout(3.0));
 
     // Shuffleboard.getTab("CompetitionView").add(m_chooser);
 
