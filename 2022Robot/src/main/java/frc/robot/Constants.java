@@ -71,26 +71,34 @@ public final class Constants {
         
         public final static double kSpeed = 1;
     }
-  
-    // Joystick Buttons
-    public static final int A = 1,
-                            B = 2,
-                            X = 3,
-                            Y = 4,
-                            LB = 5,
-                            RB = 6,
-                            M = 7,
-                            S = 8,
-                            LA = 9,
-                            RA = 10;
 
-    // Joystick Axis
-    public static final int LX = 0,
-                            LY = 1,
-                            LT = 2,
-                            RT = 3,
-                            RX = 4,
-                            RY = 5,
-                            PX = 6,
-                            PY = 7;
+    public static final class IOConstants{
+        public static final int kDriverStick = 0;
+        public static final int kClimbStick = 1;
+
+        // Joystick Buttons
+        public static final int A = 1,
+                                B = 2,
+                                X = 3,
+                                Y = 4,
+                                LB = 5,
+                                RB = 6,
+                                M = 7,
+                                S = 8,
+                                LA = 9,
+                                RA = 10;
+
+        // Joystick Axis
+        public static final int LX = 0,
+                                LY = 1,
+                                LT = 2,
+                                RT = 3,
+                                RX = 4,
+                                RY = 5,
+                                PX = 6,
+                                PY = 7;
+
+
+    }
+  
 }

@@ -74,8 +74,8 @@ public class RobotContainer {
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  private final Joystick m_driverStick = new Joystick(0);
-  private final XboxController m_climbController = new XboxController(1);
+  private final Joystick m_driverStick = new Joystick(Constants.IOConstants.kDriverStick);
+  private final XboxController m_climbController = new XboxController(Constants.IOConstants.kClimbStick);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -110,22 +110,38 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Climb Elevator
-    new JoystickButton(m_climbController, Constants.RB).whenPressed(m_extendElevator.withTimeout(3));
-    new JoystickButton(m_climbController, Constants.LB).whenPressed(m_retractElevator.withTimeout(3));
-    new JoystickButton(m_climbController, Constants.RT).whileHeld(m_extendElevator).whenReleased(() -> m_climbSubsystem.stopElevator());
-    new JoystickButton(m_climbController, Constants.LT).whileHeld(m_retractElevator).whenReleased(() -> m_climbSubsystem.stopElevator());
+    new JoystickButton(m_climbController, Constants.IOConstants.RB)
+      .whenPressed(m_extendElevator.withTimeout(3));
+    new JoystickButton(m_climbController, Constants.IOConstants.LB)
+      .whenPressed(m_retractElevator.withTimeout(3));
+    new JoystickButton(m_climbController, Constants.IOConstants.RT)
+      .whileHeld(m_extendElevator)
+      .whenReleased(() -> m_climbSubsystem.stopElevator());
+    new JoystickButton(m_climbController, Constants.IOConstants.LT)
+      .whileHeld(m_retractElevator)
+      .whenReleased(() -> m_climbSubsystem.stopElevator());
 
     // Climb Main Winch
-    new JoystickButton(m_climbController, Constants.Y).whileHeld(() -> m_climbSubsystem.setMainWinch(1.0)).whenReleased(() -> m_climbSubsystem.stopMainWinch());
-    new JoystickButton(m_climbController, Constants.A).whileHeld(() -> m_climbSubsystem.setMainWinch(-1.0)).whenReleased(() -> m_climbSubsystem.stopMainWinch());
+    new JoystickButton(m_climbController, Constants.IOConstants.Y)
+      .whileHeld(() -> m_climbSubsystem.setMainWinch(1.0))
+      .whenReleased(() -> m_climbSubsystem.stopMainWinch());
+    new JoystickButton(m_climbController, Constants.IOConstants.A)
+      .whileHeld(() -> m_climbSubsystem.setMainWinch(-1.0))
+      .whenReleased(() -> m_climbSubsystem.stopMainWinch());
 
     // Climb Adjustment Winch
     // m_climbSubsystem.setAdjustmentWinch(m_climbController.getRawAxis(Constants.PY) / Math.abs(m_climbController.getRawAxis(Constants.PY)));
-    new JoystickButton(m_climbController, Constants.PY).whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(1.0)).whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
-    new JoystickButton(m_climbController, Constants.PX).whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(-1.0)).whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
+    new JoystickButton(m_climbController, Constants.IOConstants.PY)
+      .whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(1.0))
+      .whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
+    new JoystickButton(m_climbController, Constants.IOConstants.PX)
+      .whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(-1.0))
+      .whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
 
     // Climb Auto-Traverse Rungs
-    new JoystickButton(m_climbController, Constants.S).whenPressed(m_traverseRungs);
+    new JoystickButton(m_climbController, Constants.IOConstants.S)
+      .whenPressed(m_traverseRungs);
+
 
     // Driver Stick
     new JoystickButton(m_driverStick, 1) //Retract intake
