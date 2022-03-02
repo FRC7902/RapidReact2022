@@ -38,6 +38,7 @@ public class Suck extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.println("stopped suck");
     m_intakeSubsystem.stopIntakePower();
     m_transferSubsystem.stopTransfer();
   }

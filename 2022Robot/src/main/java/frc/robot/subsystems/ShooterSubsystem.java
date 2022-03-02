@@ -53,3 +53,5 @@ public class ShooterSubsystem extends SubsystemBase {
     // SmartDashboard.putNumber("Right Shooter", follower.getMotorOutputVoltage());
   }
 }
+
+

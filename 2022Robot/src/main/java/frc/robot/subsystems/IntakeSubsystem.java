@@ -21,7 +21,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
-    intakePower.setInverted(false);
+    intakePower.setInverted(true);
     intakeDepl.setInverted(false);
 
   }

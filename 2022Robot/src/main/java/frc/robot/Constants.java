@@ -24,8 +24,8 @@ public final class Constants {
 
         public static final int kLeftLeaderCAN = 4;
         public static final int kLeftFollowerCAN = 3;
-        public static final int kRightLeaderCAN = 12;
-        public static final int kRightFollowerCAN = 11;
+        public static final int kRightLeaderCAN = 11;
+        public static final int kRightFollowerCAN = 12;
 
         public static final int[] kLeftEncoderIDs = {0, 1};
         public static final int[] kRightEncoderIDs = {3, 4};
@@ -35,7 +35,7 @@ public final class Constants {
         //Sensitivities (1 -> quadratic, 0 -> linear)
         public static final double kForwardSens = 1;
         public static final double kTurnSens = 0.5;
-        public static final double kTurnMax = 1;
+        public static final double kTurnMax = 0.5;
 
         public static final int kEncoderCPR = 1024;
         public static final double kWheelDiameterMeters = 0.1524;
@@ -69,7 +69,7 @@ public final class Constants {
         public static final int kMasterCAN = 8;
         public static final int kFollowerCAN = 9;
         
-        public final static double kSpeed = 1;
+        public final static double kSpeed = 0.75;
     }
 
     public static final class IOConstants{

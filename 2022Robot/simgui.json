@@ -1,8 +1,23 @@
 {
+  "HALProvider": {
+    "Other Devices": {
+      "SPARK MAX [14]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [1]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/CameraSubsystem": "Subsystem",
+      "/LiveWindow/ClimbSubsystem": "Subsystem",
       "/LiveWindow/DriveSubsystem": "Subsystem",
       "/LiveWindow/ExampleSubsystem": "Subsystem",
       "/LiveWindow/IntakeSubsystem": "Subsystem",
@@ -14,17 +29,21 @@
       "/LiveWindow/Ungrouped/PIDController[4]": "PIDController",
       "/LiveWindow/Ungrouped/Pigeon IMU [1]": "Gyro",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon SRX [11]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [12]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [4]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [10]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [11]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [12]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [13]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [2]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [3]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [5]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [6]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [8]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [9]": "Motor Controller",
       "/Shuffleboard/Autonomous/SendableChooser[0]": "String Chooser",
+      "/Shuffleboard/CompetitionView/SendableChooser[0]": "String Chooser",
       "/Shuffleboard/DriveSubsystem/Victor SPX [13]": "Motor Controller",
       "/SmartDashboard/CompetitionView/Autonomous Selector": "String Chooser",
       "/SmartDashboard/Field": "Field2d"

@@ -147,9 +147,9 @@ public class DriveSubsystem extends SubsystemBase {
       xout = Constants.DriveConstants.kTurnMax* (x >= 0 ? 1 : -1) * (Constants.DriveConstants.kTurnSens*x*x + (1-Constants.DriveConstants.kTurnSens)*Math.abs(x));
     }else{
       if(x > 0){
-        xout = 0.01;
+        xout = 0.1;
       }else if(x < 0){
-        xout = -0.01;
+        xout = -0.1;
       }else{
         xout = 0;
       }
@@ -195,6 +195,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public double getAvgEncoderDistance(){
     return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
+    // return 0.0;
   }
 
   public Pose2d getPose(){
@@ -229,6 +230,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public double getHeading() {
     return Math.IEEEremainder(m_pigeon.getAngle(), 360);
+    // return 0.0;
   }
 
   @Override
@@ -243,6 +245,9 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("DriveSubsystem/Right Drive Motors", m_rightLeader.getMotorOutputPercent());
     SmartDashboard.putBoolean("DriveSubsystem/Slow Turn", isTurnSlow);
     SmartDashboard.putBoolean("DriveSubsystem/Slow Drive", isForwardSlow);
+    SmartDashboard.putNumber("DriveSubsystem/Left Encoder", m_leftEncoder.getDistance());
+    SmartDashboard.putNumber("DriveSubsystem/Right Encoder", m_rightEncoder.getDistance());
+    SmartDashboard.putNumber("DriveSubsystem/Avg Encoder", getAvgEncoderDistance());
 
     
 

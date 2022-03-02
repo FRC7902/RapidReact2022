@@ -56,7 +56,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_robotIntake = new IntakeSubsystem();
   private final TransferSubsystem m_robotTransfer = new TransferSubsystem();
   private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
-  private final CameraSubsystem m_robotCamera = new CameraSubsystem();
+  // private final CameraSubsystem m_robotCamera = new CameraSubsystem();
   private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();  
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
@@ -66,7 +66,7 @@ public class RobotContainer {
   private final PickUpAndShoot m_pickUpAndShoot = new PickUpAndShoot(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
   private final LeaveTarmac m_leaveTarmac = new LeaveTarmac(m_robotDrive);
   private final DriveAndTurn m_driveAndTurn = new DriveAndTurn(m_robotDrive);
-  // private final DriveToDistance m_driveForward = new DriveToDistance(2.0, m_robotDrive);
+  private final DriveToDistance m_driveForward = new DriveToDistance(2.0, m_robotDrive);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final ExtendElevator m_extendElevator = new ExtendElevator(m_climbSubsystem);
   private final RetractElevator m_retractElevator = new RetractElevator(m_climbSubsystem);
@@ -84,20 +84,25 @@ public class RobotContainer {
 
     m_robotDrive.setDefaultCommand(
       new RunCommand(
-        () -> m_robotDrive.driveJoystick(-m_driverStick.getRawAxis(1), m_driverStick.getRawAxis(4)), 
+        () -> m_robotDrive.driveJoystick(m_driverStick.getRawAxis(1), m_driverStick.getRawAxis(4)), 
         m_robotDrive)
     );
 
-    // m_chooser.setDefaultOption("Drive Forward 2 metres", m_driveForward);
+    // m_climbSubsystem.setDefaultCommand(
+    //   new RunCommand(
+    //     () -> m_climbSubsystem.setElevator(1.0), m_climbSubsystem)
+    // );
+
+    m_chooser.setDefaultOption("Drive Forward 2 metres", m_driveForward);
     m_chooser.setDefaultOption("Leave Tarmac", m_leaveTarmac);
     m_chooser.addOption("Do nothing", m_DoNothing);
     m_chooser.addOption("Pick Up and Shoot", m_pickUpAndShoot);
     m_chooser.addOption("Drive and Turn", m_driveAndTurn);
     m_chooser.addOption("Just Shoot", new Shoot(m_robotTransfer, m_robotShooter).withTimeout(3.0));
 
-    // Shuffleboard.getTab("CompetitionView").add(m_chooser);
+    Shuffleboard.getTab("CompetitionView").add(m_chooser);
 
-    SmartDashboard.putData("CompetitionView/Autonomous Selector", m_chooser);
+    // SmartDashboard.putData("CompetitionView/Autonomous Selector", m_chooser);
 
     // Shuffleboard.getTab("Autonomous").add(m_chooser);
   }
@@ -112,11 +117,14 @@ public class RobotContainer {
     // Climb Elevator
     new JoystickButton(m_climbController, Constants.IOConstants.RB)
       .whenPressed(m_extendElevator.withTimeout(3));
+      // .whenPressed(() -> m_climbSubsystem.setElevator(1.0))
+      // .whenReleased(() -> m_climbSubsystem.stopElevator());
+
     new JoystickButton(m_climbController, Constants.IOConstants.LB)
       .whenPressed(m_retractElevator.withTimeout(3));
     new JoystickButton(m_climbController, Constants.IOConstants.RT)
-      .whileHeld(m_extendElevator)
-      .whenReleased(() -> m_climbSubsystem.stopElevator());
+      .whenHeld(new ExtendElevator(m_climbSubsystem));
+      // .whenReleased(() -> m_climbSubsystem.stopElevator());
     new JoystickButton(m_climbController, Constants.IOConstants.LT)
       .whileHeld(m_retractElevator)
       .whenReleased(() -> m_climbSubsystem.stopElevator());
@@ -160,6 +168,7 @@ public class RobotContainer {
 
     new JoystickButton(m_driverStick, 6)
       .whenHeld(new Suck(m_robotIntake, m_robotTransfer));
+      // .whenReleased(() -> m_robotIntake.)
 
     new JoystickButton(m_driverStick, 7);
 
@@ -203,4 +212,7 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return m_chooser.getSelected();
   }
+  // public ClimbSubsystem getClimb(){
+  //   return m_climbSubsystem;
+  // }
 }

@@ -19,6 +19,7 @@ public class ExtendElevator extends CommandBase {
     @Override
     public void initialize() {
         m_climbSubsystem.stopElevator();
+        System.out.println("Extend Elev");
     }
 
     @Override

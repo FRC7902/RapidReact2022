@@ -17,8 +17,9 @@ public class LeaveTarmac extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DriveToDistance(3.0, driveSubsystem)
-      // new TurnToAngle(30, driveSubsystem),
+      // new DriveToDistance(3.0, driveSubsystem)
+      new TimedDriveWithSpeed(0.5, 1, driveSubsystem)
+      // new TurnToAngle(30, driveSubsystem,
       // new WaitCommand(2),
       // new DriveToDistance(2.0, driveSubsystem)
       // new TurnToAngle(-30, driveSubsystem)
