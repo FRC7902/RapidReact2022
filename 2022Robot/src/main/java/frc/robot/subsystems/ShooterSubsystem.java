@@ -17,11 +17,19 @@ public class ShooterSubsystem extends SubsystemBase {
   public final WPI_VictorSPX master = new WPI_VictorSPX(Constants.ShooterConstants.kMasterCAN);// left
   public final WPI_VictorSPX follower = new WPI_VictorSPX(Constants.ShooterConstants.kFollowerCAN); //right
 
+  public double shooterSpeed;
   public String status = "Off";
 
   public ShooterSubsystem() {
     follower.follow(master);
-    follower.setInverted(InvertType.OpposeMaster);
+    follower.setInverted(InvertType.FollowMaster);
+
+    shooterSpeed = Constants.ShooterConstants.kSpeed;
+
+    SmartDashboard.putNumber("Shooter Speed", shooterSpeed);
+    
+
+
     
     
     master.setInverted(false);
@@ -30,7 +38,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void shoot() {
-    master.set(Constants.ShooterConstants.kSpeed);
+    master.set(shooterSpeed);
     // right.set(Constants.ShooterConstants.kSpeed);
     status = "Shooting...";
   }
@@ -51,6 +59,8 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("CompetitionView/Shooter Power", master.getMotorOutputVoltage());
     SmartDashboard.putString("CompetitionView/Shooter Status", status);
     // SmartDashboard.putNumber("Right Shooter", follower.getMotorOutputVoltage());
+
+    shooterSpeed = SmartDashboard.getNumber("Shooter Speed", Constants.ShooterConstants.kSpeed);
   }
 }
 
