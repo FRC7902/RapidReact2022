@@ -56,7 +56,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_robotIntake = new IntakeSubsystem();
   private final TransferSubsystem m_robotTransfer = new TransferSubsystem();
   private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
-  // private final CameraSubsystem m_robotCamera = new CameraSubsystem();
+  private final CameraSubsystem m_robotCamera = new CameraSubsystem();
   private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();  
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
@@ -88,10 +88,6 @@ public class RobotContainer {
         m_robotDrive)
     );
 
-    // m_climbSubsystem.setDefaultCommand(
-    //   new RunCommand(
-    //     () -> m_climbSubsystem.setElevator(1.0), m_climbSubsystem)
-    // );
 
     m_chooser.setDefaultOption("Drive Forward 2 metres", m_driveForward);
     m_chooser.setDefaultOption("Leave Tarmac", m_leaveTarmac);
@@ -102,9 +98,6 @@ public class RobotContainer {
 
     Shuffleboard.getTab("CompetitionView").add(m_chooser);
 
-    // SmartDashboard.putData("CompetitionView/Autonomous Selector", m_chooser);
-
-    // Shuffleboard.getTab("Autonomous").add(m_chooser);
   }
 
   /**
