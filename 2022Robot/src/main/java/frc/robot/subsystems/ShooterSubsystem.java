@@ -26,7 +26,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     shooterSpeed = Constants.ShooterConstants.kSpeed;
 
-    SmartDashboard.putNumber("Shooter Speed", shooterSpeed);
+    SmartDashboard.putNumber("ShooterSubsystem/Shooter Speed", shooterSpeed);
     
 
 
@@ -60,7 +60,7 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putString("CompetitionView/Shooter Status", status);
     // SmartDashboard.putNumber("Right Shooter", follower.getMotorOutputVoltage());
 
-    shooterSpeed = SmartDashboard.getNumber("Shooter Speed", Constants.ShooterConstants.kSpeed);
+    shooterSpeed = SmartDashboard.getNumber("ShooterSubsystem/Shooter Speed", Constants.ShooterConstants.kSpeed);
   }
 }
 
