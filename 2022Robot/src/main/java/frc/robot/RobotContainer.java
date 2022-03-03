@@ -76,7 +76,7 @@ public class RobotContainer {
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  private final Joystick m_driverStick = new Joystick(Constants.IOConstants.kDriverStick);
+  // private final Joystick m_driverStick = new Joystick(Constants.IOConstants.kDriverStick);
   private final XboxController m_climbController = new XboxController(Constants.IOConstants.kClimbStick);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
