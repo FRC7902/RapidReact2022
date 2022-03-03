@@ -48,6 +48,9 @@ public class DriveSubsystem extends SubsystemBase {
   private boolean isForwardSlow = false;
   private boolean isTurnSlow = false;  
 
+  private double driveSlowSpeed = 0.1;
+  private double turnSlowSpeed = 0.1;
+
 
   //SIMULATION
 
@@ -94,6 +97,9 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightLeader.setInverted(true);
     m_rightLeader.setSensorPhase(false);
 
+    driveSlowSpeed = Constants.DriveConstants.kDriveSlowSpeed;
+    turnSlowSpeed = Constants.DriveConstants.kTurnSlowSpeed;
+
 
     //SIMULATION
 
@@ -135,9 +141,9 @@ public class DriveSubsystem extends SubsystemBase {
       yout = (y >= 0 ? 1 : -1) * (Constants.DriveConstants.kForwardSens*y*y + (1-Constants.DriveConstants.kForwardSens)*Math.abs(y));
     }else{
       if(y > 0){
-        yout = 0.1;
+        yout = driveSlowSpeed;
       }else if(y < 0){
-        yout = -0.1;
+        yout = -driveSlowSpeed;
       }else{
         yout = 0;
       }
@@ -147,9 +153,9 @@ public class DriveSubsystem extends SubsystemBase {
       xout = Constants.DriveConstants.kTurnMax* (x >= 0 ? 1 : -1) * (Constants.DriveConstants.kTurnSens*x*x + (1-Constants.DriveConstants.kTurnSens)*Math.abs(x));
     }else{
       if(x > 0){
-        xout = 0.1;
+        xout = turnSlowSpeed;
       }else if(x < 0){
-        xout = -0.1;
+        xout = -turnSlowSpeed;
       }else{
         xout = 0;
       }

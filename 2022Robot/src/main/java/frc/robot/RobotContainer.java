@@ -115,70 +115,70 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Climb Elevator
-    new JoystickButton(m_climbController, Constants.IOConstants.RB)
+    new JoystickButton(m_climbController, Constants.IOConstants.kRB)
       .whenPressed(m_extendElevator.withTimeout(3));
       // .whenPressed(() -> m_climbSubsystem.setElevator(1.0))
       // .whenReleased(() -> m_climbSubsystem.stopElevator());
 
-    new JoystickButton(m_climbController, Constants.IOConstants.LB)
+    new JoystickButton(m_climbController, Constants.IOConstants.kLB)
       .whenPressed(m_retractElevator.withTimeout(3));
-    new JoystickButton(m_climbController, Constants.IOConstants.RT)
+    new JoystickButton(m_climbController, Constants.IOConstants.kRT)
       .whenHeld(new ExtendElevator(m_climbSubsystem));
       // .whenReleased(() -> m_climbSubsystem.stopElevator());
-    new JoystickButton(m_climbController, Constants.IOConstants.LT)
+    new JoystickButton(m_climbController, Constants.IOConstants.kLT)
       .whileHeld(m_retractElevator)
       .whenReleased(() -> m_climbSubsystem.stopElevator());
 
     // Climb Main Winch
-    new JoystickButton(m_climbController, Constants.IOConstants.Y)
+    new JoystickButton(m_climbController, Constants.IOConstants.kY)
       .whileHeld(() -> m_climbSubsystem.setMainWinch(1.0))
       .whenReleased(() -> m_climbSubsystem.stopMainWinch());
-    new JoystickButton(m_climbController, Constants.IOConstants.A)
+    new JoystickButton(m_climbController, Constants.IOConstants.kA)
       .whileHeld(() -> m_climbSubsystem.setMainWinch(-1.0))
       .whenReleased(() -> m_climbSubsystem.stopMainWinch());
 
     // Climb Adjustment Winch
     // m_climbSubsystem.setAdjustmentWinch(m_climbController.getRawAxis(Constants.PY) / Math.abs(m_climbController.getRawAxis(Constants.PY)));
-    new JoystickButton(m_climbController, Constants.IOConstants.PY)
+    new JoystickButton(m_climbController, Constants.IOConstants.kDY)
       .whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(1.0))
       .whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
-    new JoystickButton(m_climbController, Constants.IOConstants.PX)
+    new JoystickButton(m_climbController, Constants.IOConstants.kDX)
       .whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(-1.0))
       .whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
 
     // Climb Auto-Traverse Rungs
-    new JoystickButton(m_climbController, Constants.IOConstants.S)
+    new JoystickButton(m_climbController, Constants.IOConstants.kSTART)
       .whenPressed(m_traverseRungs);
 
 
     // Driver Stick
-    new JoystickButton(m_driverStick, 1) //Retract intake
+    new JoystickButton(m_driverStick, Constants.IOConstants.kA) //Retract intake
       .whenHeld(new RetractIntake(m_robotIntake));
 
-    new JoystickButton(m_driverStick, 2) //Shoot
+    new JoystickButton(m_driverStick, Constants.IOConstants.kB) //Shoot
       .whenHeld(new Shoot(m_robotTransfer, m_robotShooter));
 
-    new JoystickButton(m_driverStick, 3);
+    new JoystickButton(m_driverStick, Constants.IOConstants.kX);
 
-    new JoystickButton(m_driverStick, 4) //Deploy intake
+    new JoystickButton(m_driverStick, Constants.IOConstants.kY) //Deploy intake
       .whenHeld(new DeployIntake(m_robotIntake));
 
-    new JoystickButton(m_driverStick, 5) //
+    new JoystickButton(m_driverStick, Constants.IOConstants.kLB) //Spit
       .whenHeld(new Spit(m_robotIntake, m_robotTransfer));
 
-    new JoystickButton(m_driverStick, 6)
+    new JoystickButton(m_driverStick, Constants.IOConstants.kRB) //Suck
       .whenHeld(new Suck(m_robotIntake, m_robotTransfer));
       // .whenReleased(() -> m_robotIntake.)
 
-    new JoystickButton(m_driverStick, 7);
+    new JoystickButton(m_driverStick, Constants.IOConstants.kMENU);
 
-    new JoystickButton(m_driverStick, 8);
+    new JoystickButton(m_driverStick, Constants.IOConstants.kSTART);
     
-    new JoystickButton(m_driverStick, 9)
+    new JoystickButton(m_driverStick, Constants.IOConstants.kLA) //Activate/Deactivate Slow Drive
       .whenPressed(() -> m_robotDrive.activateSlowForward())
       .whenReleased(() -> m_robotDrive.deactivateSlowForward());
 
-    new JoystickButton(m_driverStick, 10)
+    new JoystickButton(m_driverStick, Constants.IOConstants.kRA) //Activate/Deactivate Slow Turn
       .whenPressed(() -> m_robotDrive.activateSlowTurn())
       .whenReleased(() -> m_robotDrive.deactivateSlowTurn());
 

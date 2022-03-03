@@ -37,6 +37,9 @@ public final class Constants {
         public static final double kTurnSens = 0.5;
         public static final double kTurnMax = 0.5;
 
+        public static final double kDriveSlowSpeed = 0.1;
+        public static final double kTurnSlowSpeed = 0.1;
+
         public static final int kEncoderCPR = 1024;
         public static final double kWheelDiameterMeters = 0.1524;
         public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
@@ -77,26 +80,26 @@ public final class Constants {
         public static final int kClimbStick = 1;
 
         // Joystick Buttons
-        public static final int A = 1,
-                                B = 2,
-                                X = 3,
-                                Y = 4,
-                                LB = 5,
-                                RB = 6,
-                                M = 7,
-                                S = 8,
-                                LA = 9,
-                                RA = 10;
+        public static final int kA = 1,
+                                kB = 2,
+                                kX = 3,
+                                kY = 4,
+                                kLB = 5,
+                                kRB = 6,
+                                kMENU = 7,
+                                kSTART = 8,
+                                kLA = 9,
+                                kRA = 10;
 
         // Joystick Axis
-        public static final int LX = 0,
-                                LY = 1,
-                                LT = 2,
-                                RT = 3,
-                                RX = 4,
-                                RY = 5,
-                                PX = 6,
-                                PY = 7;
+        public static final int kLX = 0,
+                                kLY = 1,
+                                kLT = 2,
+                                kRT = 3,
+                                kRX = 4,
+                                kRY = 5,
+                                kDX = 6,
+                                kDY = 7;
 
 
     }
