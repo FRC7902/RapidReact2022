@@ -25,8 +25,8 @@ public class ClimbSubsystem extends SubsystemBase {
         m_elevator.restoreFactoryDefaults();
         m_ropeOne.restoreFactoryDefaults();
 
-        // m_elevator.setSmartCurrentLimit(25);
-        // m_ropeOne.setSmartCurrentLimit(25);
+        m_elevator.setSmartCurrentLimit(100);
+        m_ropeOne.setSmartCurrentLimit(100);
 
         m_encoder = m_elevator.getEncoder();
         m_elevator.setInverted(true);

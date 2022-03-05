@@ -13,7 +13,7 @@ public class ExtendElevator extends CommandBase {
 
     @Override
     public void execute() {
-        m_climbSubsystem.setElevator(1.0);
+        m_climbSubsystem.setElevator(0.7);
     }
 
     @Override
