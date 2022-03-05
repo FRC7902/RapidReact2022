@@ -18,45 +18,29 @@ public class ShooterSubsystem extends SubsystemBase {
   public final WPI_VictorSPX master = new WPI_VictorSPX(Constants.ShooterConstants.kMasterCAN);// left
   public final WPI_VictorSPX follower = new WPI_VictorSPX(Constants.ShooterConstants.kFollowerCAN); //right
 
-  public double shooterSpeed;
   public String status = "Off";
 
   public ShooterSubsystem() {
-    // master.configOpenloopRamp(0.1);
-    // follower.configOpenloopRamp(0.1);
+
     
 
     follower.follow(master);
+
+    master.setInverted(false);
     follower.setInverted(InvertType.FollowMaster);
 
-    // master.setNeutralMode(NeutralMode.Brake);
-    // follower.setNeutralMode(NeutralMode.Brake);
-
-    shooterSpeed = Constants.ShooterConstants.kSpeed;
-
-    SmartDashboard.putNumber("ShooterSubsystem/Shooter Speed", shooterSpeed);
-    
-
-
-    
-    
-    master.setInverted(false);
-    // follower.setInverted(true);
-    // right.setInverted(false);
+    master.configOpenloopRamp(Constants.ShooterConstants.kRampTime);
+    follower.configOpenloopRamp(Constants.ShooterConstants.kRampTime);
 
   }
 
   public void shoot() {
-    master.set(shooterSpeed);
-    // follower.set(shooterSpeed);
-    // right.set(Constants.ShooterConstants.kSpeed);
+    master.set(Constants.ShooterConstants.kSpeed);
     status = "Shooting...";
   }
 
   public void stop() {
     master.stopMotor();
-    // follower.stopMotor();
-    // right.stopMotor();
     status = "Off";
   }
 

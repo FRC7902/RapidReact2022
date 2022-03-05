@@ -24,15 +24,18 @@ public class IntakeSubsystem extends SubsystemBase {
     intakePower.setInverted(true);
     intakeDepl.setInverted(true);
 
+    intakePower.configOpenloopRamp(Constants.IntakeConstants.kPowerRampTime);
+    intakeDepl.configOpenloopRamp(Constants.IntakeConstants.kDeplRampTime);
+
   }
 
   public void suck(){
-    intakePower.set(Constants.IntakeConstants.suckSpeed);
+    intakePower.set(Constants.IntakeConstants.kSuckSpeed);
     status = "Sucking...";
   }
 
   public void spit(){
-    intakePower.set(Constants.IntakeConstants.spitSpeed);
+    intakePower.set(Constants.IntakeConstants.kSpitSpeed);
     status = "Spitting...";
   }
 

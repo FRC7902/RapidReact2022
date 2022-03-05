@@ -7,12 +7,13 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ClimbConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
-    private final CANSparkMax m_elevator = new CANSparkMax(ClimbConstants.kElevatorPort, MotorType.kBrushless);
-    private final CANSparkMax m_ropeOne = new CANSparkMax(ClimbConstants.kMainWinchPort, MotorType.kBrushless);
-    private final WPI_VictorSPX m_ropeTwo = new WPI_VictorSPX(ClimbConstants.kAdjustmentWinchPort);
+    private final CANSparkMax m_elevator = new CANSparkMax(ClimbConstants.kElevatorCAN, MotorType.kBrushless);
+    private final CANSparkMax m_ropeOne = new CANSparkMax(ClimbConstants.kMainWinchCAN, MotorType.kBrushless);
+    private final WPI_VictorSPX m_ropeTwo = new WPI_VictorSPX(ClimbConstants.kAdjustmentWinchCAN);
     private RelativeEncoder m_encoder;
 
     private String elevatorStatus = "Off";
@@ -25,13 +26,14 @@ public class ClimbSubsystem extends SubsystemBase {
         m_elevator.restoreFactoryDefaults();
         m_ropeOne.restoreFactoryDefaults();
 
-        m_elevator.setSmartCurrentLimit(100);
-        m_ropeOne.setSmartCurrentLimit(100);
+        m_elevator.setSmartCurrentLimit(Constants.ClimbConstants.kCurrentLimit);
+        m_ropeOne.setSmartCurrentLimit(Constants.ClimbConstants.kCurrentLimit);
 
-        m_encoder = m_elevator.getEncoder();
         m_elevator.setInverted(true);
         m_ropeOne.setInverted(false);
         m_ropeTwo.setInverted(false);
+        
+        m_encoder = m_elevator.getEncoder();
     }
 
     public double getElevatorRotations(){
@@ -50,18 +52,39 @@ public class ClimbSubsystem extends SubsystemBase {
     public void setElevator(double power) {
         m_elevator.set(power);
 
-        elevatorStatus = (power > 0 ? "Rising" : "Lowering");
+        if(power > 0){
+            elevatorStatus = "Rising...";
+        }else if(power < 0){
+            elevatorStatus = "Lowering...";
+        }else{
+            elevatorStatus = "Off";
+        }
+
     }
 
     public void setMainWinch(double power) {
         m_ropeOne.set(power);
-        mainWinchStatus = (power > 0 ? "Winching up..." : "Winching down...");
+
+        if(power > 0){
+            mainWinchStatus = "Winching up...";
+        }else if(power < 0){
+            mainWinchStatus = "Winching down...";
+        }else{
+            mainWinchStatus = "Off";
+        }
         
     }
 
     public void setAdjustmentWinch(double power) {
         m_ropeTwo.set(power);
-        adjWinchStatus = (power > 0 ? "Winching up..." : "Winching down...");
+
+        if(power > 0){
+            adjWinchStatus = "Winching up...";
+        }else if(power < 0){
+            adjWinchStatus = "Winching down...";
+        }else{
+            adjWinchStatus = "Off";
+        }
     }
 
     public void stopElevator() {

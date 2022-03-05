@@ -93,16 +93,16 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightLeader.setInverted(true);
     m_rightLeader.setSensorPhase(false);
 
-    m_leftLeader.configOpenloopRamp(Constants.DriveConstants.rampTime);
-    m_rightLeader.configOpenloopRamp(Constants.DriveConstants.rampTime);
+    m_leftLeader.configOpenloopRamp(Constants.DriveConstants.kRampTime);
+    m_rightLeader.configOpenloopRamp(Constants.DriveConstants.kRampTime);
 
     m_leftLeader.enableCurrentLimit(true);
     m_leftLeader.configPeakCurrentLimit(0);
-    m_leftLeader.configContinuousCurrentLimit(Constants.DriveConstants.currentLimit);
+    m_leftLeader.configContinuousCurrentLimit(Constants.DriveConstants.kCurrentLimit);
 
     m_rightLeader.enableCurrentLimit(true);
     m_rightLeader.configPeakCurrentLimit(0);
-    m_rightLeader.configContinuousCurrentLimit(Constants.DriveConstants.currentLimit);
+    m_rightLeader.configContinuousCurrentLimit(Constants.DriveConstants.kCurrentLimit);
 
 
 

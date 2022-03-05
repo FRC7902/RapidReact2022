@@ -14,11 +14,6 @@ package frc.robot;
  */
 public final class Constants {
 
-    public static final class ClimbConstants {
-        public static final int kElevatorPort = 1;
-        public static final int kMainWinchPort = 14;
-        public static final int kAdjustmentWinchPort = 2;
-    }
 
     public final static class DriveConstants {
 
@@ -44,8 +39,8 @@ public final class Constants {
         public static final double kWheelDiameterMeters = 0.1524;
         public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
 
-        public static final double rampTime = 0.5;
-        public static final int currentLimit = 10;
+        public static final double kRampTime = 0.5;
+        public static final int kCurrentLimit = 10;
 
     }
 
@@ -53,22 +48,22 @@ public final class Constants {
         public static final int kIntakePowerCAN = 13;
         public static final int kIntakeDeplCAN = 10;
 
-        public final static double suckSpeed = 0.5;
-        public final static double spitSpeed = -0.5;
+        public final static double kSuckSpeed = 0.5;
+        public final static double kSpitSpeed = -0.5;
+
+        public final static double kPowerRampTime = 0;
+        public final static double kDeplRampTime = 0;
 
     }
 
     public final static class TransferConstants {
 
-        public static final int kHoriTransferCAN = 6;
         public static final int kVertTransferCAN = 5;
 
-        public final static double horiForwardSpeed = 0.7;
-        public final static double horiBackwardsSpeed = -0.5;
+        public final static double kVertForwardSpeed = 0.3;
+        public final static double kVertBackwardsSpeed = -0.3;
 
-
-        public final static double vertForwardSpeed = 0.3;
-        public final static double vertBackwardsSpeed = -0.3;
+        public final static double kRampTime = 0;
     }
     
     public final static class ShooterConstants {
@@ -76,6 +71,19 @@ public final class Constants {
         public static final int kFollowerCAN = 9;
         
         public final static double kSpeed = 0.75;
+
+        public final static double kRampTime = 0;
+    }
+    
+    public static final class ClimbConstants {
+        public static final int kElevatorCAN = 1;
+        public static final int kMainWinchCAN = 14;
+        public static final int kAdjustmentWinchCAN = 2;
+
+        public static final double kExtendElevatorSpeed = 0.7;
+        public static final double kRetractElevatorSpeed = -0.7;
+        
+        public static final int kCurrentLimit = 100;
     }
 
     public static final class IOConstants{

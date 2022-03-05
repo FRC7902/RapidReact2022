@@ -30,6 +30,7 @@ import frc.robot.commands.LeaveTarmac;
 import frc.robot.commands.PickUpAndShoot;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.SetElevatorToHeight;
+import frc.robot.commands.SetElevatorToHeightPID;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.ShootAndLeave;
 import frc.robot.commands.Spit;
@@ -38,7 +39,6 @@ import frc.robot.subsystems.DriveSubsystem;
 
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.SetElevatorToHeightPID;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;

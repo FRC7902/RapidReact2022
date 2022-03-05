@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.ClimbSubsystem;
 
 public class ExtendElevator extends CommandBase {
@@ -13,7 +14,7 @@ public class ExtendElevator extends CommandBase {
 
     @Override
     public void execute() {
-        m_climbSubsystem.setElevator(0.7);
+        m_climbSubsystem.setElevator(Constants.ClimbConstants.kExtendElevatorSpeed);
     }
 
     @Override

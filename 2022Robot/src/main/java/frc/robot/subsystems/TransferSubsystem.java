@@ -20,15 +20,17 @@ public class TransferSubsystem extends SubsystemBase {
   /** Creates a new TransferSubsystem. */
   public TransferSubsystem() {
     vertTransfer.setInverted(false);
+
+    vertTransfer.configOpenloopRamp(Constants.TransferConstants.kRampTime);
   }
 
   public void transfer(){
-    vertTransfer.set(Constants.TransferConstants.vertForwardSpeed);
+    vertTransfer.set(Constants.TransferConstants.kVertForwardSpeed);
     status = "Transferring...";
   }
 
   public void reverse(){
-    vertTransfer.set(Constants.TransferConstants.vertBackwardsSpeed);
+    vertTransfer.set(Constants.TransferConstants.kVertBackwardsSpeed);
     status = "Reversing...";
   }
 
