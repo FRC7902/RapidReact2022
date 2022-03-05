@@ -56,7 +56,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_robotIntake = new IntakeSubsystem();
   private final TransferSubsystem m_robotTransfer = new TransferSubsystem();
   // private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
-  private final CameraSubsystem m_robotCamera = new CameraSubsystem();
+  // private final CameraSubsystem m_robotCamera = new CameraSubsystem();
   // private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();  
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
