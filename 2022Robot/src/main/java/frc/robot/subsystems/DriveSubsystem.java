@@ -97,6 +97,13 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightLeader.setInverted(true);
     m_rightLeader.setSensorPhase(false);
 
+    m_leftLeader.enableCurrentLimit(true);
+    m_leftLeader.configPeakCurrentLimit(0);
+    m_leftLeader.configContinuousCurrentLimit(5);
+
+    m_rightLeader.enableCurrentLimit(true);
+    m_rightLeader.configPeakCurrentLimit(0);
+    m_rightLeader.configContinuousCurrentLimit(5);
     // SmartDashboard.putNumber("DriveSubsystem/Drive Sensitivity", driveSens);
     // SmartDashboard.putNumber("DriveSubsystem/Turn Sensitivity", turnSens);
     // SmartDashboard.putNumber("DriveSubsystem/Maximum Turn Speed", turnMax);

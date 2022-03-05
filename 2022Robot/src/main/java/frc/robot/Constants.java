@@ -50,7 +50,7 @@ public final class Constants {
         public static final int kIntakePowerCAN = 13;
         public static final int kIntakeDeplCAN = 10;
 
-        public final static double suckSpeed = 0.7;
+        public final static double suckSpeed = 0.5;
         public final static double spitSpeed = -0.5;
 
     }
