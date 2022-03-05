@@ -51,15 +51,16 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
+
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final IntakeSubsystem m_robotIntake = new IntakeSubsystem();
   private final TransferSubsystem m_robotTransfer = new TransferSubsystem();
-  // private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
   // private final CameraSubsystem m_robotCamera = new CameraSubsystem();
   // private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();  
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
+
   private final RetractIntake m_retractIntake = new RetractIntake(m_robotIntake);
 
   private final DoNothing m_DoNothing = new DoNothing();
@@ -68,6 +69,7 @@ public class RobotContainer {
   private final DriveAndTurn m_driveAndTurn = new DriveAndTurn(m_robotDrive);
   private final DriveToDistance m_driveForward = new DriveToDistance(2.0, m_robotDrive);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+
   // private final ExtendElevator m_extendElevator = new ExtendElevator(m_climbSubsystem);
   // private final RetractElevator m_retractElevator = new RetractElevator(m_climbSubsystem);
   // private final TraverseRungs m_traverseRungs = new TraverseRungs(m_climbSubsystem);
@@ -82,6 +84,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
+
     m_robotDrive.setDefaultCommand(
       new RunCommand(
         () -> m_robotDrive.driveJoystick((Robot.isSimulation()? -1: 1)*m_driverStick.getRawAxis(1), m_driverStick.getRawAxis(4)), 
@@ -94,6 +97,7 @@ public class RobotContainer {
     m_chooser.addOption("Do nothing", m_DoNothing);
     // m_chooser.addOption("Pick Up and Shoot", m_pickUpAndShoot);
     m_chooser.addOption("Drive and Turn", m_driveAndTurn);
+
     // m_chooser.addOption("Just Shoot", new Shoot(m_robotTransfer, m_robotShooter).withTimeout(3.0));
 
     Shuffleboard.getTab("CompetitionView").add(m_chooser);
@@ -108,12 +112,16 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
+
+    // Climb Elevator
+
     // // Climb Elevator
     // new JoystickButton(m_climbController, Constants.IOConstants.kRB)
     //   .whenPressed(m_extendElevator.withTimeout(3));
     //   // .whenPressed(() -> m_climbSubsystem.setElevator(1.0))
     //   // .whenReleased(() -> m_climbSubsystem.stopElevator());
-    
+
 
     // new JoystickButton(m_climbController, Constants.IOConstants.kLB)
     //   .whenPressed(m_retractElevator.withTimeout(3));
@@ -150,6 +158,7 @@ public class RobotContainer {
     new JoystickButton(m_driverStick, Constants.IOConstants.kA) //Retract intake
       .whenHeld(new RetractIntake(m_robotIntake));
 
+
     // new JoystickButton(m_driverStick, Constants.IOConstants.kB) //Shoot
     //   .whenHeld(new Shoot(m_robotTransfer, m_robotShooter));
 
@@ -168,14 +177,15 @@ public class RobotContainer {
     new JoystickButton(m_driverStick, Constants.IOConstants.kMENU);
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kSTART);
-    
-    new JoystickButton(m_driverStick, Constants.IOConstants.kLA) //Activate/Deactivate Slow Drive
-      .whenPressed(() -> m_robotDrive.activateSlowForward())
-      .whenReleased(() -> m_robotDrive.deactivateSlowForward());
 
-    new JoystickButton(m_driverStick, Constants.IOConstants.kRA) //Activate/Deactivate Slow Turn
-      .whenPressed(() -> m_robotDrive.activateSlowTurn())
-      .whenReleased(() -> m_robotDrive.deactivateSlowTurn());
+    
+    // new JoystickButton(m_driverStick, Constants.IOConstants.kLA) //Activate/Deactivate Slow Drive
+    //   .whenPressed(() -> m_robotDrive.activateSlowForward())
+    //   .whenReleased(() -> m_robotDrive.deactivateSlowForward());
+
+    // new JoystickButton(m_driverStick, Constants.IOConstants.kRA) //Activate/Deactivate Slow Turn
+    //   .whenPressed(() -> m_robotDrive.activateSlowTurn())
+    //   .whenReleased(() -> m_robotDrive.deactivateSlowTurn());
 
     // new JoystickButton(m_driverStick, 1) //Retract Intake
     //   // .whenReleased(() -> m_robotDrive.zeroHeading(), m_robotDrive);

@@ -843,7 +843,9 @@
             "content": {
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///Shuffleboard/CompetitionView/SendableChooser[0]",
-              "_title": "Shuffleboard/CompetitionView/SendableChooser[0]"
+
+              "_title": "/Shuffleboard/CompetitionView/SendableChooser[0]"
+
             }
           }
         }
@@ -948,6 +950,19 @@
               "_source0": "network_table:///SmartDashboard/DriveSubsystem/Avg Encoder",
               "_title": "Avg Encoder"
             }
+
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/DriveSubsystem/Maximum Turn Speed",
+              "_title": "Maximum Turn Speed"
+            }
+
           }
         }
       }
