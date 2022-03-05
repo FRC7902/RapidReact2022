@@ -136,21 +136,21 @@ public class RobotContainer {
       // .whenReleased(() -> m_climbSubsystem.stopElevator());
 
     // Climb Main Winch
-    // new JoystickButton(m_climbController, Constants.IOConstants.kY) //Extend Main winch
-    //   .whileHeld(() -> m_climbSubsystem.setMainWinch(1.0))
-    //   .whenReleased(() -> m_climbSubsystem.stopMainWinch());
-    // new JoystickButton(m_climbController, Constants.IOConstants.kA) //Retract Main winch
-    //   .whileHeld(() -> m_climbSubsystem.setMainWinch(-1.0))
-    //   .whenReleased(() -> m_climbSubsystem.stopMainWinch());
+    new JoystickButton(m_climbController, Constants.IOConstants.kY) //Extend Main winch
+      .whileHeld(() -> m_climbSubsystem.setMainWinch(1.0))
+      .whenReleased(() -> m_climbSubsystem.stopMainWinch());
+    new JoystickButton(m_climbController, Constants.IOConstants.kA) //Retract Main winch
+      .whileHeld(() -> m_climbSubsystem.setMainWinch(-1.0))
+      .whenReleased(() -> m_climbSubsystem.stopMainWinch());
 
     // // Climb Adjustment Winch
-    // // m_climbSubsystem.setAdjustmentWinch(m_climbController.getRawAxis(Constants.PY) / Math.abs(m_climbController.getRawAxis(Constants.PY)));
-    // new JoystickButton(m_climbController, Constants.IOConstants.kDY) //Extend Adjustment Winch
-    //   .whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(1.0))
-    //   .whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
-    // new JoystickButton(m_climbController, Constants.IOConstants.kDX) //Retract
-    //   .whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(-1.0))
-    //   .whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
+    // m_climbSubsystem.setAdjustmentWinch(m_climbController.getRawAxis(Constants.PY) / Math.abs(m_climbController.getRawAxis(Constants.PY)));
+    new JoystickButton(m_climbController, Constants.IOConstants.kDY) //Extend Adjustment Winch
+      .whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(1.0))
+      .whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
+    new JoystickButton(m_climbController, Constants.IOConstants.kDX) //Retract
+      .whileHeld(() -> m_climbSubsystem.setAdjustmentWinch(-1.0))
+      .whenReleased(() -> m_climbSubsystem.stopAdjustmentWinch());
 
     // Climb Auto-Traverse Rungs
     new JoystickButton(m_climbController, Constants.IOConstants.kSTART)

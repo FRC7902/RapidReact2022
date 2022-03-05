@@ -25,8 +25,11 @@ public class ClimbSubsystem extends SubsystemBase {
         m_elevator.restoreFactoryDefaults();
         m_ropeOne.restoreFactoryDefaults();
 
+        // m_elevator.setSmartCurrentLimit(25);
+        // m_ropeOne.setSmartCurrentLimit(25);
+
         m_encoder = m_elevator.getEncoder();
-        m_elevator.setInverted(false);
+        m_elevator.setInverted(true);
         m_ropeOne.setInverted(false);
         m_ropeTwo.setInverted(false);
     }
@@ -62,7 +65,9 @@ public class ClimbSubsystem extends SubsystemBase {
     }
 
     public void stopElevator() {
+        m_elevator.set(0);
         m_elevator.stopMotor();
+        
         elevatorStatus = "Off";
     }
 
@@ -78,6 +83,12 @@ public class ClimbSubsystem extends SubsystemBase {
 
     @Override
     public void periodic(){
+
+        // System.out.println("running");
+
+        System.out.println(m_encoder.getPosition());
+
+        SmartDashboard.putNumber("ClimbSubsystem/elevator power", m_elevator.get());
 
         SmartDashboard.putNumber("ClimbSubsystem/Elevator Power", m_elevator.getAppliedOutput());
         SmartDashboard.putNumber("ClimbSubsystem/Rope 1 Power", m_ropeOne.getAppliedOutput());

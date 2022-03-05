@@ -582,6 +582,12 @@
                   "_source0": "network_table:///LiveWindow/Ungrouped/Victor SPX [3]",
                   "_title": "Victor SPX [3]",
                   "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Victor SPX [2]",
+                  "_title": "LiveWindow/Ungrouped/Victor SPX [2]",
+                  "Visuals/Orientation": "HORIZONTAL"
                 }
               ]
             }
@@ -833,6 +839,72 @@
                 }
               }
             }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/CompetitionView/Main Winch Status",
+              "_title": "Main Winch Status"
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/CompetitionView/Elevator Status",
+              "_title": "Elevator Status"
+            }
+          },
+          "8,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/CompetitionView/Rope 2 Power",
+              "_title": "Rope 2 Power"
+            }
+          },
+          "9,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/CompetitionView/Elevator Power",
+              "_title": "Elevator Power"
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/CompetitionView/Encoder Reading",
+              "_title": "Encoder Reading"
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/CompetitionView/Rope 1 Power",
+              "_title": "Rope 1 Power"
+            }
           }
         }
       }
@@ -1047,7 +1119,85 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "titleType": 0,
-        "tiles": {}
+        "tiles": {
+          "0,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ClimbSubsystem/Rope 1 Power",
+              "_title": "Rope 1 Power"
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ClimbSubsystem/Adjustment Winch Status",
+              "_title": "Adjustment Winch Status"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ClimbSubsystem/Main Winch Status",
+              "_title": "Main Winch Status"
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ClimbSubsystem/Elevator Status",
+              "_title": "Elevator Status"
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ClimbSubsystem/Rope 2 Power",
+              "_title": "Rope 2 Power"
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ClimbSubsystem/Elevator Power",
+              "_title": "Elevator Power"
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ClimbSubsystem/Encoder Reading",
+              "_title": "Encoder Reading"
+            }
+          }
+        }
       }
     }
   ],
