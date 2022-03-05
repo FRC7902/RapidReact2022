@@ -150,7 +150,7 @@ public class RobotContainer {
       .whenHeld(new Shoot(m_robotTransfer, m_robotShooter));
 
 
-    new JoystickButton(m_driverStick, Constants.IOConstants.kX)
+    new JoystickButton(m_driverStick, Constants.IOConstants.kX) //Toggle where the front of the robot is
       .whenPressed(new InstantCommand(() -> m_robotDrive.toggleRobotFront()));
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kY) //Deploy intake
