@@ -150,7 +150,8 @@ public class RobotContainer {
       .whenHeld(new Shoot(m_robotTransfer, m_robotShooter));
 
 
-    new JoystickButton(m_driverStick, Constants.IOConstants.kX);
+    new JoystickButton(m_driverStick, Constants.IOConstants.kX)
+      .whenPressed(new InstantCommand(() -> m_robotDrive.toggleRobotFront()));
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kY) //Deploy intake
       .whenHeld(new DeployIntake(m_robotIntake));
@@ -164,8 +165,7 @@ public class RobotContainer {
     new JoystickButton(m_driverStick, Constants.IOConstants.kMENU);
 
 
-    new JoystickButton(m_driverStick, Constants.IOConstants.kSTART)
-      .whenPressed(new InstantCommand(() -> m_robotDrive.toggleRobotFront()));
+    new JoystickButton(m_driverStick, Constants.IOConstants.kSTART);
 
     
     new JoystickButton(m_driverStick, Constants.IOConstants.kLA) //Activate/Deactivate Slow Drive
