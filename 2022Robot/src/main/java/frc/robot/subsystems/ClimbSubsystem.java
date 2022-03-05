@@ -84,11 +84,6 @@ public class ClimbSubsystem extends SubsystemBase {
     @Override
     public void periodic(){
 
-        // System.out.println("running");
-
-        System.out.println(m_encoder.getPosition());
-
-        SmartDashboard.putNumber("ClimbSubsystem/elevator power", m_elevator.get());
 
         SmartDashboard.putNumber("ClimbSubsystem/Elevator Power", m_elevator.getAppliedOutput());
         SmartDashboard.putNumber("ClimbSubsystem/Rope 1 Power", m_ropeOne.getAppliedOutput());

@@ -53,16 +53,22 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  // private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  // private final IntakeSubsystem m_robotIntake = new IntakeSubsystem();
-  // private final TransferSubsystem m_robotTransfer = new TransferSubsystem();
-  // private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
-  // private final CameraSubsystem m_robotCamera = new CameraSubsystem();
+
   private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();  
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
-  // private final RetractIntake m_retractIntake = new RetractIntake(m_robotIntake);
+ 
+  private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
+
+  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final IntakeSubsystem m_robotIntake = new IntakeSubsystem();
+  private final TransferSubsystem m_robotTransfer = new TransferSubsystem();
+
+  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  
+
+  private final RetractIntake m_retractIntake = new RetractIntake(m_robotIntake);
+
 
   // private final DoNothing m_DoNothing = new DoNothing();
   // private final PickUpAndShoot m_pickUpAndShoot = new PickUpAndShoot(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
@@ -70,19 +76,25 @@ public class RobotContainer {
   // private final DriveAndTurn m_driveAndTurn = new DriveAndTurn(m_robotDrive);
   // private final DriveToDistance m_driveForward = new DriveToDistance(2.0, m_robotDrive);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final ExtendElevator m_extendElevator = new ExtendElevator(m_climbSubsystem);
-  private final RetractElevator m_retractElevator = new RetractElevator(m_climbSubsystem);
-  private final TraverseRungs m_traverseRungs = new TraverseRungs(m_climbSubsystem);
+
+  // private final ExtendElevator m_extendElevator = new ExtendElevator(m_climbSubsystem);
+  // private final RetractElevator m_retractElevator = new RetractElevator(m_climbSubsystem);
+  // private final TraverseRungs m_traverseRungs = new TraverseRungs(m_climbSubsystem);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
+
   // private final Joystick m_driverStick = new Joystick(Constants.IOConstants.kDriverStick);
   private final XboxController m_climbController = new XboxController(Constants.IOConstants.kClimbStick);
+  private final Joystick m_driverStick = new Joystick(Constants.IOConstants.kDriverStick);
+  // private final XboxController m_climbController = new XboxController(Constants.IOConstants.kClimbStick);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
 
     // m_robotDrive.setDefaultCommand(
     //   new RunCommand(
@@ -91,6 +103,7 @@ public class RobotContainer {
     // );
 
     m_climbSubsystem.setDefaultCommand(
+
       new RunCommand(
         () -> m_climbSubsystem.setWinches(
           m_climbController.getRawAxis(Constants.IOConstants.kRY), m_climbController.getRawAxis(Constants.IOConstants.kLY)), 
@@ -98,14 +111,19 @@ public class RobotContainer {
     );
 
 
-    // m_chooser.setDefaultOption("Drive Forward 2 metres", m_driveForward);
-    // m_chooser.setDefaultOption("Leave Tarmac", m_leaveTarmac);
-    // m_chooser.addOption("Do nothing", m_DoNothing);
-    // m_chooser.addOption("Pick Up and Shoot", m_pickUpAndShoot);
-    // m_chooser.addOption("Drive and Turn", m_driveAndTurn);
-    // m_chooser.addOption("Just Shoot", new Shoot(m_robotTransfer, m_robotShooter).withTimeout(3.0));
+
+    m_chooser.setDefaultOption("Drive Forward 2 metres", m_driveForward);
+    m_chooser.setDefaultOption("Leave Tarmac", m_leaveTarmac);
+    m_chooser.addOption("Do nothing", m_DoNothing);
+    m_chooser.addOption("Pick Up and Shoot", m_pickUpAndShoot);
+    m_chooser.addOption("Drive and Turn", m_driveAndTurn);
+    
+
+    m_chooser.addOption("Just Shoot", new Shoot(m_robotTransfer, m_robotShooter).withTimeout(3.0));
+
 
     Shuffleboard.getTab("CompetitionView").add(m_chooser);
+    // SmartDashboard.putData("SmartDashboard/CompetitionView", m_chooser);
 
   }
 
@@ -116,6 +134,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
+
     // Climb Elevator
     new JoystickButton(m_climbController, Constants.IOConstants.kY) //Extend Elevator to set height
       .whenPressed(new SetElevatorToHeight(3, m_climbSubsystem));
@@ -161,8 +181,11 @@ public class RobotContainer {
     // new JoystickButton(m_driverStick, Constants.IOConstants.kA) //Retract intake
     //   .whenHeld(new RetractIntake(m_robotIntake));
 
-    // new JoystickButton(m_driverStick, Constants.IOConstants.kB) //Shoot
-    //   .whenHeld(new Shoot(m_robotTransfer, m_robotShooter));
+
+
+    new JoystickButton(m_driverStick, Constants.IOConstants.kB) //Shoot
+      .whenHeld(new Shoot(m_robotTransfer, m_robotShooter));
+
 
     // new JoystickButton(m_driverStick, Constants.IOConstants.kX);
 
@@ -178,7 +201,9 @@ public class RobotContainer {
 
     // new JoystickButton(m_driverStick, Constants.IOConstants.kMENU);
 
-    // new JoystickButton(m_driverStick, Constants.IOConstants.kSTART);
+
+    new JoystickButton(m_driverStick, Constants.IOConstants.kSTART);
+
     
     // new JoystickButton(m_driverStick, Constants.IOConstants.kLA) //Activate/Deactivate Slow Drive
     //   .whenPressed(() -> m_robotDrive.activateSlowForward())
