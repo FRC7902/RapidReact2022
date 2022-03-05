@@ -38,8 +38,8 @@ public class DriveSubsystem extends SubsystemBase {
   private final WPI_VictorSPX m_rightFollower = new WPI_VictorSPX(Constants.DriveConstants.kRightFollowerCAN);
   
   //Encoders
-  private final Encoder m_leftEncoder = new Encoder(Constants.DriveConstants.kLeftEncoderIDs[0], Constants.DriveConstants.kLeftEncoderIDs[1]);
-  private final Encoder m_rightEncoder = new Encoder(Constants.DriveConstants.kRightEncoderIDs[0], Constants.DriveConstants.kRightEncoderIDs[1]);
+  private Encoder m_leftEncoder;
+  private Encoder m_rightEncoder;
 
   //Gyro (Pigeon)
   private final WPI_PigeonIMU m_pigeon = new WPI_PigeonIMU(Constants.DriveConstants.kGyroCAN);
@@ -48,8 +48,12 @@ public class DriveSubsystem extends SubsystemBase {
   private boolean isForwardSlow = false;
   private boolean isTurnSlow = false;  
 
-  private double driveSlowSpeed = 0.1;
-  private double turnSlowSpeed = 0.1;
+  private double driveSlowSpeed = Constants.DriveConstants.kDriveSlowSpeed;
+  private double turnSlowSpeed = Constants.DriveConstants.kTurnSlowSpeed;
+
+  private double driveSens = Constants.DriveConstants.kForwardSens;
+  private double turnSens = Constants.DriveConstants.kTurnSens;
+  private double turnMax = Constants.DriveConstants.kTurnMax;
 
 
   //SIMULATION
@@ -75,10 +79,6 @@ public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
 
-    //Encoder config
-    m_leftEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
-    m_rightEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
-    resetEncoders();
 
     //Motor controller config
     m_rightLeader.configFactoryDefault();
@@ -97,13 +97,25 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightLeader.setInverted(true);
     m_rightLeader.setSensorPhase(false);
 
-    driveSlowSpeed = Constants.DriveConstants.kDriveSlowSpeed;
-    turnSlowSpeed = Constants.DriveConstants.kTurnSlowSpeed;
+    // SmartDashboard.putNumber("DriveSubsystem/Drive Sensitivity", driveSens);
+    // SmartDashboard.putNumber("DriveSubsystem/Turn Sensitivity", turnSens);
+    // SmartDashboard.putNumber("DriveSubsystem/Maximum Turn Speed", turnMax);
+    // SmartDashboard.putNumber("DriveSubsystem/Slow Drive Speed", driveSlowSpeed);
+    // SmartDashboard.putNumber("DriveSubsystem/Slow Turn Speed", turnSlowSpeed);
+
 
 
     //SIMULATION
 
     if(RobotBase.isSimulation()){
+      m_leftEncoder = new Encoder(Constants.DriveConstants.kLeftEncoderIDs[0], Constants.DriveConstants.kLeftEncoderIDs[1]);
+      m_rightEncoder = new Encoder(Constants.DriveConstants.kRightEncoderIDs[0], Constants.DriveConstants.kRightEncoderIDs[1]);
+
+      //Encoder config
+      m_leftEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
+      m_rightEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
+      resetEncoders();
+
       m_leftDriveSim = m_leftLeader.getSimCollection();
       m_rightDriveSim = m_rightLeader.getSimCollection();
 
@@ -141,9 +153,9 @@ public class DriveSubsystem extends SubsystemBase {
       yout = (y >= 0 ? 1 : -1) * (Constants.DriveConstants.kForwardSens*y*y + (1-Constants.DriveConstants.kForwardSens)*Math.abs(y));
     }else{
       if(y > 0){
-        yout = driveSlowSpeed;
+        yout = Constants.DriveConstants.kDriveSlowSpeed;
       }else if(y < 0){
-        yout = -driveSlowSpeed;
+        yout = -Constants.DriveConstants.kDriveSlowSpeed;
       }else{
         yout = 0;
       }
@@ -153,9 +165,9 @@ public class DriveSubsystem extends SubsystemBase {
       xout = Constants.DriveConstants.kTurnMax* (x >= 0 ? 1 : -1) * (Constants.DriveConstants.kTurnSens*x*x + (1-Constants.DriveConstants.kTurnSens)*Math.abs(x));
     }else{
       if(x > 0){
-        xout = turnSlowSpeed;
+        xout = Constants.DriveConstants.kTurnSlowSpeed;
       }else if(x < 0){
-        xout = -turnSlowSpeed;
+        xout = -Constants.DriveConstants.kTurnSlowSpeed;
       }else{
         xout = 0;
       }
@@ -251,13 +263,20 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("DriveSubsystem/Right Drive Motors", m_rightLeader.getMotorOutputPercent());
     SmartDashboard.putBoolean("DriveSubsystem/Slow Turn", isTurnSlow);
     SmartDashboard.putBoolean("DriveSubsystem/Slow Drive", isForwardSlow);
-    SmartDashboard.putNumber("DriveSubsystem/Left Encoder", m_leftEncoder.getDistance());
-    SmartDashboard.putNumber("DriveSubsystem/Right Encoder", m_rightEncoder.getDistance());
-    SmartDashboard.putNumber("DriveSubsystem/Avg Encoder", getAvgEncoderDistance());
+
+    // driveSens = SmartDashboard.getNumber("DriveSubsystem/Drive Sensitivity", Constants.DriveConstants.kForwardSens);
+    // turnSens = SmartDashboard.getNumber("DriveSubsystem/Turn Sensitivity", Constants.DriveConstants.kTurnSens);
+    // turnMax = SmartDashboard.getNumber("DriveSubsystem/Maximum Turn Speed", Constants.DriveConstants.kTurnMax);
+    // driveSlowSpeed = SmartDashboard.getNumber("DriveSubsystem/Slow Drive Speed", Constants.DriveConstants.kDriveSlowSpeed);
+    // turnSlowSpeed = SmartDashboard.getNumber("DriveSubsystem/Slow Turn Speed", Constants.DriveConstants.kTurnSlowSpeed);
 
     
 
     if(RobotBase.isSimulation()){
+      SmartDashboard.putNumber("DriveSubsystem/Left Encoder", m_leftEncoder.getDistance());
+      SmartDashboard.putNumber("DriveSubsystem/Right Encoder", m_rightEncoder.getDistance());
+      SmartDashboard.putNumber("DriveSubsystem/Avg Encoder", getAvgEncoderDistance());
+      
       m_odometry.update(m_pigeon.getRotation2d(),
                         m_leftEncoder.getDistance(),
                         m_rightEncoder.getDistance());
