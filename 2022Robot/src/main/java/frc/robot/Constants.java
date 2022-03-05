@@ -64,7 +64,7 @@ public final class Constants {
         public final static double horiBackwardsSpeed = -0.5;
 
 
-        public final static double vertForwardSpeed = 1;
+        public final static double vertForwardSpeed = 0.3;
         public final static double vertBackwardsSpeed = -0.4;
     }
     

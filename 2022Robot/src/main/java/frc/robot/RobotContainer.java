@@ -64,7 +64,7 @@ public class RobotContainer {
   private final RetractIntake m_retractIntake = new RetractIntake(m_robotIntake);
 
   private final DoNothing m_DoNothing = new DoNothing();
-  // private final PickUpAndShoot m_pickUpAndShoot = new PickUpAndShoot(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
+  private final PickUpAndShoot m_pickUpAndShoot = new PickUpAndShoot(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
   private final LeaveTarmac m_leaveTarmac = new LeaveTarmac(m_robotDrive);
   private final DriveAndTurn m_driveAndTurn = new DriveAndTurn(m_robotDrive);
   private final DriveToDistance m_driveForward = new DriveToDistance(2.0, m_robotDrive);
@@ -87,7 +87,7 @@ public class RobotContainer {
 
     m_robotDrive.setDefaultCommand(
       new RunCommand(
-        () -> m_robotDrive.driveJoystick((Robot.isSimulation()? -1: 1)*m_driverStick.getRawAxis(1), m_driverStick.getRawAxis(4)), 
+        () -> m_robotDrive.driveJoystick(m_driverStick.getRawAxis(1), m_driverStick.getRawAxis(4)), 
         m_robotDrive)
     );
 
@@ -95,10 +95,11 @@ public class RobotContainer {
     m_chooser.setDefaultOption("Drive Forward 2 metres", m_driveForward);
     m_chooser.setDefaultOption("Leave Tarmac", m_leaveTarmac);
     m_chooser.addOption("Do nothing", m_DoNothing);
-    // m_chooser.addOption("Pick Up and Shoot", m_pickUpAndShoot);
+    m_chooser.addOption("Pick Up and Shoot", m_pickUpAndShoot);
     m_chooser.addOption("Drive and Turn", m_driveAndTurn);
+    
 
-    // m_chooser.addOption("Just Shoot", new Shoot(m_robotTransfer, m_robotShooter).withTimeout(3.0));
+    m_chooser.addOption("Just Shoot", new Shoot(m_robotTransfer, m_robotShooter).withTimeout(3.0));
 
     Shuffleboard.getTab("CompetitionView").add(m_chooser);
     // SmartDashboard.putData("SmartDashboard/CompetitionView", m_chooser);
@@ -159,8 +160,8 @@ public class RobotContainer {
       .whenHeld(new RetractIntake(m_robotIntake));
 
 
-    // new JoystickButton(m_driverStick, Constants.IOConstants.kB) //Shoot
-    //   .whenHeld(new Shoot(m_robotTransfer, m_robotShooter));
+    new JoystickButton(m_driverStick, Constants.IOConstants.kB) //Shoot
+      .whenHeld(new Shoot(m_robotTransfer, m_robotShooter));
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kX);
 
@@ -179,13 +180,13 @@ public class RobotContainer {
     new JoystickButton(m_driverStick, Constants.IOConstants.kSTART);
 
     
-    // new JoystickButton(m_driverStick, Constants.IOConstants.kLA) //Activate/Deactivate Slow Drive
-    //   .whenPressed(() -> m_robotDrive.activateSlowForward())
-    //   .whenReleased(() -> m_robotDrive.deactivateSlowForward());
+    new JoystickButton(m_driverStick, Constants.IOConstants.kLA) //Activate/Deactivate Slow Drive
+      .whenPressed(() -> m_robotDrive.activateSlowForward())
+      .whenReleased(() -> m_robotDrive.deactivateSlowForward());
 
-    // new JoystickButton(m_driverStick, Constants.IOConstants.kRA) //Activate/Deactivate Slow Turn
-    //   .whenPressed(() -> m_robotDrive.activateSlowTurn())
-    //   .whenReleased(() -> m_robotDrive.deactivateSlowTurn());
+    new JoystickButton(m_driverStick, Constants.IOConstants.kRA) //Activate/Deactivate Slow Turn
+      .whenPressed(() -> m_robotDrive.activateSlowTurn())
+      .whenReleased(() -> m_robotDrive.deactivateSlowTurn());
 
     // new JoystickButton(m_driverStick, 1) //Retract Intake
     //   // .whenReleased(() -> m_robotDrive.zeroHeading(), m_robotDrive);
