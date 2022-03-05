@@ -107,7 +107,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverStick, Constants.IOConstants.kRT)
+    new JoystickButton(m_driverStick, 1)
       .whenPressed(() -> m_robotShooter.shoot())
       .whenReleased(() -> m_robotShooter.stop());
 

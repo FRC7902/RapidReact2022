@@ -44,7 +44,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
     @Override
     public void periodic(){
-        SmartDashboard.putNumber("ClimbSubsystem/Elevator Power", m_elevator.get());
+        // SmartDashboard.putNumber("ClimbSubsystem/Elevator Power", m_elevator.get());
 
         SmartDashboard.putNumber("ClimbSubsystem/Elevator Power", m_elevator.getAppliedOutput());
         SmartDashboard.putNumber("ClimbSubsystem/Rope 1 Power", m_ropeOne.getAppliedOutput());
