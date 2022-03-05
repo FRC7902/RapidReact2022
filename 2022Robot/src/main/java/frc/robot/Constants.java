@@ -44,6 +44,9 @@ public final class Constants {
         public static final double kWheelDiameterMeters = 0.1524;
         public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
 
+        public static final double rampTime = 0.5;
+        public static final int currentLimit = 10;
+
     }
 
     public final static class IntakeConstants {

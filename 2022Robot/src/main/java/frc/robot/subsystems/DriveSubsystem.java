@@ -48,12 +48,8 @@ public class DriveSubsystem extends SubsystemBase {
   private boolean isForwardSlow = false;
   private boolean isTurnSlow = false;  
 
-  private double driveSlowSpeed = Constants.DriveConstants.kDriveSlowSpeed;
-  private double turnSlowSpeed = Constants.DriveConstants.kTurnSlowSpeed;
+  private String robotFront = "INTAKE";
 
-  private double driveSens = Constants.DriveConstants.kForwardSens;
-  private double turnSens = Constants.DriveConstants.kTurnSens;
-  private double turnMax = Constants.DriveConstants.kTurnMax;
 
 
   //SIMULATION
@@ -97,18 +93,16 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightLeader.setInverted(true);
     m_rightLeader.setSensorPhase(false);
 
+    m_leftLeader.configOpenloopRamp(Constants.DriveConstants.rampTime);
+    m_rightLeader.configOpenloopRamp(Constants.DriveConstants.rampTime);
+
     m_leftLeader.enableCurrentLimit(true);
     m_leftLeader.configPeakCurrentLimit(0);
-    m_leftLeader.configContinuousCurrentLimit(5);
+    m_leftLeader.configContinuousCurrentLimit(Constants.DriveConstants.currentLimit);
 
     m_rightLeader.enableCurrentLimit(true);
     m_rightLeader.configPeakCurrentLimit(0);
-    m_rightLeader.configContinuousCurrentLimit(5);
-    // SmartDashboard.putNumber("DriveSubsystem/Drive Sensitivity", driveSens);
-    // SmartDashboard.putNumber("DriveSubsystem/Turn Sensitivity", turnSens);
-    // SmartDashboard.putNumber("DriveSubsystem/Maximum Turn Speed", turnMax);
-    // SmartDashboard.putNumber("DriveSubsystem/Slow Drive Speed", driveSlowSpeed);
-    // SmartDashboard.putNumber("DriveSubsystem/Slow Turn Speed", turnSlowSpeed);
+    m_rightLeader.configContinuousCurrentLimit(Constants.DriveConstants.currentLimit);
 
 
 
@@ -155,8 +149,18 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightLeader.set(ControlMode.PercentOutput, fwd - rot);
   }
 
+  public void toggleRobotFront(){
+    if(robotFront.equals("INTAKE")){
+      robotFront = "SHOOTER";
+    }else{
+      robotFront = "INTAKE";
+    }
+  }
+
   public void driveJoystick(double y, double x){
     double yout, xout;
+
+    y *= (robotFront.equals("INTAKE")? -1 : 1);
     
     if(!isForwardSlow){
       yout = (y >= 0 ? 1 : -1) * (Constants.DriveConstants.kForwardSens*y*y + (1-Constants.DriveConstants.kForwardSens)*Math.abs(y));
@@ -267,17 +271,14 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("CompetitionView/Right Drive Motors", m_rightLeader.getMotorOutputPercent());
     SmartDashboard.putBoolean("CompetitionView/Slow Turn", isTurnSlow);
     SmartDashboard.putBoolean("CompetitionView/Slow Drive", isForwardSlow);
+    SmartDashboard.putString("CompetitionView/Robot Front", robotFront);
 
     SmartDashboard.putNumber("DriveSubsystem/Left Drive Motors", m_leftLeader.getMotorOutputPercent());
     SmartDashboard.putNumber("DriveSubsystem/Right Drive Motors", m_rightLeader.getMotorOutputPercent());
     SmartDashboard.putBoolean("DriveSubsystem/Slow Turn", isTurnSlow);
     SmartDashboard.putBoolean("DriveSubsystem/Slow Drive", isForwardSlow);
+    SmartDashboard.putString("DriveSubsystem/Robot Front", robotFront);
 
-    // driveSens = SmartDashboard.getNumber("DriveSubsystem/Drive Sensitivity", Constants.DriveConstants.kForwardSens);
-    // turnSens = SmartDashboard.getNumber("DriveSubsystem/Turn Sensitivity", Constants.DriveConstants.kTurnSens);
-    // turnMax = SmartDashboard.getNumber("DriveSubsystem/Maximum Turn Speed", Constants.DriveConstants.kTurnMax);
-    // driveSlowSpeed = SmartDashboard.getNumber("DriveSubsystem/Slow Drive Speed", Constants.DriveConstants.kDriveSlowSpeed);
-    // turnSlowSpeed = SmartDashboard.getNumber("DriveSubsystem/Slow Turn Speed", Constants.DriveConstants.kTurnSlowSpeed);
 
     
 
