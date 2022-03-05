@@ -22,10 +22,10 @@ public final class Constants {
 
     public final static class DriveConstants {
 
-        public static final int kLeftLeaderCAN = 4;
-        public static final int kLeftFollowerCAN = 3;
-        public static final int kRightLeaderCAN = 11;
-        public static final int kRightFollowerCAN = 12;
+        public static final int kLeftLeaderCAN = 11;
+        public static final int kLeftFollowerCAN = 12;
+        public static final int kRightLeaderCAN = 4;
+        public static final int kRightFollowerCAN = 3;
 
         public static final int[] kLeftEncoderIDs = {0, 1};
         public static final int[] kRightEncoderIDs = {3, 4};
@@ -65,7 +65,7 @@ public final class Constants {
 
 
         public final static double vertForwardSpeed = 0.3;
-        public final static double vertBackwardsSpeed = -0.4;
+        public final static double vertBackwardsSpeed = -0.3;
     }
     
     public final static class ShooterConstants {

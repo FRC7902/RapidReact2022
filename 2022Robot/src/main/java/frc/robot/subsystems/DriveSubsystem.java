@@ -42,7 +42,7 @@ public class DriveSubsystem extends SubsystemBase {
   private Encoder m_rightEncoder;
 
   //Gyro (Pigeon)
-  private final WPI_PigeonIMU m_pigeon = new WPI_PigeonIMU(Constants.DriveConstants.kGyroCAN);
+  private WPI_PigeonIMU m_pigeon;
 
   //Slow State Booleans
   private boolean isForwardSlow = false;
@@ -108,6 +108,8 @@ public class DriveSubsystem extends SubsystemBase {
     //SIMULATION
 
     if(RobotBase.isSimulation()){
+
+      m_pigeon = new WPI_PigeonIMU(Constants.DriveConstants.kGyroCAN);
       m_leftEncoder = new Encoder(Constants.DriveConstants.kLeftEncoderIDs[0], Constants.DriveConstants.kLeftEncoderIDs[1]);
       m_rightEncoder = new Encoder(Constants.DriveConstants.kRightEncoderIDs[0], Constants.DriveConstants.kRightEncoderIDs[1]);
 
