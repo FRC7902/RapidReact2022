@@ -82,7 +82,7 @@ public class RobotContainer {
 
 
   private final Joystick m_driverStick = new Joystick(Constants.IOConstants.kDriverStick);
-  // private final XboxController m_climbController = new XboxController(Constants.IOConstants.kClimbStick);
+  private final XboxController m_climbController = new XboxController(Constants.IOConstants.kClimbStick);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -97,12 +97,12 @@ public class RobotContainer {
         m_robotDrive)
     );
 
-    // m_climbSubsystem.setDefaultCommand(
-    //   new RunCommand(
-    //     () -> m_climbSubsystem.setWinches(
-    //       m_climbController.getRawAxis(Constants.IOConstants.kRY), m_climbController.getRawAxis(Constants.IOConstants.kLY)), 
-    //     m_climbSubsystem)
-    // );
+    m_climbSubsystem.setDefaultCommand(
+      new RunCommand(
+        () -> m_climbSubsystem.setWinches(
+          m_climbController.getRawAxis(Constants.IOConstants.kRY), m_climbController.getRawAxis(Constants.IOConstants.kLY)), 
+        m_climbSubsystem)
+    );
 
 
 
@@ -128,14 +128,14 @@ public class RobotContainer {
 
     // Climb Elevator
 
-    // new JoystickButton(m_climbController, Constants.IOConstants.kX)
-    //   .whenPressed(() -> m_climbSubsystem.resetEncoder());
+    new JoystickButton(m_climbController, Constants.IOConstants.kX)
+      .whenPressed(() -> m_climbSubsystem.resetEncoder());
 
     
-    // new JoystickButton(m_climbController, Constants.IOConstants.kRB) //Extend Elevator
-    //   .whenHeld(new ExtendElevator(m_climbSubsystem));
-    // new JoystickButton(m_climbController, Constants.IOConstants.kLB) //Retract Elevator
-    //   .whenHeld(new RetractElevator(m_climbSubsystem));
+    new JoystickButton(m_climbController, Constants.IOConstants.kRB) //Extend Elevator
+      .whenHeld(new ExtendElevator(m_climbSubsystem));
+    new JoystickButton(m_climbController, Constants.IOConstants.kLB) //Retract Elevator
+      .whenHeld(new RetractElevator(m_climbSubsystem));
 
 
 
