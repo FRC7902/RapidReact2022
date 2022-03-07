@@ -4,8 +4,10 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.Constants.TransferConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
@@ -13,15 +15,15 @@ import frc.robot.subsystems.TransferSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ShootAndLeave extends SequentialCommandGroup {
-  /** Creates a new ShootAndLeave. */
-  public ShootAndLeave(TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem, DriveSubsystem driveSubsystem) {
+public class DriveAndShootHigh extends SequentialCommandGroup {
+  /** Creates a new DriveAndShootHigh. */
+  public DriveAndShootHigh(DriveSubsystem driveSubsystem, TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new Shoot(transferSubsystem, shooterSubsystem, Constants.ShooterConstants.kLowSpeed).withTimeout(4),
-
-      new TimedDriveWithSpeed(0.5, 1.5, driveSubsystem)
+      new TimedDriveWithSpeed(0.5, 1, driveSubsystem),
+      new RunCommand(() -> shooterSubsystem.shoot(Constants.ShooterConstants.kHighSpeed), shooterSubsystem).withTimeout(2),
+      new Shoot(transferSubsystem, shooterSubsystem, Constants.ShooterConstants.kHighSpeed).withTimeout(6)
     );
   }
 }

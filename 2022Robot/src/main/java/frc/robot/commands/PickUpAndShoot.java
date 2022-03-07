@@ -7,6 +7,8 @@ package frc.robot.commands;
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants; 
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -21,13 +23,20 @@ public class PickUpAndShoot extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new DeployIntake(intakeSubsystem).withTimeout(2),
+
       new ParallelRaceGroup(
-        new DriveToDistance(3.0, driveSubsystem),
+        new TimedDriveWithSpeed(0.5, 3, driveSubsystem),
         new Suck(intakeSubsystem, transferSubsystem)
       ),
 
-      new DriveToDistance(-3.0, driveSubsystem),
-      new Shoot(transferSubsystem, shooterSubsystem).withTimeout(3.0)
+      new WaitCommand(1),
+
+      new TimedDriveWithSpeed(-0.5, 3, driveSubsystem),
+
+      new WaitCommand(1),
+
+      new Shoot(transferSubsystem, shooterSubsystem, Constants.ShooterConstants.kLowSpeed).withTimeout(3.0)
       
     );
   }

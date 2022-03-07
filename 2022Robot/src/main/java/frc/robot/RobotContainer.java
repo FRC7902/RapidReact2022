@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.DoNothing;
+import frc.robot.commands.DriveAndShootHigh;
 import frc.robot.commands.DriveAndTurn;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.ExampleCommand;
@@ -75,6 +76,7 @@ public class RobotContainer {
   private final LeaveTarmac m_leaveTarmacAuto = new LeaveTarmac(m_robotDrive);
   private final ShootAndLeave m_shootAndLeaveAuto = new ShootAndLeave(m_robotTransfer, m_robotShooter, m_robotDrive);
   private final PickUpAndShoot m_pickUpAndShootAuto = new PickUpAndShoot(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
+  private final DriveAndShootHigh m_driveAndShootHigh = new DriveAndShootHigh(m_robotDrive, m_robotTransfer, m_robotShooter);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
 
@@ -93,7 +95,7 @@ public class RobotContainer {
 
     m_robotDrive.setDefaultCommand(
       new RunCommand(
-        () -> m_robotDrive.driveJoystick(m_driverStick.getRawAxis(1), m_driverStick.getRawAxis(4)), 
+        () -> m_robotDrive.driveJoystick(m_driverStick.getRawAxis(Constants.IOConstants.kLY), m_driverStick.getRawAxis(Constants.IOConstants.kLX)), 
         m_robotDrive)
     );
 
@@ -108,9 +110,10 @@ public class RobotContainer {
 
     m_chooser.setDefaultOption("Leave Tarmac", m_leaveTarmacAuto);
     m_chooser.addOption("Do nothing", m_DoNothingAuto);
-    m_chooser.addOption("Just Shoot", new Shoot(m_robotTransfer, m_robotShooter).withTimeout(3.0));
-    m_chooser.addOption("Shoot and Leave Tarmac", m_shootAndLeaveAuto);
+    m_chooser.addOption("Just Shoot", new Shoot(m_robotTransfer, m_robotShooter, Constants.ShooterConstants.kLowSpeed).withTimeout(3.0));
+    m_chooser.addOption("Shoot Low and Leave Tarmac", m_shootAndLeaveAuto);
     m_chooser.addOption("Pick Up and Shoot", m_pickUpAndShootAuto);
+    m_chooser.addOption("Drive and Shoot High", m_driveAndShootHigh);
 
 
     Shuffleboard.getTab("CompetitionView").add(m_chooser);
@@ -147,8 +150,10 @@ public class RobotContainer {
 
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kB) //Shoot
-      .whenHeld(new Shoot(m_robotTransfer, m_robotShooter));
+      .whenHeld(new Shoot(m_robotTransfer, m_robotShooter, Constants.ShooterConstants.kLowSpeed));
 
+    new JoystickButton(m_driverStick, Constants.IOConstants.kSTART)
+      .whenHeld(new Shoot(m_robotTransfer, m_robotShooter, Constants.ShooterConstants.kHighSpeed));
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kX) //Toggle where the front of the robot is
       .whenPressed(new InstantCommand(() -> m_robotDrive.toggleRobotFront()));

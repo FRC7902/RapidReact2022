@@ -34,8 +34,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
   }
 
-  public void shoot() {
-    master.set(Constants.ShooterConstants.kSpeed);
+  public void shoot(double speed) {
+    master.set(speed);
     status = "Shooting...";
   }
 
