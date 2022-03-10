@@ -16,7 +16,6 @@ public class DriveAndTurn extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      // new DriveToDistance(1, driveSubsystem),
       new TimedDriveWithSpeed(0.5, 1, driveSubsystem),
       new TimedTurnWithSpeed(0.5, 1, driveSubsystem)
     );
