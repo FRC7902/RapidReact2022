@@ -28,9 +28,9 @@ public final class Constants {
         public static final int kGyroCAN = 1;
 
         //Sensitivities (1 -> quadratic, 0 -> linear)
-        public static final double kForwardSens = 1;
-        public static final double kTurnSens = 0.5;
-        public static final double kTurnMax = 0.5;
+        public static final double kForwardSens = 0;
+        public static final double kTurnSens = 0;
+        public static final double kTurnMax = 0.6;
 
         public static final double kDriveSlowSpeed = 0.1;
         public static final double kTurnSlowSpeed = 0.1;
@@ -39,7 +39,7 @@ public final class Constants {
         public static final double kWheelDiameterMeters = 0.1524;
         public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
 
-        public static final double kRampTime = 0.5;
+        public static final double kRampTime = 0.1;
         public static final int kCurrentLimit = 10;
 
     }
@@ -48,8 +48,8 @@ public final class Constants {
         public static final int kIntakePowerCAN = 13;
         public static final int kIntakeDeplCAN = 10;
 
-        public final static double kSuckSpeed = 0.3;
-        public final static double kSpitSpeed = -0.3;
+        public final static double kSuckSpeed = 0.54;
+        public final static double kSpitSpeed = -0.54;
 
         public final static double kPowerRampTime = 0;
         public final static double kDeplRampTime = 0;
@@ -60,8 +60,8 @@ public final class Constants {
 
         public static final int kVertTransferCAN = 5;
 
-        public final static double kVertForwardSpeed = 0.7;
-        public final static double kVertBackwardsSpeed = -0.7;
+        public final static double kVertForwardSpeed = 0.75;
+        public final static double kVertBackwardsSpeed = -0.75;
 
         public final static double kRampTime = 0;
     }
@@ -71,7 +71,7 @@ public final class Constants {
         public static final int kFollowerCAN = 9;
         
         public final static double kHighSpeed = 1;
-        public final static double kLowSpeed = 0.5;
+        public final static double kLowSpeed = 0.62;
 
         public final static double kRampTime = 0;
     }

@@ -6,12 +6,14 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXSimCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.sensors.BasePigeonSimCollection;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -49,6 +51,9 @@ public class DriveSubsystem extends SubsystemBase {
   private boolean isTurnSlow = false;  
 
   private String robotFront = "INTAKE";
+
+  private SlewRateLimiter turnSlew = new SlewRateLimiter(10);
+  private SlewRateLimiter driveSlew = new SlewRateLimiter(10);
 
 
 
@@ -98,11 +103,19 @@ public class DriveSubsystem extends SubsystemBase {
 
     m_leftLeader.enableCurrentLimit(true);
     m_leftLeader.configPeakCurrentLimit(0);
+    m_leftLeader.configPeakCurrentDuration(0);
     m_leftLeader.configContinuousCurrentLimit(Constants.DriveConstants.kCurrentLimit);
 
     m_rightLeader.enableCurrentLimit(true);
     m_rightLeader.configPeakCurrentLimit(0);
+    m_rightLeader.configPeakCurrentDuration(0);
     m_rightLeader.configContinuousCurrentLimit(Constants.DriveConstants.kCurrentLimit);
+
+    // m_rightLeader.setNeutralMode(NeutralMode.Brake);
+    // m_rightFollower.setNeutralMode(NeutralMode.Brake);
+
+    // m_leftLeader.setNeutralMode(NeutralMode.Brake);
+    // m_leftFollower.setNeutralMode(NeutralMode.Brake);
 
 
 
@@ -157,8 +170,73 @@ public class DriveSubsystem extends SubsystemBase {
     }
   }
 
+  public void simpleLinearDrive (double y, double x){
+    double yout = 0, xout = 0;
+    double maxTurn = 0.6;
+    double deadZoneY = 0.01;
+    double deadZoneX = 0.01;
+    double staticFrictionY = 0.09;
+    double staticFrictionX = 0.09;
+
+    y *= -1;
+
+    y = driveSlew.calculate(y);
+    x = turnSlew.calculate(x);
+
+    if(y<= deadZoneY && y >= -deadZoneY){
+      yout = staticFrictionY/deadZoneY * y;
+    }else if(y > deadZoneY){
+      yout = (1-staticFrictionY)/(1-deadZoneY) * (y-1) + 1; 
+    }else if(y < -deadZoneY){
+      yout = (staticFrictionY-1)/(deadZoneY-1)*(y+1) - 1;
+    }
+
+    if(x<= deadZoneX && x >= -deadZoneX){
+      xout = staticFrictionX/deadZoneX * x;
+    }else if(x > deadZoneX){
+      xout = (maxTurn-staticFrictionX)/(1-deadZoneX) * (x-1) + maxTurn; 
+    }else if(x < -deadZoneX){
+      xout = (staticFrictionX-maxTurn)/(deadZoneX-1)*(x+1) - maxTurn;
+    }
+    
+    m_leftLeader.set(ControlMode.PercentOutput, yout + xout);
+    m_rightLeader.set(ControlMode.PercentOutput, yout - xout);
+
+  }
+
+  public void driveSlewWithDeadzone(double y, double x){
+    double yout, xout;
+    double deadzoneY = 0.01;
+    double deadzoneX = 0.01;
+
+    y*= -1;
+
+    y = driveSlew.calculate(y);
+    x = turnSlew.calculate(x);
+
+    if(y < deadzoneY && y > -deadzoneY){
+      yout = 0;
+    }else{
+      yout = (y - y/Math.abs(y) * deadzoneY)/ (1-deadzoneY);
+    }
+
+    if(x < deadzoneX && x > -deadzoneX){
+      xout = 0;
+    }else{
+      xout = (x - x/Math.abs(x) * deadzoneX)/(1-deadzoneX);
+    }
+
+    m_leftLeader.set(ControlMode.PercentOutput, yout + xout);
+    m_rightLeader.set(ControlMode.PercentOutput, yout - xout);
+
+    
+  }
+
   public void driveJoystick(double y, double x){
     double yout, xout;
+
+    // y = driveSlew.calculate(y);
+    // x = turnSlew.calculate(x);
 
     y *= (robotFront.equals("INTAKE")? -1 : 1);
     
@@ -272,6 +350,9 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("CompetitionView/Slow Turn", isTurnSlow);
     SmartDashboard.putBoolean("CompetitionView/Slow Drive", isForwardSlow);
     SmartDashboard.putString("CompetitionView/Robot Front", robotFront);
+
+    SmartDashboard.putNumber("DriveSubsystem/Left Drive Current", m_leftLeader.getStatorCurrent());
+    SmartDashboard.putNumber("DriveSubsystem/Right Drive Current", m_rightLeader.getStatorCurrent());
 
     SmartDashboard.putNumber("DriveSubsystem/Left Drive Motors", m_leftLeader.getMotorOutputPercent());
     SmartDashboard.putNumber("DriveSubsystem/Right Drive Motors", m_rightLeader.getMotorOutputPercent());

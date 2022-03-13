@@ -4,9 +4,14 @@
 
 package frc.robot.commands.AutoRoutines;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.ShootWithWindUp;
 import frc.robot.commands.TimedDriveWithSpeed;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -21,9 +26,18 @@ public class ShootAndLeave extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new Shoot(transferSubsystem, shooterSubsystem, Constants.ShooterConstants.kLowSpeed).withTimeout(4),
+      // new Shoot(transferSubsystem, shooterSubsystem, Constants.ShooterConstants.kLowSpeed).withTimeout(4),
+      // new ShootWithWindUp(shooterSubsystem, transferSubsystem)
+      new ParallelRaceGroup(
+        // new Shoot(transferSubsystem, shooterSubsystem, Constants.ShooterConstants.kLowSpeed)).withTimeout(3),
+        new RunCommand(()-> shooterSubsystem.shoot(Constants.ShooterConstants.kHighSpeed), shooterSubsystem).withTimeout(3),
+        new SequentialCommandGroup(
+          new WaitCommand(1),
+          new RunCommand(()-> transferSubsystem.transfer(), transferSubsystem)
+        )
+      ),
 
-      new TimedDriveWithSpeed(0.5, 1.5, driveSubsystem)
+      new TimedDriveWithSpeed(0.5, 1, driveSubsystem)
     );
   }
 }

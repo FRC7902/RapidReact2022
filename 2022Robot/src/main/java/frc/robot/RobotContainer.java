@@ -33,6 +33,7 @@ import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.CameraSubsystem;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.ShootWithWindUp;
 import frc.robot.commands.Spit;
 import frc.robot.commands.Suck;
 import frc.robot.subsystems.DriveSubsystem;
@@ -94,14 +95,14 @@ public class RobotContainer {
 
     m_robotDrive.setDefaultCommand(
       new RunCommand(
-        () -> m_robotDrive.driveJoystick(m_driverStick.getRawAxis(Constants.IOConstants.kLY), m_driverStick.getRawAxis(Constants.IOConstants.kLX)), 
+        () -> m_robotDrive.driveJoystick(m_driverStick.getRawAxis(Constants.IOConstants.kLY), m_driverStick.getRawAxis(Constants.IOConstants.kRX)), 
         m_robotDrive)
     );
 
     m_climbSubsystem.setDefaultCommand(
       new RunCommand(
         () -> m_climbSubsystem.setWinches(
-          m_climbController.getRawAxis(Constants.IOConstants.kRY), m_climbController.getRawAxis(Constants.IOConstants.kLY)), 
+          -m_climbController.getRawAxis(Constants.IOConstants.kRY), m_climbController.getRawAxis(Constants.IOConstants.kLY)), 
         m_climbSubsystem)
     );
 
@@ -151,7 +152,8 @@ public class RobotContainer {
       .whenHeld(new Shoot(m_robotTransfer, m_robotShooter, Constants.ShooterConstants.kLowSpeed));
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kSTART)
-      .whenHeld(new Shoot(m_robotTransfer, m_robotShooter, Constants.ShooterConstants.kHighSpeed));
+      // .whenHeld(new Shoot(m_robotTransfer, m_robotShooter, Constants.ShooterConstants.kHighSpeed));
+      .whenHeld(new ShootWithWindUp(m_robotShooter, m_robotTransfer));
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kX) //Toggle where the front of the robot is
       .whenPressed(new InstantCommand(() -> m_robotDrive.toggleRobotFront()));
