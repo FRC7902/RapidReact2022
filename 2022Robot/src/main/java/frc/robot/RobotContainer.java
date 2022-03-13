@@ -14,26 +14,25 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DeployIntake;
-import frc.robot.commands.DoNothing;
-import frc.robot.commands.DriveAndShootHigh;
-import frc.robot.commands.DriveAndTurn;
-import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.ExampleCommand;
 
 import frc.robot.commands.ExtendElevator;
 import frc.robot.commands.RetractElevator;
-import frc.robot.commands.TraverseRungs;
+import frc.robot.commands.AutoRoutines.DoNothing;
+import frc.robot.commands.AutoRoutines.DriveAndShootHigh;
+import frc.robot.commands.AutoRoutines.DriveAndTurn;
+import frc.robot.commands.AutoRoutines.LeaveTarmac;
+import frc.robot.commands.AutoRoutines.PickUpAndShoot;
+import frc.robot.commands.AutoRoutines.ShootAndLeave;
+import frc.robot.commands.AutoRoutines.TraverseRungs;
+import frc.robot.commands.Simulation.DriveToDistance;
+import frc.robot.commands.Simulation.SetElevatorToHeight;
+import frc.robot.commands.Simulation.SetElevatorToHeightPID;
 import frc.robot.subsystems.ClimbSubsystem;
 
 import frc.robot.subsystems.CameraSubsystem;
-
-import frc.robot.commands.LeaveTarmac;
-import frc.robot.commands.PickUpAndShoot;
 import frc.robot.commands.RetractIntake;
-import frc.robot.commands.SetElevatorToHeight;
-import frc.robot.commands.SetElevatorToHeightPID;
 import frc.robot.commands.Shoot;
-import frc.robot.commands.ShootAndLeave;
 import frc.robot.commands.Spit;
 import frc.robot.commands.Suck;
 import frc.robot.subsystems.DriveSubsystem;
@@ -130,7 +129,6 @@ public class RobotContainer {
 
 
     // Climb Elevator
-
     new JoystickButton(m_climbController, Constants.IOConstants.kX)
       .whenPressed(() -> m_climbSubsystem.resetEncoder());
 
