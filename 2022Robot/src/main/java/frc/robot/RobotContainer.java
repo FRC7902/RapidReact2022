@@ -49,6 +49,7 @@ import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -88,6 +89,8 @@ public class RobotContainer {
 
   private final Joystick m_driverStick = new Joystick(Constants.IOConstants.kDriverStick);
   private final XboxController m_climbController = new XboxController(Constants.IOConstants.kClimbStick);
+
+
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -142,6 +145,17 @@ public class RobotContainer {
     new JoystickButton(m_climbController, Constants.IOConstants.kLB) //Retract Elevator
       .whenHeld(new RetractElevator(m_robotElevator));
 
+    new Trigger(() -> m_climbController.getRawAxis(Constants.IOConstants.kRT) > 0.01)
+      .whileActiveOnce(new ExtendElevator(m_robotElevator))
+      //TODO: Declare separate command for winching
+      .whileActiveOnce(new RunCommand(()-> m_robotWinch.setMainWinch(0.5)))
+      .whileActiveOnce(new RunCommand(()-> m_robotWinch.setAdjustmentWinch(0.5)));
+      
+    new Trigger(() -> m_climbController.getRawAxis(Constants.IOConstants.kLT) > 0.01)
+      .whileActiveOnce(new RetractElevator(m_robotElevator))
+      //TODO: Declare separate command for winching
+      .whileActiveOnce(new RunCommand(()-> m_robotWinch.setMainWinch(-0.5)))
+      .whileActiveOnce(new RunCommand(()-> m_robotWinch.setAdjustmentWinch(-0.5)));
 
 
 
@@ -183,6 +197,7 @@ public class RobotContainer {
     new JoystickButton(m_driverStick, Constants.IOConstants.kRA) //Activate/Deactivate Slow Turn
       .whenPressed(() -> m_robotDrive.activateSlowTurn())
       .whenReleased(() -> m_robotDrive.deactivateSlowTurn());
+
 
   }
 

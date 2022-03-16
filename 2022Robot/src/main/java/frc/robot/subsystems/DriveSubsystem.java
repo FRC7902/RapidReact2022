@@ -170,7 +170,8 @@ public class DriveSubsystem extends SubsystemBase {
     }
   }
 
-  public void simpleLinearDrive (double y, double x){
+  //UNUSED
+  public void RampedDeadzoneWithSlew (double y, double x){
     double yout = 0, xout = 0;
     double maxTurn = 0.6;
     double deadZoneY = 0.01;
@@ -204,6 +205,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
+  //UNUSED
   public void driveSlewWithDeadzone(double y, double x){
     double yout, xout;
     double deadzoneY = 0.01;
@@ -234,9 +236,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void driveJoystick(double y, double x){
     double yout, xout;
-
-    // y = driveSlew.calculate(y);
-    // x = turnSlew.calculate(x);
 
     y *= (robotFront.equals("INTAKE")? -1 : 1);
     
