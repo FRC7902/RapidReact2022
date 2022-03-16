@@ -12,40 +12,41 @@ import frc.robot.Constants;
 
 public class TransferSubsystem extends SubsystemBase {
 
-  public final WPI_VictorSPX vertTransfer = new WPI_VictorSPX(Constants.TransferConstants.kVertTransferCAN);
+  public final WPI_VictorSPX transferMotor = new WPI_VictorSPX(Constants.TransferConstants.kVertTransferCAN);
   
 
   public String status = "Off";
 
   /** Creates a new TransferSubsystem. */
   public TransferSubsystem() {
-    vertTransfer.setInverted(false);
+    transferMotor.setInverted(false);
 
-    vertTransfer.configOpenloopRamp(Constants.TransferConstants.kRampTime);
+    transferMotor.configOpenloopRamp(Constants.TransferConstants.kRampTime);
   }
 
-  public void transfer(){
-    vertTransfer.set(Constants.TransferConstants.kVertForwardSpeed);
-    status = "Transferring...";
+
+  public void setSpeed(double speed){
+    transferMotor.set(speed);
+    if(speed > 0){
+      status = "Transferring up...";
+    }else if(speed < 0){
+      status = "Transferring down...";
+    }
   }
 
-  public void reverse(){
-    vertTransfer.set(Constants.TransferConstants.kVertBackwardsSpeed);
-    status = "Reversing...";
-  }
 
-  public void stopTransfer(){
-    vertTransfer.stopMotor();
+  public void stop(){
+    transferMotor.stopMotor();
     status = "Off";
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("CompetitionView/Vertical Transfer Power", vertTransfer.getMotorOutputPercent());
+    SmartDashboard.putNumber("CompetitionView/Vertical Transfer Power", transferMotor.getMotorOutputPercent());
     SmartDashboard.putString("CompetitionView/Transfer Status", status);
 
-    SmartDashboard.putNumber("TransferSubsystem/Vertical Transfer Power", vertTransfer.getMotorOutputPercent());
+    SmartDashboard.putNumber("TransferSubsystem/Vertical Transfer Power", transferMotor.getMotorOutputPercent());
     SmartDashboard.putString("TransferSubsystem/Transfer Status", status);
   }
 }

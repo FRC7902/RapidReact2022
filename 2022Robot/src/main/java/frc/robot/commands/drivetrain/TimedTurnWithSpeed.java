@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -31,6 +31,8 @@ public class TimedTurnWithSpeed extends CommandBase {
     m_driveSubsystem.stop();
     timer.reset();
     timer.start();
+    
+    System.out.println("DriveSubsystem: Started Timed Turn at speed " + speed + " for " + time + " seconds");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,6 +45,8 @@ public class TimedTurnWithSpeed extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_driveSubsystem.stop();
+    
+    System.out.println("DriveSubsystem: Finished Timed Turn");
   }
 
   // Returns true when the command should end.

@@ -42,6 +42,9 @@ public final class Constants {
         public static final double kRampTime = 0.1;
         public static final int kCurrentLimit = 10;
 
+        public static final double kDeadzoneY = 0.01;
+        public static final double kDeadzoneX = 0.01;
+
     }
 
     public final static class IntakeConstants {
@@ -89,6 +92,20 @@ public final class Constants {
         public static final int kMainWinchCAN = 14;
         public static final int kAdjustmentWinchCAN = 2;
         public static final int kCurrentLimit = 35;
+
+
+        //Speeds for just joystick control
+        public static final double kMainWinchInSpeed = 0.7;
+        public static final double kMainWinchOutSpeed = -0.7;
+        public static final double kAdjWinchInSpeed = 0.7;
+        public static final double kAdjWinchOutSpeed = -0.7;
+
+
+        //Speeds in order to be synchronized with elevator
+        public static final double kSyncMainWinchInSpeed = 0.5;
+        public static final double kSyncMainWinchOutSpeed = -0.5;
+        public static final double kSyncAdjWinchInSpeed = 0.5;
+        public static final double kSyncAdjWinchOutSpeed = -0.5;
     }
 
     public static final class IOConstants{

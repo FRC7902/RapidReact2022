@@ -29,15 +29,15 @@ public class IntakeSubsystem extends SubsystemBase {
 
   }
 
-  public void suck(){
-    intakePower.set(Constants.IntakeConstants.kSuckSpeed);
-    status = "Sucking...";
+  public void setIntakePower(double speed){
+    intakePower.set(speed);
+    if(speed > 0){
+      status = "Sucking...";
+    }else if(speed < 0){
+      status = "Spitting...";
+    }
   }
 
-  public void spit(){
-    intakePower.set(Constants.IntakeConstants.kSpitSpeed);
-    status = "Spitting...";
-  }
 
   public void setIntakeArm(double power){
     intakeDepl.set(power);
@@ -50,7 +50,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void stopIntakeArm(){
     intakeDepl.stopMotor();
-    // intakeDepl.set(0);
   }
 
   @Override

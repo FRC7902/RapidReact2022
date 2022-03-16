@@ -52,9 +52,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   private String robotFront = "INTAKE";
 
-  private SlewRateLimiter turnSlew = new SlewRateLimiter(10);
-  private SlewRateLimiter driveSlew = new SlewRateLimiter(10);
-
 
 
   //SIMULATION
@@ -111,16 +108,9 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightLeader.configPeakCurrentDuration(0);
     m_rightLeader.configContinuousCurrentLimit(Constants.DriveConstants.kCurrentLimit);
 
-    // m_rightLeader.setNeutralMode(NeutralMode.Brake);
-    // m_rightFollower.setNeutralMode(NeutralMode.Brake);
-
-    // m_leftLeader.setNeutralMode(NeutralMode.Brake);
-    // m_leftFollower.setNeutralMode(NeutralMode.Brake);
-
 
 
     //SIMULATION
-
     if(RobotBase.isSimulation()){
 
       m_pigeon = new WPI_PigeonIMU(Constants.DriveConstants.kGyroCAN);
@@ -152,25 +142,72 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
-  public void stop(){
-    m_leftLeader.stopMotor();
-    m_rightLeader.stopMotor();
-  }
+
+  /*
+   * DRIVER METHODS
+   */
+
 
   public void driveArcade(double fwd, double rot){
     m_leftLeader.set(ControlMode.PercentOutput, fwd + rot);
     m_rightLeader.set(ControlMode.PercentOutput, fwd - rot);
   }
 
-  public void toggleRobotFront(){
-    if(robotFront.equals("INTAKE")){
-      robotFront = "SHOOTER";
-    }else{
-      robotFront = "INTAKE";
-    }
-  }
 
+  public void driveRaw(double left, double right){
+    m_leftLeader.set(ControlMode.PercentOutput, left);
+    m_rightLeader.set(ControlMode.PercentOutput, right);
+  }
+  
+
+  public void driveJoystick(double y, double x){
+    double yout, xout;
+
+    y *= (robotFront.equals("INTAKE")? -1 : 1);
+  
+    
+    if(!isForwardSlow){
+
+      //Check if in deadzone
+      if(y < Constants.DriveConstants.kDeadzoneY && y > -Constants.DriveConstants.kDeadzoneY){
+        yout = 0;
+      }else{
+        yout = (y >= 0 ? 1 : -1) * (Constants.DriveConstants.kForwardSens*y*y + (1-Constants.DriveConstants.kForwardSens)*Math.abs(y));
+      }
+    }else{
+      if(y > 0){
+        yout = Constants.DriveConstants.kDriveSlowSpeed;
+      }else if(y < 0){
+        yout = -Constants.DriveConstants.kDriveSlowSpeed;
+      }else{
+        yout = 0;
+      }
+    }
+
+    if(!isTurnSlow){
+      //Check if in deadzone
+      if(x < Constants.DriveConstants.kDeadzoneX && x > -Constants.DriveConstants.kDeadzoneX){
+        xout = 0;
+      }else{
+        xout = Constants.DriveConstants.kTurnMax* (x >= 0 ? 1 : -1) * (Constants.DriveConstants.kTurnSens*x*x + (1-Constants.DriveConstants.kTurnSens)*Math.abs(x));
+      }
+    }else{
+      if(x > 0){
+        xout = Constants.DriveConstants.kTurnSlowSpeed;
+      }else if(x < 0){
+        xout = -Constants.DriveConstants.kTurnSlowSpeed;
+      }else{
+        xout = 0;
+      }
+    }
+    
+    m_leftLeader.set(ControlMode.PercentOutput, yout + xout);
+    m_rightLeader.set(ControlMode.PercentOutput, yout - xout);
+
+  }
+  
   //UNUSED
+  /*
   public void RampedDeadzoneWithSlew (double y, double x){
     double yout = 0, xout = 0;
     double maxTurn = 0.6;
@@ -180,9 +217,6 @@ public class DriveSubsystem extends SubsystemBase {
     double staticFrictionX = 0.09;
 
     y *= -1;
-
-    y = driveSlew.calculate(y);
-    x = turnSlew.calculate(x);
 
     if(y<= deadZoneY && y >= -deadZoneY){
       yout = staticFrictionY/deadZoneY * y;
@@ -233,40 +267,11 @@ public class DriveSubsystem extends SubsystemBase {
 
     
   }
+  */
 
-  public void driveJoystick(double y, double x){
-    double yout, xout;
-
-    y *= (robotFront.equals("INTAKE")? -1 : 1);
-    
-    if(!isForwardSlow){
-      yout = (y >= 0 ? 1 : -1) * (Constants.DriveConstants.kForwardSens*y*y + (1-Constants.DriveConstants.kForwardSens)*Math.abs(y));
-    }else{
-      if(y > 0){
-        yout = Constants.DriveConstants.kDriveSlowSpeed;
-      }else if(y < 0){
-        yout = -Constants.DriveConstants.kDriveSlowSpeed;
-      }else{
-        yout = 0;
-      }
-    }
-
-    if(!isTurnSlow){
-      xout = Constants.DriveConstants.kTurnMax* (x >= 0 ? 1 : -1) * (Constants.DriveConstants.kTurnSens*x*x + (1-Constants.DriveConstants.kTurnSens)*Math.abs(x));
-    }else{
-      if(x > 0){
-        xout = Constants.DriveConstants.kTurnSlowSpeed;
-      }else if(x < 0){
-        xout = -Constants.DriveConstants.kTurnSlowSpeed;
-      }else{
-        xout = 0;
-      }
-    }
-    
-    m_leftLeader.set(ControlMode.PercentOutput, yout + xout);
-    m_rightLeader.set(ControlMode.PercentOutput, yout - xout);
-
-  }
+  /**
+   * Helper Methods
+   */
 
   public void activateSlowTurn(){
     isTurnSlow = true;
@@ -283,6 +288,23 @@ public class DriveSubsystem extends SubsystemBase {
   public void deactivateSlowForward(){
     isForwardSlow = false;
   }
+  
+  public void toggleRobotFront(){
+    if(robotFront.equals("INTAKE")){
+      robotFront = "SHOOTER";
+    }else{
+      robotFront = "INTAKE";
+    }
+  }
+  
+  public void stop(){
+    m_leftLeader.stopMotor();
+    m_rightLeader.stopMotor();
+  }
+
+  /**
+   * Simulation Methods
+   */
 
 
   public void resetEncoders() {
@@ -296,10 +318,6 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightEncoderSim.resetData();
   }
 
-  public void driveRaw(double left, double right){
-    m_leftLeader.set(ControlMode.PercentOutput, left);
-    m_rightLeader.set(ControlMode.PercentOutput, right);
-  }
 
   public double getAvgEncoderDistance(){
     return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;

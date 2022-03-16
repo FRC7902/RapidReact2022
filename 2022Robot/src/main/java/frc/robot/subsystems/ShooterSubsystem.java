@@ -34,9 +34,13 @@ public class ShooterSubsystem extends SubsystemBase {
 
   }
 
-  public void shoot(double speed) {
+  public void setSpeed(double speed) {
     master.set(speed);
-    status = "Shooting...";
+    if(speed > 0){
+      status = "Shooting...";
+    }else if(speed < 0){
+      status = "Reversing...";
+    }
   }
 
   public void stop() {
@@ -54,9 +58,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("CompetitionView/Shooter Power", master.getMotorOutputPercent());
     SmartDashboard.putString("CompetitionView/Shooter Status", status);
-    // SmartDashboard.putNumber("Right Shooter", follower.getMotorOutputVoltage());
 
-    // shooterSpeed = SmartDashboard.getNumber("ShooterSubsystem/Shooter Speed", Constants.ShooterConstants.kSpeed);
   }
 }
 
