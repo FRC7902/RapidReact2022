@@ -23,6 +23,8 @@ import frc.robot.commands.elevator.SetElevatorToHeightPID;
 import frc.robot.commands.intake.DeployIntake;
 import frc.robot.commands.intake.RetractIntake;
 import frc.robot.commands.shooter.ShootHigh;
+import frc.robot.commands.winches.RollBackwards;
+import frc.robot.commands.winches.RollForward;
 import frc.robot.commands.winches.RunWinches;
 import frc.robot.commands.winches.SyncWinchIn;
 import frc.robot.commands.winches.SyncWinchOut;
@@ -157,6 +159,11 @@ public class RobotContainer {
       .whileActiveOnce(new RetractElevator(m_robotElevator))
       .whileActiveOnce(new SyncWinchIn(m_robotWinch));
 
+    new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kDY) > 0)
+      .whileActiveOnce(new RollForward(m_robotWinch));
+    
+    new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kDY) < 0)
+      .whileActiveOnce(new RollBackwards(m_robotWinch));
 
 
     //DRIVER STICK
