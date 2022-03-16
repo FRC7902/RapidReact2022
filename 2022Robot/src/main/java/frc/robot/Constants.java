@@ -76,14 +76,18 @@ public final class Constants {
         public final static double kRampTime = 0;
     }
     
-    public static final class ClimbConstants {
+    public static final class ElevatorConstants {
         public static final int kElevatorCAN = 1;
-        public static final int kMainWinchCAN = 14;
-        public static final int kAdjustmentWinchCAN = 2;
 
         public static final double kExtendElevatorSpeed = 0.7;
         public static final double kRetractElevatorSpeed = -0.7;
         
+        public static final int kCurrentLimit = 35;
+    }
+
+    public static final class WinchConstants {
+        public static final int kMainWinchCAN = 14;
+        public static final int kAdjustmentWinchCAN = 2;
         public static final int kCurrentLimit = 35;
     }
 

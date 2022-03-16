@@ -1,32 +1,31 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 
 public class RetractElevator extends CommandBase {
-    private final ClimbSubsystem m_climbSubsystem;
+    private final ElevatorSubsystem m_elevatorSubsystem;
 
-    public RetractElevator(ClimbSubsystem climbSubsystem) {
-        m_climbSubsystem = climbSubsystem;
-        addRequirements(climbSubsystem);
+    public RetractElevator(ElevatorSubsystem elevatorSubsystem) {
+        m_elevatorSubsystem = elevatorSubsystem;
+        addRequirements(elevatorSubsystem);
     }
 
     @Override
     public void execute() {
-        m_climbSubsystem.setElevator(Constants.ClimbConstants.kRetractElevatorSpeed);
+        m_elevatorSubsystem.setElevator(Constants.ElevatorConstants.kRetractElevatorSpeed);
         
     }
 
     @Override
     public void initialize() {
-        m_climbSubsystem.stopElevator();
+        m_elevatorSubsystem.stopElevator();
     }
 
     @Override
     public void end(boolean interrupted) {
-        m_climbSubsystem.stopElevator();
+        m_elevatorSubsystem.stopElevator();
     }
 
     @Override

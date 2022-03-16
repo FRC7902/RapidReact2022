@@ -6,15 +6,15 @@ package frc.robot.commands.Simulation;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SetElevatorToHeightPID extends PIDCommand {
-  private ClimbSubsystem m_climbSubsystem;
+  private ElevatorSubsystem m_climbSubsystem;
   /** Creates a new ExtendElevatorToHeight. */
-  public SetElevatorToHeightPID(double setHeight, ClimbSubsystem climbSubsystem) {
+  public SetElevatorToHeightPID(double setHeight, ElevatorSubsystem climbSubsystem) {
     super(
         // The controller that the command will use
         new PIDController(0.5, 0, 0),

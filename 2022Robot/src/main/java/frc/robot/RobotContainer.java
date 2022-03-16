@@ -28,7 +28,9 @@ import frc.robot.commands.AutoRoutines.TraverseRungs;
 import frc.robot.commands.Simulation.DriveToDistance;
 import frc.robot.commands.Simulation.SetElevatorToHeight;
 import frc.robot.commands.Simulation.SetElevatorToHeightPID;
-import frc.robot.subsystems.ClimbSubsystem;
+
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.WinchSubsystem;
 
 import frc.robot.subsystems.CameraSubsystem;
 import frc.robot.commands.RetractIntake;
@@ -65,7 +67,8 @@ public class RobotContainer {
   private final IntakeSubsystem m_robotIntake = new IntakeSubsystem();
   private final TransferSubsystem m_robotTransfer = new TransferSubsystem();
   private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
-  private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem(); 
+  private final ElevatorSubsystem m_robotElevator = new ElevatorSubsystem(); 
+  private final WinchSubsystem m_robotWinch = new WinchSubsystem();
   // private final CameraSubsystem m_robotCamera = new CameraSubsystem(); 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
@@ -99,11 +102,11 @@ public class RobotContainer {
         m_robotDrive)
     );
 
-    m_climbSubsystem.setDefaultCommand(
+    m_robotWinch.setDefaultCommand(
       new RunCommand(
-        () -> m_climbSubsystem.setWinches(
+        () -> m_robotWinch.setWinches(
           -m_climbController.getRawAxis(Constants.IOConstants.kRY), m_climbController.getRawAxis(Constants.IOConstants.kLY)), 
-        m_climbSubsystem)
+        m_robotWinch)
     );
 
 
@@ -131,13 +134,13 @@ public class RobotContainer {
 
     // Climb Elevator
     new JoystickButton(m_climbController, Constants.IOConstants.kX)
-      .whenPressed(() -> m_climbSubsystem.resetEncoder());
+      .whenPressed(() -> m_robotElevator.resetEncoder());
 
     
     new JoystickButton(m_climbController, Constants.IOConstants.kRB) //Extend Elevator
-      .whenHeld(new ExtendElevator(m_climbSubsystem));
+      .whenHeld(new ExtendElevator(m_robotElevator));
     new JoystickButton(m_climbController, Constants.IOConstants.kLB) //Retract Elevator
-      .whenHeld(new RetractElevator(m_climbSubsystem));
+      .whenHeld(new RetractElevator(m_robotElevator));
 
 
 

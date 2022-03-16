@@ -5,13 +5,13 @@
 package frc.robot.commands.Simulation;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 
 public class SetElevatorToHeight extends CommandBase {
-  private ClimbSubsystem m_climbSubsystem;
+  private ElevatorSubsystem m_climbSubsystem;
   private double setHeight;
   /** Creates a new SetElevatorToHeight. */
-  public SetElevatorToHeight(double setHeight, ClimbSubsystem climbSubsystem) {
+  public SetElevatorToHeight(double setHeight, ElevatorSubsystem climbSubsystem) {
     m_climbSubsystem = climbSubsystem;
     this.setHeight = setHeight;
     // Use addRequirements() here to declare subsystem dependencies.
