@@ -26,15 +26,15 @@ import frc.robot.commands.shooter.ShootHigh;
 import frc.robot.commands.winches.RollBackwards;
 import frc.robot.commands.winches.RollForward;
 import frc.robot.commands.winches.RunWinches;
-import frc.robot.commands.winches.SyncWinchIn;
-import frc.robot.commands.winches.SyncWinchOut;
 import frc.robot.commands.winches.WinchIn;
 import frc.robot.commands.winches.WinchOut;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.WinchSubsystem;
 
 import frc.robot.subsystems.CameraSubsystem;
+import frc.robot.commands.LowerElevatorAndWinchesInSync;
 import frc.robot.commands.PullBack;
+import frc.robot.commands.RaiseElevatorAndWinchesInSync;
 import frc.robot.commands.ShootHighWithWindUp;
 import frc.robot.commands.ShootLowWithWindUp;
 import frc.robot.commands.Spit;
@@ -152,12 +152,10 @@ public class RobotContainer {
       .whenPressed(() -> m_robotElevator.resetEncoder());
 
     new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kRT) > 0.01) // Extend Elevator and Winches in sync
-      .whileActiveOnce(new ExtendElevator(m_robotElevator))
-      .whileActiveOnce(new SyncWinchOut(m_robotWinch));
+      .whileActiveOnce(new RaiseElevatorAndWinchesInSync(m_robotElevator, m_robotWinch));
       
     new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kLT) > 0.01) //Retract Elevator and Winches in sync
-      .whileActiveOnce(new RetractElevator(m_robotElevator))
-      .whileActiveOnce(new SyncWinchIn(m_robotWinch));
+      .whileActiveOnce(new LowerElevatorAndWinchesInSync(m_robotElevator, m_robotWinch));
 
     new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kDY) > 0)
       .whileActiveOnce(new RollForward(m_robotWinch));
