@@ -105,7 +105,8 @@ public class RobotContainer {
 
 
     m_robotWinch.setDefaultCommand(
-      new RunWinches(m_climberStick.getRawAxis(Constants.IOConstants.kRY), m_climberStick.getRawAxis(Constants.IOConstants.kLY), m_robotWinch)
+      // new RunWinches(m_climberStick.getRawAxis(Constants.IOConstants.kRY), m_climberStick.getRawAxis(Constants.IOConstants.kLY), m_robotWinch)
+      new RunCommand(() -> m_robotWinch.setWinches(m_climberStick.getRawAxis(Constants.IOConstants.kLY), m_climberStick.getRawAxis(Constants.IOConstants.kRY)), m_robotWinch)
     );
 
 
