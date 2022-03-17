@@ -95,17 +95,17 @@ public final class Constants {
 
 
         //Speeds for just joystick control
-        public static final double kMainWinchInSpeed = 0.7;
-        public static final double kMainWinchOutSpeed = -0.7;
-        public static final double kAdjWinchInSpeed = 0.7;
-        public static final double kAdjWinchOutSpeed = -0.7;
+        public static final double kMainWinchInSpeed = 0.5;
+        public static final double kMainWinchOutSpeed = -0.5;
+        public static final double kAdjWinchInSpeed = 0.5;
+        public static final double kAdjWinchOutSpeed = -0.5;
 
 
         //Speeds in order to be synchronized with elevator
-        public static final double kSyncMainWinchInSpeed = 0.5;
-        public static final double kSyncMainWinchOutSpeed = -0.5;
-        public static final double kSyncAdjWinchInSpeed = 0.5;
-        public static final double kSyncAdjWinchOutSpeed = -0.5;
+        public static final double kSyncMainWinchInSpeed = -0.3;
+        public static final double kSyncMainWinchOutSpeed = 0.3;
+        public static final double kSyncAdjWinchInSpeed = -0.3;
+        public static final double kSyncAdjWinchOutSpeed = 0.3;
     }
 
     public static final class IOConstants{
