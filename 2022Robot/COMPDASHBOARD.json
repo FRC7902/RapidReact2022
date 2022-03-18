@@ -974,6 +974,28 @@
               "_source0": "network_table:///SmartDashboard/DriveSubsystem/Avg Encoder",
               "_title": "/Avg Encoder"
             }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/DriveSubsystem/Right Drive Current",
+              "_title": "Right Drive Current"
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/DriveSubsystem/Left Drive Current",
+              "_title": "Left Drive Current"
+            }
           }
         }
       }
@@ -1216,6 +1238,61 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/ClimbSubsystem/Adjustment Winch Status",
               "_title": "/Adjustment Winch Status"
+            }
+          },
+          "2,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/ClimbSubsystem/AutoHigh Stage 2",
+              "_title": "AutoHigh Stage 2"
+            }
+          },
+          "4,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/ClimbSubsystem/AutoHigh Stage 3",
+              "_title": "AutoHigh Stage 3"
+            }
+          },
+          "0,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/ClimbSubsystem/AutoHigh Stage 1",
+              "_title": "AutoHigh Stage 1"
+            }
+          },
+          "8,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/ClimbSubsystem/AutoHigh Stage 5",
+              "_title": "AutoHigh Stage 5"
+            }
+          },
+          "6,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/ClimbSubsystem/AutoHigh Stage 4",
+              "_title": "AutoHigh Stage 4"
             }
           }
         }
