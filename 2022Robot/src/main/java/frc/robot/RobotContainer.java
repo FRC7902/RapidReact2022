@@ -40,6 +40,11 @@ import frc.robot.commands.ShootLowWithWindUp;
 import frc.robot.commands.Spit;
 import frc.robot.commands.Suck;
 import frc.robot.commands.TraverseRungs;
+import frc.robot.commands.autoclimb.AutoHighStage1;
+import frc.robot.commands.autoclimb.AutoHighStage2;
+import frc.robot.commands.autoclimb.AutoHighStage3;
+import frc.robot.commands.autoclimb.AutoHighStage4;
+import frc.robot.commands.autoclimb.AutoHighStage5;
 import frc.robot.subsystems.DriveSubsystem;
 
 import frc.robot.subsystems.IntakeSubsystem;
@@ -121,6 +126,12 @@ public class RobotContainer {
 
 
     Shuffleboard.getTab("CompetitionView").add(m_chooser);
+
+    SmartDashboard.putData("ClimbSubsystem/AutoHigh Stage 1", new AutoHighStage1(m_robotElevator, m_robotWinch));
+    SmartDashboard.putData("ClimbSubsystem/AutoHigh Stage 2", new AutoHighStage2(m_robotDrive, m_robotElevator, m_robotWinch));
+    SmartDashboard.putData("ClimbSubsystem/AutoHigh Stage 3", new AutoHighStage3(m_robotElevator, m_robotWinch));
+    SmartDashboard.putData("ClimbSubsystem/AutoHigh Stage 4", new AutoHighStage4(m_robotElevator));
+    SmartDashboard.putData("ClimbSubsystem/AutoHigh Stage 5", new AutoHighStage5(m_robotWinch));
 
   }
 
