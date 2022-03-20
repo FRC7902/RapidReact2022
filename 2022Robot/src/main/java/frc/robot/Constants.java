@@ -102,10 +102,10 @@ public final class Constants {
 
 
         //Speeds in order to be synchronized with elevator
-        public static final double kSyncMainWinchInSpeed = -0.3;
-        public static final double kSyncMainWinchOutSpeed = 0.3;
-        public static final double kSyncAdjWinchInSpeed = -0.3;
-        public static final double kSyncAdjWinchOutSpeed = 0.3;
+        public static final double kSyncMainWinchInSpeed = 0.3;
+        public static final double kSyncMainWinchOutSpeed = -0.3;
+        public static final double kSyncAdjWinchInSpeed = 0.15;
+        public static final double kSyncAdjWinchOutSpeed = -0.15;
     }
 
     public static final class IOConstants{

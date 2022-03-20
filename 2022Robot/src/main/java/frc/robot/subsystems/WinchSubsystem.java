@@ -19,7 +19,7 @@ public class WinchSubsystem extends SubsystemBase{
         mainWinch.restoreFactoryDefaults();
         mainWinch.setSmartCurrentLimit(WinchConstants.kCurrentLimit);
         mainWinch.setInverted(true);
-        adjWinch.setInverted(false);
+        adjWinch.setInverted(true);
     }
 
     public void setWinches(double adjWinchSpeed, double mainWinchSpeed){
