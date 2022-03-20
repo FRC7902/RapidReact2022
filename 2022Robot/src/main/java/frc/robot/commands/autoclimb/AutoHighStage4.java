@@ -17,7 +17,8 @@ public class AutoHighStage4 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RetractElevator(elevatorSubsystem).withTimeout(1.5)
+      new RetractElevator(elevatorSubsystem).withTimeout(2.5)
+    
     );
   }
 }

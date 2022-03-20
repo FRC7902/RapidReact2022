@@ -83,7 +83,7 @@ public final class Constants {
         public static final int kElevatorCAN = 1;
 
         public static final double kExtendElevatorSpeed = 0.7;
-        public static final double kRetractElevatorSpeed = -0.7;
+        public static final double kRetractElevatorSpeed = -0.6;
         
         public static final int kCurrentLimit = 35;
     }

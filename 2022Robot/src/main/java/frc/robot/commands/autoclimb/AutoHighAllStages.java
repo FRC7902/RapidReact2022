@@ -5,22 +5,23 @@
 package frc.robot.commands.autoclimb;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.elevator.ExtendElevator;
-import frc.robot.commands.winches.RollBackwards;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.WinchSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoHighStage3 extends SequentialCommandGroup {
-  /** Creates a new AutoHighStage3. */
-  public AutoHighStage3(ElevatorSubsystem elevatorSubsystem, WinchSubsystem winchSubsystem) {
+public class AutoHighAllStages extends SequentialCommandGroup {
+  /** Creates a new AutoHighAllStages. */
+  public AutoHighAllStages(ElevatorSubsystem elevatorSubsystem, WinchSubsystem winchSubsystem, DriveSubsystem driveSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      // new ExtendElevator(elevatorSubsystem).withTimeout(1),
-      new RollBackwards(winchSubsystem).withTimeout(0.5)
+      new AutoHighStage2(driveSubsystem, elevatorSubsystem, winchSubsystem),
+      new AutoHighStage3(elevatorSubsystem, winchSubsystem),
+      new AutoHighStage4(elevatorSubsystem),
+      new AutoHighStage5(winchSubsystem)
     );
   }
 }

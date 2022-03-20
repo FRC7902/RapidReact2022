@@ -10,8 +10,8 @@ import frc.robot.subsystems.WinchSubsystem;
 
 public class WinchIn extends RunWinches{
   /** Creates a new WinchDown. */
-  public WinchIn(WinchSubsystem winchSubsystem) {
-    super(Constants.WinchConstants.kMainWinchInSpeed, Constants.WinchConstants.kAdjWinchInSpeed / 2, winchSubsystem);
+  public WinchIn(WinchSubsystem winchSubsystem) { // 0.5 * 1.8 for teleop
+    super(Constants.WinchConstants.kMainWinchInSpeed*1.5, Constants.WinchConstants.kAdjWinchInSpeed / 2, winchSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
 
     addRequirements(winchSubsystem);

@@ -40,6 +40,7 @@ import frc.robot.commands.ShootLowWithWindUp;
 import frc.robot.commands.Spit;
 import frc.robot.commands.Suck;
 import frc.robot.commands.TraverseRungs;
+import frc.robot.commands.autoclimb.AutoHighAllStages;
 import frc.robot.commands.autoclimb.AutoHighStage1;
 import frc.robot.commands.autoclimb.AutoHighStage2;
 import frc.robot.commands.autoclimb.AutoHighStage3;
@@ -76,7 +77,7 @@ public class RobotContainer {
   private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
   private final ElevatorSubsystem m_robotElevator = new ElevatorSubsystem(); 
   private final WinchSubsystem m_robotWinch = new WinchSubsystem();
-  // private final CameraSubsystem m_robotCamera = new CameraSubsystem(); 
+  private final CameraSubsystem m_robotCamera = new CameraSubsystem(); 
   
 
 
@@ -111,7 +112,7 @@ public class RobotContainer {
 
     m_robotWinch.setDefaultCommand(
       // new RunWinches(m_climberStick.getRawAxis(Constants.IOConstants.kRY), m_climberStick.getRawAxis(Constants.IOConstants.kLY), m_robotWinch)
-      new RunCommand(() -> m_robotWinch.setWinches(m_climberStick.getRawAxis(Constants.IOConstants.kLY), m_climberStick.getRawAxis(Constants.IOConstants.kRY)), m_robotWinch)
+      new RunCommand(() -> m_robotWinch.setWinches(m_climberStick.getRawAxis(Constants.IOConstants.kLY)*0.9, m_climberStick.getRawAxis(Constants.IOConstants.kRY)), m_robotWinch)
     );
 
 
@@ -132,6 +133,7 @@ public class RobotContainer {
     SmartDashboard.putData("ClimbSubsystem/AutoHigh Stage 3", new AutoHighStage3(m_robotElevator, m_robotWinch));
     SmartDashboard.putData("ClimbSubsystem/AutoHigh Stage 4", new AutoHighStage4(m_robotElevator));
     SmartDashboard.putData("ClimbSubsystem/AutoHigh Stage 5", new AutoHighStage5(m_robotWinch));
+    SmartDashboard.putData("ClimbSubsystem/AutoHigh All Stages", new AutoHighAllStages(m_robotElevator, m_robotWinch, m_robotDrive));
 
   }
 
@@ -145,15 +147,17 @@ public class RobotContainer {
 
 
     //CLIMBER STICK
-    new JoystickButton(m_climberStick, Constants.IOConstants.kX);
+    new JoystickButton(m_climberStick, Constants.IOConstants.kX)
+      .whenPressed(new AutoHighStage1(m_robotElevator, m_robotWinch));
 
     new JoystickButton(m_climberStick, Constants.IOConstants.kY) //Winch Up 
-      .whenHeld(new WinchIn(m_robotWinch));
-
-    new JoystickButton(m_climberStick, Constants.IOConstants.kA) //Winch Down 
       .whenHeld(new WinchOut(m_robotWinch));
 
-    new JoystickButton(m_climberStick, Constants.IOConstants.kB);
+    new JoystickButton(m_climberStick, Constants.IOConstants.kA) //Winch Down 
+      .whenHeld(new WinchIn(m_robotWinch));
+
+    new JoystickButton(m_climberStick, Constants.IOConstants.kB)
+      .whenPressed(new AutoHighAllStages(m_robotElevator, m_robotWinch, m_robotDrive));
     
     new JoystickButton(m_climberStick, Constants.IOConstants.kRB) //Extend Elevator
       .whenHeld(new ExtendElevator(m_robotElevator));

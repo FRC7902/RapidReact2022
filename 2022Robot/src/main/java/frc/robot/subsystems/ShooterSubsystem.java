@@ -32,6 +32,9 @@ public class ShooterSubsystem extends SubsystemBase {
     master.configOpenloopRamp(Constants.ShooterConstants.kRampTime);
     follower.configOpenloopRamp(Constants.ShooterConstants.kRampTime);
 
+    master.setNeutralMode(NeutralMode.Brake);
+    follower.setNeutralMode(NeutralMode.Brake);
+
   }
 
   public void setSpeed(double speed) {
