@@ -202,7 +202,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
     
     m_leftLeader.set(ControlMode.PercentOutput, yout + xout);
-    m_rightLeader.set(ControlMode.PercentOutput, yout - xout);
+    m_rightLeader.set(ControlMode.PercentOutput, (yout - xout)*1);
 
   }
   

@@ -48,6 +48,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void stop() {
     master.stopMotor();
+    master.set(-0.04);
     status = "Off";
   }
 

@@ -82,7 +82,7 @@ public class RobotContainer {
 
 
   //Initialize commands
-  private final ShootLowAndLeave m_shootLowAndLeaveAuto = new ShootLowAndLeave(m_robotTransfer, m_robotShooter, m_robotDrive);
+  private final ShootLowAndLeave m_shootLowAndLeaveAuto = new ShootLowAndLeave(m_robotTransfer, m_robotShooter, m_robotDrive, m_robotIntake);
   private final ShootHighAndLeave m_shootHighAndLeaveAuto = new ShootHighAndLeave(m_robotDrive, m_robotTransfer, m_robotShooter);
   private final PickUpAndShootHigh m_pickUpAndShootHighAuto = new PickUpAndShootHigh(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
   private final ShootHighPickUpAndShootHigh m_shootHighPickUpAndShootHighAuto = new ShootHighPickUpAndShootHigh(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
@@ -185,7 +185,7 @@ public class RobotContainer {
       .whenHeld(new RetractIntake(m_robotIntake));
     
     new JoystickButton(m_driverStick, Constants.IOConstants.kB) //Shoot High
-      .whenHeld(new ShootHighWithWindUp(m_robotTransfer, m_robotShooter));
+      .whenHeld(new ShootLowWithWindUp(m_robotTransfer, m_robotShooter));
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kX) // Reverse shooter and transfer
       .whenHeld(new PullBack(m_robotTransfer, m_robotShooter));
@@ -203,7 +203,7 @@ public class RobotContainer {
       .whenPressed(new InstantCommand(() -> m_robotDrive.toggleRobotFront()));
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kSTART) //Shoot Low
-      .whenHeld(new ShootLowWithWindUp(m_robotTransfer, m_robotShooter));
+      .whenHeld(new ShootHighWithWindUp(m_robotTransfer, m_robotShooter));
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kLA) //Activate/Deactivate Slow Drive
       .whenPressed(() -> m_robotDrive.activateSlowForward())

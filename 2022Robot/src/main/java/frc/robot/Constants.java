@@ -51,8 +51,8 @@ public final class Constants {
         public static final int kIntakePowerCAN = 13;
         public static final int kIntakeDeplCAN = 10;
 
-        public final static double kSuckSpeed = 0.54;
-        public final static double kSpitSpeed = -0.54;
+        public final static double kSuckSpeed = 0.45;
+        public final static double kSpitSpeed = -0.3;
 
         public final static double kPowerRampTime = 0;
         public final static double kDeplRampTime = 0;
@@ -64,7 +64,7 @@ public final class Constants {
         public static final int kVertTransferCAN = 5;
 
         public final static double kVertForwardSpeed = 0.75;
-        public final static double kVertBackwardsSpeed = -0.75;
+        public final static double kVertBackwardsSpeed = -0.55;
 
         public final static double kRampTime = 0;
     }
@@ -74,7 +74,7 @@ public final class Constants {
         public static final int kFollowerCAN = 9;
         
         public final static double kHighSpeed = 1;
-        public final static double kLowSpeed = 0.62;
+        public final static double kLowSpeed = 0.5;
 
         public final static double kRampTime = 0;
     }
