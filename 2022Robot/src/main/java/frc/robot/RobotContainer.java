@@ -23,6 +23,8 @@ import frc.robot.commands.elevator.SetElevatorToHeightPID;
 import frc.robot.commands.intake.DeployIntake;
 import frc.robot.commands.intake.RetractIntake;
 import frc.robot.commands.shooter.ShootHigh;
+import frc.robot.commands.transfer.TransferDown;
+import frc.robot.commands.transfer.TransferUp;
 import frc.robot.commands.winches.RollBackwards;
 import frc.robot.commands.winches.RollForward;
 import frc.robot.commands.winches.RunWinches;
@@ -151,10 +153,12 @@ public class RobotContainer {
       .whenPressed(new AutoHighStage1(m_robotElevator, m_robotWinch));
 
     new JoystickButton(m_climberStick, Constants.IOConstants.kY) //Winch Up 
-      .whenHeld(new WinchOut(m_robotWinch));
+      .whenHeld(new TransferUp(m_robotTransfer));
+      // .whenHeld(new WinchOut(m_robotWinch));
 
     new JoystickButton(m_climberStick, Constants.IOConstants.kA) //Winch Down 
-      .whenHeld(new WinchIn(m_robotWinch));
+      .whenHeld(new TransferDown(m_robotTransfer));
+      // .whenHeld(new WinchIn(m_robotWinch));
 
     new JoystickButton(m_climberStick, Constants.IOConstants.kB)
       .whenPressed(new AutoHighAllStages(m_robotElevator, m_robotWinch, m_robotDrive));

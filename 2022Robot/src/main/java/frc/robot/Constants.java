@@ -94,11 +94,18 @@ public final class Constants {
         public static final int kCurrentLimit = 35;
 
 
-        //Speeds for just joystick control
-        public static final double kMainWinchInSpeed = 0.5;
+
+        //Winching speed for winches
+        public static final double kMainWinchInSpeed = 0.75;
         public static final double kMainWinchOutSpeed = -0.5;
-        public static final double kAdjWinchInSpeed = 0.5;
-        public static final double kAdjWinchOutSpeed = -0.5;
+        public static final double kAdjWinchInSpeed = 0.25;
+        public static final double kAdjWinchOutSpeed = -0.25;
+
+        //Rolling speeds for winches
+        public static final double kMainWinchInSpeedRoll = 0.5;
+        public static final double kMainWinchOutSpeedRoll = -0.5;
+        public static final double kAdjWinchInSpeedRoll = 0.5;
+        public static final double kAdjWinchOutSpeedRoll = -0.5;
 
 
         //Speeds in order to be synchronized with elevator
@@ -106,6 +113,24 @@ public final class Constants {
         public static final double kSyncMainWinchOutSpeed = -0.3;
         public static final double kSyncAdjWinchInSpeed = 0.15;
         public static final double kSyncAdjWinchOutSpeed = -0.15;
+
+        
+
+    }
+
+    public static final class CameraConstants {
+
+        public static final int resX = 640;
+        public static final int resY = 480;
+
+        // 0 < x < resX
+        // 0 < y < resY
+        public static final int[] rectPoint1 = {280, 80};
+        public static final int[] rectPoint2 = {360, 120};
+
+        //Rectangle colour
+
+        public static final int[] rectBGR= {0, 0, 255};
     }
 
     public static final class IOConstants{

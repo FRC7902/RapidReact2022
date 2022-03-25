@@ -14,38 +14,60 @@ import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class CameraSubsystem extends SubsystemBase {
 
-  UsbCamera camera;
-  // Mat mat;
-  // CvSource outputStream;
-  // CvSink cvSink;
+  private UsbCamera camera;
+  private Mat mat;
+  private CvSource outputStream;
+  private CvSink cvSink;
+  private Thread visionThread;
+
 
   
   /** Creates a new CameraSubsystem. */
   public CameraSubsystem() {
     camera = CameraServer.startAutomaticCapture(0);
-    camera.setResolution(640, 480);
+    camera.setResolution(Constants.CameraConstants.resX, Constants.CameraConstants.resY);
 
-    // cvSink = CameraServer.getVideo();
+    cvSink = CameraServer.getVideo();
 
-    // outputStream = CameraServer.putVideo("Stream", 640, 480);
+    outputStream = CameraServer.putVideo("Stream", Constants.CameraConstants.resX, Constants.CameraConstants.resY);
 
-    // mat = new Mat();
+    mat = new Mat();
+
+    visionThread = new Thread(
+      () -> {
+        while(!Thread.interrupted()){
+
+          if(cvSink.grabFrame(mat) == 0){
+            outputStream.notifyError(cvSink.getError());
+
+            continue;
+          }
+
+
+          Imgproc.rectangle(mat, 
+            new Point(Constants.CameraConstants.rectPoint1[0], Constants.CameraConstants.rectPoint1[1]), 
+            new Point(Constants.CameraConstants.rectPoint2[0], Constants.CameraConstants.rectPoint2[1]), 
+            new Scalar(Constants.CameraConstants.rectBGR[0], Constants.CameraConstants.rectBGR[1], Constants.CameraConstants.rectBGR[2]));
+
+
+          outputStream.putFrame(mat);
+        }
+      }
+    );
+
+    visionThread.setDaemon(true);
+    visionThread.start();
 
   }
+
+
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    // if (cvSink.grabFrame(mat) == 0) {
-    //   outputStream.notifyError(cvSink.getError());
-    // } else {
-
-    //   Imgproc.rectangle(mat, new Point(10, 10), new Point(50, 50), new Scalar(0, 255, 0), 2);
-
-    //   outputStream.putFrame(mat);
-    // }
   }
 }

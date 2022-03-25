@@ -648,7 +648,7 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "0,0": {
+          "4,0": {
             "size": [
               6,
               1
@@ -700,7 +700,7 @@
               }
             }
           },
-          "6,0": {
+          "6,1": {
             "size": [
               4,
               1
@@ -738,7 +738,7 @@
               }
             }
           },
-          "2,1": {
+          "4,2": {
             "size": [
               3,
               1
@@ -767,7 +767,7 @@
               }
             }
           },
-          "5,1": {
+          "7,2": {
             "size": [
               3,
               1
@@ -796,9 +796,9 @@
               }
             }
           },
-          "0,2": {
+          "0,3": {
             "size": [
-              8,
+              10,
               1
             ],
             "content": {
@@ -858,7 +858,7 @@
               }
             }
           },
-          "8,2": {
+          "4,1": {
             "size": [
               2,
               1
@@ -867,6 +867,25 @@
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///Shuffleboard/CompetitionView/SendableChooser[0]",
               "_title": "Shuffleboard/CompetitionView/SendableChooser[0]"
+            }
+          },
+          "0,0": {
+            "size": [
+              4,
+              3
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://Stream",
+              "_title": "Stream",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
             }
           }
         }
@@ -1294,6 +1313,17 @@
               "_source0": "network_table:///SmartDashboard/ClimbSubsystem/AutoHigh Stage 4",
               "_title": "AutoHigh Stage 4"
             }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/ClimbSubsystem/AutoHigh All Stages",
+              "_title": "AutoHigh All Stages"
+            }
           }
         }
       }
@@ -1308,7 +1338,46 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "titleType": 0,
-        "tiles": {}
+        "tiles": {
+          "5,0": {
+            "size": [
+              4,
+              3
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://Stream",
+              "_title": "Stream",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": 0,
+              "imageHeight": 0
+            }
+          },
+          "1,0": {
+            "size": [
+              4,
+              3
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://USB Camera 0",
+              "_title": "USB Camera 0",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
+            }
+          }
+        }
       }
     }
   ],

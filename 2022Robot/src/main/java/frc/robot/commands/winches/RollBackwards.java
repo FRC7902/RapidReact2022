@@ -11,7 +11,7 @@ import frc.robot.subsystems.WinchSubsystem;
 public class RollBackwards extends RunWinches{
   /** Creates a new RollBackwards. */
   public RollBackwards(WinchSubsystem winchSubsystem) {
-    super(Constants.WinchConstants.kMainWinchInSpeed, Constants.WinchConstants.kAdjWinchOutSpeed, winchSubsystem);
+    super(Constants.WinchConstants.kMainWinchInSpeedRoll, Constants.WinchConstants.kAdjWinchOutSpeedRoll, winchSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
 
     addRequirements(winchSubsystem);
