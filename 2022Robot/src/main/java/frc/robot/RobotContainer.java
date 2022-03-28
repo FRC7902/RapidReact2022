@@ -119,7 +119,7 @@ public class RobotContainer {
 
 
 
-    m_chooser.setDefaultOption("Leave Tarmac", new TimedDriveWithSpeed(0.5, 1, m_robotDrive));
+    m_chooser.setDefaultOption("Leave Tarmac", new TimedDriveWithSpeed(0.5, 1.5, m_robotDrive));
     m_chooser.addOption("Do nothing", new WaitCommand(1));
     m_chooser.addOption("Just Shoot Low", new ShootLowWithWindUp(m_robotTransfer, m_robotShooter).withTimeout(4));
     m_chooser.addOption("Shoot Low and Leave Tarmac", m_shootLowAndLeaveAuto);
@@ -153,15 +153,16 @@ public class RobotContainer {
       .whenPressed(new AutoHighStage1(m_robotElevator, m_robotWinch));
 
     new JoystickButton(m_climberStick, Constants.IOConstants.kY) //Winch Up 
-      .whenHeld(new TransferUp(m_robotTransfer));
+      // .whenPressed(new AutoHighStage2(m_robotDrive, m_robotElevator, m_robotWinch));
+      .whenPressed(new AutoHighAllStages(m_robotElevator, m_robotWinch, m_robotDrive));
       // .whenHeld(new WinchOut(m_robotWinch));
 
     new JoystickButton(m_climberStick, Constants.IOConstants.kA) //Winch Down 
-      .whenHeld(new TransferDown(m_robotTransfer));
+      .whenHeld(new TransferUp(m_robotTransfer));
       // .whenHeld(new WinchIn(m_robotWinch));
 
     new JoystickButton(m_climberStick, Constants.IOConstants.kB)
-      .whenPressed(new AutoHighAllStages(m_robotElevator, m_robotWinch, m_robotDrive));
+      .whenHeld(new TransferDown(m_robotTransfer));
     
     new JoystickButton(m_climberStick, Constants.IOConstants.kRB) //Extend Elevator
       .whenHeld(new ExtendElevator(m_robotElevator));
