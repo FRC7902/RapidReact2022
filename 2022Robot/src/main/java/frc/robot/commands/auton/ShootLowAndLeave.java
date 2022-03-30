@@ -28,9 +28,9 @@ public class ShootLowAndLeave extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ShootLowWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(3),
-      new DeployIntake(intakeSubsystem).withTimeout(0.1),
-      new TimedDriveWithSpeed(0.75, 1.5, driveSubsystem)
+      new ShootLowWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(4),
+      new DeployIntake(intakeSubsystem).withTimeout(2),
+      new TimedDriveWithSpeed(0.5, 1, driveSubsystem)
     );
   }
 }
