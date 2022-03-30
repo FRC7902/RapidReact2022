@@ -24,7 +24,7 @@ import frc.robot.subsystems.TransferSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ShootLowAndLeave extends SequentialCommandGroup {
   /** Creates a new ShootAndLeave. */
-  public ShootLowAndLeave(TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem, DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem) {
+  public ShootLowAndLeave(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
