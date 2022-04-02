@@ -8,9 +8,12 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.math.controller.BangBangController;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
@@ -18,11 +21,13 @@ public class ShooterSubsystem extends SubsystemBase {
   public final WPI_VictorSPX master = new WPI_VictorSPX(Constants.ShooterConstants.kMasterCAN);// left
   public final WPI_VictorSPX follower = new WPI_VictorSPX(Constants.ShooterConstants.kFollowerCAN); //right
 
+  //Encoder
+  public final Encoder encoder = new Encoder(0, 1);
+  public final BangBangController controller = new BangBangController(2);
+
   public String status = "Off";
 
   public ShooterSubsystem() {
-
-    
 
     follower.follow(master);
 
@@ -50,6 +55,27 @@ public class ShooterSubsystem extends SubsystemBase {
     master.stopMotor();
     master.set(-0.04);
     status = "Off";
+  }
+
+  public void coast() {
+    master.setNeutralMode(NeutralMode.Coast);
+    follower.setNeutralMode(NeutralMode.Coast);
+  }
+
+  public void brake(){
+    master.setNeutralMode(NeutralMode.Brake);
+    follower.setNeutralMode(NeutralMode.Brake);
+
+  }
+
+
+
+  public boolean finish() {
+    return controller.atSetpoint();
+  }
+
+  public void bangSpeed(int setpoint) {
+    master.set(controller.calculate(encoder.getRate(), setpoint));
   }
 
   @Override
