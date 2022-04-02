@@ -72,6 +72,8 @@ public final class Constants {
     public final static class ShooterConstants {
         public static final int kMasterCAN = 8;
         public static final int kFollowerCAN = 9;
+
+        public static final int[] kEncoderIDs = {4, 5};
         
         public final static double kHighSpeed = 1;
         public final static double kLowSpeed = 0.5;

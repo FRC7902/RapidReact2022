@@ -43,6 +43,7 @@ import frc.robot.commands.PullBack;
 import frc.robot.commands.RaiseElevatorAndWinchesInSync;
 import frc.robot.commands.ShootHighWithWindUp;
 import frc.robot.commands.ShootLowWithWindUp;
+import frc.robot.commands.ShootSetSpeedWithWindUp;
 import frc.robot.commands.Spit;
 import frc.robot.commands.Suck;
 import frc.robot.commands.TraverseRungs;
@@ -231,6 +232,8 @@ public class RobotContainer {
       .whenPressed(() -> m_robotDrive.activateSlowTurn())
       .whenReleased(() -> m_robotDrive.deactivateSlowTurn());
 
+    new JoystickButton(m_driverStick, Constants.IOConstants.kRT)
+      .whenHeld((new ShootSetSpeedWithWindUp(m_robotTransfer, m_robotShooter, 4000)));
 
   }
 
