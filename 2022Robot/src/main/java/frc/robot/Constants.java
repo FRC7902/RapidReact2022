@@ -40,7 +40,7 @@ public final class Constants {
         public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
 
         public static final double kRampTime = 0.1;
-        public static final int kCurrentLimit = 10;
+        public static final int kCurrentLimit = 50;
 
         public static final double kDeadzoneY = 0.01;
         public static final double kDeadzoneX = 0.01;
@@ -120,8 +120,8 @@ public final class Constants {
 
     public static final class CameraConstants {
 
-        public static final int resX = 640;
-        public static final int resY = 480;
+        public static final int resX = 80;
+        public static final int resY = 80;
 
         // 0 < x < resX
         // 0 < y < resY
