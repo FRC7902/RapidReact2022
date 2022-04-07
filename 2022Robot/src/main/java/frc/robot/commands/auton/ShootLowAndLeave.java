@@ -24,13 +24,13 @@ import frc.robot.subsystems.TransferSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ShootLowAndLeave extends SequentialCommandGroup {
   /** Creates a new ShootAndLeave. */
-  public ShootLowAndLeave(TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem, DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem) {
+  public ShootLowAndLeave(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ShootLowWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(3),
-      new DeployIntake(intakeSubsystem).withTimeout(0.1),
-      new TimedDriveWithSpeed(0.75, 1.5, driveSubsystem)
+      new ShootLowWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(4),
+      new DeployIntake(intakeSubsystem).withTimeout(2),
+      new TimedDriveWithSpeed(0.5, 1, driveSubsystem)
     );
   }
 }

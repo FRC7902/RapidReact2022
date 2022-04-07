@@ -11,6 +11,7 @@ import frc.robot.commands.PullBack;
 import frc.robot.commands.ShootHighWithWindUp;
 import frc.robot.commands.Suck;
 import frc.robot.commands.drivetrain.TimedDriveWithSpeed;
+import frc.robot.commands.drivetrain.TurnToAngle;
 import frc.robot.commands.intake.DeployIntake;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -26,12 +27,16 @@ public class PickUpAndShootHigh extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DeployIntake(intakeSubsystem).withTimeout(1),
+      new DeployIntake(intakeSubsystem).withTimeout(2),
       new ParallelDeadlineGroup(
         new SequentialCommandGroup(
+          new TimedDriveWithSpeed(0.5, 0.5, driveSubsystem),
+          new TurnToAngle(-15, driveSubsystem),
           new TimedDriveWithSpeed(0.5, 1, driveSubsystem),
           new WaitCommand(0.25),
-          new TimedDriveWithSpeed(-0.5, 1, driveSubsystem)
+          new TimedDriveWithSpeed(-0.5, 1, driveSubsystem),
+          new TurnToAngle(0, driveSubsystem),
+          new TimedDriveWithSpeed(-0.5, 0.5, driveSubsystem)
         ), 
         new Suck(intakeSubsystem, transferSubsystem)
       ),

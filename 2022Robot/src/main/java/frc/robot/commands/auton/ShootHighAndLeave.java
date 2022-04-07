@@ -10,8 +10,10 @@ import frc.robot.Constants;
 import frc.robot.Constants.TransferConstants;
 import frc.robot.commands.ShootHighWithWindUp;
 import frc.robot.commands.drivetrain.TimedDriveWithSpeed;
+import frc.robot.commands.intake.DeployIntake;
 import frc.robot.commands.shooter.ShootHigh;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
 
@@ -20,13 +22,13 @@ import frc.robot.subsystems.TransferSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ShootHighAndLeave extends SequentialCommandGroup {
   /** Creates a new DriveAndShootHigh. */
-  public ShootHighAndLeave(DriveSubsystem driveSubsystem, TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem) {
+  public ShootHighAndLeave(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new TimedDriveWithSpeed(0.5, 0.5, driveSubsystem),
-      new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(3),
-      new TimedDriveWithSpeed(0.5, 0.5, driveSubsystem)
+      new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(4),
+      new DeployIntake(intakeSubsystem).withTimeout(2),
+      new TimedDriveWithSpeed(0.5, 1, driveSubsystem)
     );
   }
 }
