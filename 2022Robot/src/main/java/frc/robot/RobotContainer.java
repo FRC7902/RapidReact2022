@@ -192,11 +192,11 @@ public class RobotContainer {
     new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kLT) > 0.01) //Retract Elevator and Winches in sync
       .whileActiveOnce(new LowerElevatorAndWinchesInSync(m_robotElevator, m_robotWinch));
 
-    new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kDY) > 0)
-      .whileActiveOnce(new RollForward(m_robotWinch));
+    // new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kDY) > 0)
+    //   .whileActiveOnce(new RollForward(m_robotWinch));
     
-    new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kDY) < 0)
-      .whileActiveOnce(new RollBackwards(m_robotWinch));
+    // new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kDY) < 0)
+    //   .whileActiveOnce(new RollBackwards(m_robotWinch));
 
 
     //DRIVER STICK
@@ -232,8 +232,9 @@ public class RobotContainer {
       .whenPressed(() -> m_robotDrive.activateSlowTurn())
       .whenReleased(() -> m_robotDrive.deactivateSlowTurn());
 
-    new JoystickButton(m_driverStick, Constants.IOConstants.kRT)
-      .whenHeld((new ShootSetSpeedWithWindUp(m_robotTransfer, m_robotShooter, 4000)));
+
+    new Trigger(() -> m_driverStick.getRawAxis(Constants.IOConstants.kRT) > 0.01)
+      .whileActiveOnce((new ShootSetSpeedWithWindUp(m_robotTransfer, m_robotShooter, 4000)));
 
   }
 
