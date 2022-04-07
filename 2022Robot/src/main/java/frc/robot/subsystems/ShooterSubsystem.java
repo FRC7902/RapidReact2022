@@ -89,6 +89,8 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("CompetitionView/Shooter Power", master.getMotorOutputPercent());
     SmartDashboard.putString("CompetitionView/Shooter Status", status);
 
+    SmartDashboard.putNumber("ShooterSubsystem/Encoder Speed", encoder.getRate());
+
   }
 }
 
