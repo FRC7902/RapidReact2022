@@ -16,19 +16,20 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ThreeBallsHigh extends SequentialCommandGroup {
     public ThreeBallsHigh(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem) {
         addCommands(
-            new PickUpAndShootHigh(driveSubsystem, intakeSubsystem, transferSubsystem, shooterSubsystem),
+            new ShootHighWithWindUp(transferSubsystem, shooterSubsystem),
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
-                    new TimedDriveWithSpeed(0.5, 0.5, driveSubsystem),
-                    new TurnToAngle(60, driveSubsystem),
                     new TimedDriveWithSpeed(0.5, 1, driveSubsystem),
-                    new WaitCommand(0.25)
+                    new WaitCommand(0.25),
+                    new TurnToAngle(105, driveSubsystem),
+                    new TimedDriveWithSpeed(0.5, 1, driveSubsystem)
                 ),
                 new Suck(intakeSubsystem, transferSubsystem)
             ),
-            new TimedDriveWithSpeed(-0.5, 1, driveSubsystem),
+            new TurnToAngle(60, driveSubsystem),
+            new TimedDriveWithSpeed(-0.5, 0.5, driveSubsystem),
             new TurnToAngle(0, driveSubsystem),
-            new TimedDriveWithSpeed(0.5, 0.5, driveSubsystem),
+            new TimedDriveWithSpeed(-0.5, 0.5, driveSubsystem),
             new PullBack(transferSubsystem, shooterSubsystem).withTimeout(0.5),
             new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(4)
         );
