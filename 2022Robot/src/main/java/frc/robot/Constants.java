@@ -79,6 +79,9 @@ public final class Constants {
         public final static double kLowSpeed = 0.5;
 
         public final static double kRampTime = 0;
+
+        public final static int kHighUnitsPerSec = 4000;
+        public final static int kTolerance = 5;
     }
     
     public static final class ElevatorConstants {

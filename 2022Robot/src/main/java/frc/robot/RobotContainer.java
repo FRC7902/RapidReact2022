@@ -43,6 +43,7 @@ import frc.robot.commands.PullBack;
 import frc.robot.commands.RaiseElevatorAndWinchesInSync;
 import frc.robot.commands.ShootHighWithWindUp;
 import frc.robot.commands.ShootLowWithWindUp;
+import frc.robot.commands.ShootMaintained;
 import frc.robot.commands.ShootSetSpeedWithWindUp;
 import frc.robot.commands.Spit;
 import frc.robot.commands.Suck;
@@ -200,7 +201,7 @@ public class RobotContainer {
     new JoystickButton(m_driverStick, Constants.IOConstants.kA) //Retract intake
       .whenHeld(new RetractIntake(m_robotIntake));
     
-    new JoystickButton(m_driverStick, Constants.IOConstants.kB) //Shoot High
+    new JoystickButton(m_driverStick, Constants.IOConstants.kB) //Shoot Low
       .whenHeld(new ShootLowWithWindUp(m_robotTransfer, m_robotShooter));
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kX) // Reverse shooter and transfer
@@ -218,7 +219,7 @@ public class RobotContainer {
     new JoystickButton(m_driverStick, Constants.IOConstants.kMENU) //Toggle where the front of the robot is
       .whenPressed(new InstantCommand(() -> m_robotDrive.toggleRobotFront()));
 
-    new JoystickButton(m_driverStick, Constants.IOConstants.kSTART) //Shoot Low
+    new JoystickButton(m_driverStick, Constants.IOConstants.kSTART) //Shoot High
       .whenHeld(new ShootHighWithWindUp(m_robotTransfer, m_robotShooter));
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kLA) //Activate/Deactivate Slow Drive
@@ -231,7 +232,7 @@ public class RobotContainer {
 
 
     new Trigger(() -> m_driverStick.getRawAxis(Constants.IOConstants.kRT) > 0.01)
-      .whileActiveOnce((new ShootSetSpeedWithWindUp(m_robotTransfer, m_robotShooter, 4000)));
+      .whileActiveOnce((new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, m_robotShooter, m_robotTransfer)));
 
   }
 

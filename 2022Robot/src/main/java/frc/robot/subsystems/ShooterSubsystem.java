@@ -23,7 +23,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   //Encoder
   public final Encoder encoder = new Encoder(0, 1);
-  public final BangBangController controller = new BangBangController(2);
+  public final BangBangController controller = new BangBangController(Constants.ShooterConstants.kTolerance);
 
   public String status = "Off";
 
