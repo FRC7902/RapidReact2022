@@ -70,7 +70,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
 
 
-  public boolean finish() {
+  public boolean atTargetSpeed() {
     return controller.atSetpoint();
   }
 

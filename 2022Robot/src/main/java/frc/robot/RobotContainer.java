@@ -169,10 +169,10 @@ public class RobotContainer {
     new JoystickButton(m_climberStick, Constants.IOConstants.kY) //Winch Up 
       .whenPressed(new AutoHighAllStages(m_robotElevator, m_robotWinch, m_robotDrive));
 
-    new JoystickButton(m_climberStick, Constants.IOConstants.kA) //Winch Down 
+    new JoystickButton(m_climberStick, Constants.IOConstants.kA) //Transfer Up
       .whenHeld(new TransferUp(m_robotTransfer));
 
-    new JoystickButton(m_climberStick, Constants.IOConstants.kB)
+    new JoystickButton(m_climberStick, Constants.IOConstants.kB) //Transfer down
       .whenHeld(new TransferDown(m_robotTransfer));
     
     new JoystickButton(m_climberStick, Constants.IOConstants.kRB) //Extend Elevator
