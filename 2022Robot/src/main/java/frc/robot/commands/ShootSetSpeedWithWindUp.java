@@ -11,7 +11,7 @@ import frc.robot.subsystems.TransferSubsystem;
 public class ShootSetSpeedWithWindUp extends ParallelCommandGroup {
   public ShootSetSpeedWithWindUp(TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem, int mainShooterSpeed) {
     addCommands(
-      new WindUpShooter(shooterSubsystem, mainShooterSpeed),
+      new WindUpShooter(mainShooterSpeed, shooterSubsystem),
       new SequentialCommandGroup(
         new WaitCommand(1),
         new TransferUp(transferSubsystem)

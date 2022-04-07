@@ -13,7 +13,7 @@ public class WindUpShooter extends CommandBase {
 
   ShooterSubsystem m_shooterSubsystem;
   /** Creates a new ShootSetSpeed. */
-  public WindUpShooter(ShooterSubsystem shooterSubsystem, int mainShooterSpeed) {
+  public WindUpShooter(int mainShooterSpeed, ShooterSubsystem shooterSubsystem) {
     mainSpeed = mainShooterSpeed;
     m_shooterSubsystem = shooterSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
