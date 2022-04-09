@@ -37,11 +37,14 @@ public class ShootMaintained extends CommandBase {
   @Override
   public void execute() {
     m_shooterSubsystem.bangSpeed(m_speed);
+    System.out.println ("Executing");
     
     if(m_shooterSubsystem.atTargetSpeed()){
       m_transferSubsystem.setSpeed(Constants.TransferConstants.kVertForwardSpeed);
+      System.out.println ("Reached target");
     }else{
       m_transferSubsystem.stop();
+      System.out.println ("Not at target");
     }
 
   }
@@ -52,6 +55,7 @@ public class ShootMaintained extends CommandBase {
     m_shooterSubsystem.brake();
     m_shooterSubsystem.stop();
     m_transferSubsystem.stop();
+    System.out.println("Ended");
 
   }
 
