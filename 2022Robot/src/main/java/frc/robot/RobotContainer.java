@@ -219,8 +219,8 @@ public class RobotContainer {
     new JoystickButton(m_driverStick, Constants.IOConstants.kRB) //Suck
       .whenHeld(new Suck(m_robotIntake, m_robotTransfer));
 
-    new JoystickButton(m_driverStick, Constants.IOConstants.kMENU) //Toggle where the front of the robot is
-      .whenPressed(new InstantCommand(() -> m_robotDrive.toggleRobotFront()));
+    new JoystickButton(m_driverStick, Constants.IOConstants.kMENU); 
+      // .whenPressed(new InstantCommand(() -> m_robotDrive.toggleRobotFront()));
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kSTART) //Shoot High
       .whenHeld(new ShootHighWithWindUp(m_robotTransfer, m_robotShooter));
@@ -237,6 +237,9 @@ public class RobotContainer {
     new Trigger(() -> m_driverStick.getRawAxis(Constants.IOConstants.kRT) > 0.01)
       .whileActiveOnce((new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, m_robotShooter, m_robotTransfer)));
 
+
+    new Trigger(() -> (m_driverStick.getPOV() == 180 || m_driverStick.getPOV() == 225 || m_driverStick.getPOV() == 135))
+      .whenActive(new InstantCommand(() -> m_robotDrive.toggleRobotFront()));
   }
 
   /**
