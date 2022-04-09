@@ -173,22 +173,25 @@ public class RobotContainer {
     new JoystickButton(m_climberStick, Constants.IOConstants.kA) //Transfer Up
       .whenHeld(new TransferUp(m_robotTransfer));
 
-    new JoystickButton(m_climberStick, Constants.IOConstants.kB) //Transfer down
-      .whenHeld(new TransferDown(m_robotTransfer));
+    new JoystickButton(m_climberStick, Constants.IOConstants.kB) // Reverse shooter and transfer
+    .whenHeld(new PullBack(m_robotTransfer, m_robotShooter));
     
     new JoystickButton(m_climberStick, Constants.IOConstants.kRB) //Extend Elevator
       .whenHeld(new ExtendElevator(m_robotElevator));
     new JoystickButton(m_climberStick, Constants.IOConstants.kLB) //Retract Elevator
       .whenHeld(new RetractElevator(m_robotElevator));
 
-    new JoystickButton(m_climberStick, Constants.IOConstants.kSTART) //Reset Encoder
-      .whenPressed(() -> m_robotElevator.resetEncoder());
+    new JoystickButton(m_climberStick, Constants.IOConstants.kSTART) // Retract intake
+      .whenPressed(new RetractIntake(m_robotIntake));
 
     new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kRT) > 0.01) // Extend Elevator and Winches in sync
       .whileActiveOnce(new RaiseElevatorAndWinchesInSync(m_robotElevator, m_robotWinch));
       
     new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kLT) > 0.01) //Retract Elevator and Winches in sync
       .whileActiveOnce(new LowerElevatorAndWinchesInSync(m_robotElevator, m_robotWinch));
+
+    new JoystickButton(m_climberStick, Constants.IOConstants.kMENU) // Shoot high without transfer
+      .whileHeld(new ShootHigh(m_robotShooter));
 
     // new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kDY) > 0)
     //   .whileActiveOnce(new RollForward(m_robotWinch));
