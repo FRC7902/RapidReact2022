@@ -3,6 +3,7 @@ package frc.robot.commands.auton;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.AutonConstants;
 import frc.robot.commands.ShootHighWithWindUp;
 import frc.robot.commands.Suck;
 import frc.robot.commands.drivetrain.TimedDriveWithSpeed;
@@ -15,8 +16,8 @@ import frc.robot.subsystems.TransferSubsystem;
 public class ShootHighAndPickUp extends SequentialCommandGroup {
     public ShootHighAndPickUp(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem) {
         addCommands(
-            new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(4),
-            new DeployIntake(intakeSubsystem).withTimeout(2),
+            new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(AutonConstants.shootTime),
+            new DeployIntake(intakeSubsystem).withTimeout(AutonConstants.intakeDeployTime),
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
                     new TimedDriveWithSpeed(0.5, 1, driveSubsystem),

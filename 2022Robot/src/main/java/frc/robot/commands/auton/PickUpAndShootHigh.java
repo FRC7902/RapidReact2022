@@ -17,6 +17,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
+import frc.robot.Constants.AutonConstants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -27,7 +28,7 @@ public class PickUpAndShootHigh extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DeployIntake(intakeSubsystem).withTimeout(2),
+      new DeployIntake(intakeSubsystem).withTimeout(AutonConstants.intakeDeployTime),
       new ParallelDeadlineGroup(
         new SequentialCommandGroup(
           new TimedDriveWithSpeed(0.5, 0.5, driveSubsystem),
@@ -41,7 +42,7 @@ public class PickUpAndShootHigh extends SequentialCommandGroup {
         new Suck(intakeSubsystem, transferSubsystem)
       ),
       new PullBack(transferSubsystem, shooterSubsystem).withTimeout(0.5),
-      new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(4)
+      new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(AutonConstants.shootTime)
       
     );
   }

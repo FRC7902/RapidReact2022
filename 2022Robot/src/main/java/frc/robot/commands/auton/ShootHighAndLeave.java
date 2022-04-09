@@ -7,6 +7,7 @@ package frc.robot.commands.auton;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.Constants.AutonConstants;
 import frc.robot.Constants.TransferConstants;
 import frc.robot.commands.ShootHighWithWindUp;
 import frc.robot.commands.drivetrain.TimedDriveWithSpeed;
@@ -26,8 +27,8 @@ public class ShootHighAndLeave extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(4),
-      new DeployIntake(intakeSubsystem).withTimeout(2),
+      new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(AutonConstants.shootTime),
+      new DeployIntake(intakeSubsystem).withTimeout(AutonConstants.intakeDeployTime),
       new TimedDriveWithSpeed(0.5, 1, driveSubsystem)
     );
   }

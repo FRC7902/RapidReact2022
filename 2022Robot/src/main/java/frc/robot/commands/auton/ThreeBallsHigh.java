@@ -3,6 +3,7 @@ package frc.robot.commands.auton;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.AutonConstants;
 import frc.robot.commands.PullBack;
 import frc.robot.commands.ShootHighWithWindUp;
 import frc.robot.commands.Suck;
@@ -16,7 +17,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ThreeBallsHigh extends SequentialCommandGroup {
     public ThreeBallsHigh(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem) {
         addCommands(
-            new ShootHighWithWindUp(transferSubsystem, shooterSubsystem),
+            new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(AutonConstants.shootTime),
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
                     new TimedDriveWithSpeed(0.5, 1, driveSubsystem),
@@ -31,7 +32,7 @@ public class ThreeBallsHigh extends SequentialCommandGroup {
             new TurnToAngle(0, driveSubsystem),
             new TimedDriveWithSpeed(-0.5, 0.5, driveSubsystem),
             new PullBack(transferSubsystem, shooterSubsystem).withTimeout(0.5),
-            new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(4)
+            new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(AutonConstants.shootTime)
         );
     }
 }

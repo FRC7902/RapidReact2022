@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.AutonConstants;
 import frc.robot.commands.PullBack;
 import frc.robot.commands.ShootHighWithWindUp;
 import frc.robot.commands.Suck;
@@ -32,7 +33,7 @@ public class ShootHighPickUpAndShootHigh extends SequentialCommandGroup {
       new ShootHighAndPickUp(driveSubsystem, intakeSubsystem, transferSubsystem, shooterSubsystem),
       new TimedDriveWithSpeed(-0.5, 1, driveSubsystem),
       new PullBack(transferSubsystem, shooterSubsystem).withTimeout(0.5),
-      new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(4)
+      new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(AutonConstants.shootTime)
     );
   }
 }

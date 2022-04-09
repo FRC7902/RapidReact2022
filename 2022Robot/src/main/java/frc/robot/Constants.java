@@ -138,6 +138,11 @@ public final class Constants {
         public static final int[] rectBGR= {0, 0, 255};
     }
 
+    public static final class AutonConstants {
+        public static final double intakeDeployTime = 2.0;
+        public static final double shootTime = 4.0;
+    }
+
     public static final class IOConstants{
         public static final int kDriverStick = 0;
         public static final int kClimbStick = 1;

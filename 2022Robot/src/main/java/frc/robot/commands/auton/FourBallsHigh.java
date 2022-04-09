@@ -12,6 +12,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
+import frc.robot.Constants.AutonConstants;
 
 public class FourBallsHigh extends SequentialCommandGroup {
     public FourBallsHigh(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem) {
@@ -32,7 +33,7 @@ public class FourBallsHigh extends SequentialCommandGroup {
             new TurnToAngle(0, driveSubsystem),
             new TimedDriveWithSpeed(0.5, 0.75, driveSubsystem),
             new PullBack(transferSubsystem, shooterSubsystem).withTimeout(0.5),
-            new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(4)
+            new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(AutonConstants.shootTime)
         );
     }
 }

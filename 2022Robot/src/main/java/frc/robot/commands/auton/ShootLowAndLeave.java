@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.Constants.AutonConstants;
 import frc.robot.commands.ShootLowWithWindUp;
 import frc.robot.commands.drivetrain.TimedDriveWithSpeed;
 import frc.robot.commands.intake.DeployIntake;
@@ -28,8 +29,8 @@ public class ShootLowAndLeave extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ShootLowWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(4),
-      new DeployIntake(intakeSubsystem).withTimeout(2),
+      new ShootLowWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(AutonConstants.shootTime),
+      new DeployIntake(intakeSubsystem).withTimeout(AutonConstants.intakeDeployTime),
       new TimedDriveWithSpeed(0.5, 1, driveSubsystem)
     );
   }
