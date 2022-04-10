@@ -40,7 +40,7 @@ public class ShootMaintained extends CommandBase {
     System.out.println ("Executing");
     
     if(m_shooterSubsystem.atTargetSpeed()){
-      m_transferSubsystem.setSpeed(Constants.TransferConstants.kVertForwardSpeed);
+      m_transferSubsystem.setSpeed(1);
       System.out.println ("Reached target");
     }else{
       m_transferSubsystem.stop();

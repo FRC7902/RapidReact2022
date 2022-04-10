@@ -25,7 +25,7 @@ public final class Constants {
         public static final int[] kLeftEncoderIDs = {0, 1};
         public static final int[] kRightEncoderIDs = {3, 4};
 
-        public static final int kGyroCAN = 1;
+        public static final int kGyroCAN = 16;
 
         //Sensitivities (1 -> quadratic, 0 -> linear)
         public static final double kForwardSens = 0;
@@ -39,8 +39,8 @@ public final class Constants {
         public static final double kWheelDiameterMeters = 0.1524;
         public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
 
-        public static final double kRampTime = 0.1;
-        public static final int kCurrentLimit = 50;
+        public static final double kRampTime = 0.2;
+        public static final int kCurrentLimit = 40;
 
         public static final double kDeadzoneY = 0.01;
         public static final double kDeadzoneX = 0.01;
@@ -51,7 +51,7 @@ public final class Constants {
         public static final int kIntakePowerCAN = 13;
         public static final int kIntakeDeplCAN = 10;
 
-        public final static double kSuckSpeed = 0.45;
+        public final static double kSuckSpeed = 0.35;
         public final static double kSpitSpeed = -0.3;
 
         public final static double kPowerRampTime = 0;
@@ -63,8 +63,8 @@ public final class Constants {
 
         public static final int kVertTransferCAN = 5;
 
-        public final static double kVertForwardSpeed = 0.75;
-        public final static double kVertBackwardsSpeed = -0.55;
+        public final static double kVertForwardSpeed = 0.85;
+        public final static double kVertBackwardsSpeed = -0.75;
 
         public final static double kRampTime = 0;
     }
@@ -80,8 +80,8 @@ public final class Constants {
 
         public final static double kRampTime = 0;
 
-        public final static int kHighUnitsPerSec = 4000;
-        public final static int kTolerance = 5;
+        public final static int kHighUnitsPerSec = 120000;
+        public final static int kTolerance = 3000;
     }
     
     public static final class ElevatorConstants {
@@ -140,7 +140,7 @@ public final class Constants {
 
     public static final class AutonConstants {
         public static final double intakeDeployTime = 2.0;
-        public static final double shootTime = 4.0;
+        public static final double shootTime = 3.0;
     }
 
     public static final class IOConstants{

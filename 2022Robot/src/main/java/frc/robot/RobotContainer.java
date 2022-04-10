@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.auton.FourBallsHigh;
+import frc.robot.commands.auton.FourBallsTerminal;
 import frc.robot.commands.auton.PickUpAndShootHigh;
 import frc.robot.commands.auton.ShootHighAndLeave;
 import frc.robot.commands.auton.ShootHighAndPickUp;
@@ -18,6 +19,9 @@ import frc.robot.commands.auton.ShootHighPickUpAndShootHigh;
 import frc.robot.commands.auton.ShootLowAndLeave;
 import frc.robot.commands.auton.ShootLowAndPickUp;
 import frc.robot.commands.auton.ShootLowPickUpAndShootLow;
+import frc.robot.commands.auton.ThreeBallsHigh;
+
+
 import frc.robot.commands.drivetrain.DriveToDistance;
 import frc.robot.commands.drivetrain.TimedDriveWithSpeed;
 import frc.robot.commands.elevator.ExtendElevator;
@@ -98,6 +102,8 @@ public class RobotContainer {
   private final ShootHighPickUpAndShootHigh m_shootHighPickUpAndShootHighAuto = new ShootHighPickUpAndShootHigh(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
   private final PickUpAndShootHigh m_pickUpAndShootHighAuto = new PickUpAndShootHigh(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
   private final FourBallsHigh m_fourBallsHighAuto = new FourBallsHigh(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
+  private final FourBallsTerminal m_fourBallsHighTerminal = new FourBallsTerminal(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
+  private final ThreeBallsHigh m_ThreeBallsHigh = new ThreeBallsHigh(m_robotDrive, m_robotIntake, m_robotTransfer, m_robotShooter);
 
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -130,17 +136,24 @@ public class RobotContainer {
 
 
     m_chooser.setDefaultOption("Leave Tarmac", new TimedDriveWithSpeed(0.5, 1.5, m_robotDrive));
-    m_chooser.addOption("Do Nothing", new WaitCommand(1));
-    m_chooser.addOption("Shoot Low", new ShootLowWithWindUp(m_robotTransfer, m_robotShooter).withTimeout(4));
-    m_chooser.addOption("Shoot High", new ShootHighWithWindUp(m_robotTransfer, m_robotShooter).withTimeout(4));
-    m_chooser.addOption("Shoot Low and Leave Tarmac", m_shootLowAndLeaveAuto);
-    m_chooser.addOption("Shoot High and Leave Tarmac", m_shootHighAndLeaveAuto);
-    m_chooser.addOption("Shoot Low and Pick Up", m_shootLowAndPickUpAuto);
-    m_chooser.addOption("Shoot High and Pick Up", m_shootHighAndPickUpAuto);
-    m_chooser.addOption("Shoot Low, Pick Up, and Shoot Low", m_shootLowPickUpAndShootLowAuto);
-    m_chooser.addOption("Shoot High, Pick Up, and Shoot High", m_shootHighPickUpAndShootHighAuto);
-    m_chooser.addOption("Pick Up And Shoot High", m_pickUpAndShootHighAuto);
-    m_chooser.addOption("Four Balls High", m_fourBallsHighAuto);
+
+    m_chooser.addOption("H1 - Shoot High and Leave Tarmac", m_shootHighAndLeaveAuto);
+    m_chooser.addOption("H1P - Shoot High and Pick Up", m_shootHighAndPickUpAuto);
+    m_chooser.addOption("H2A - Shoot High, Pick Up, and Shoot High", m_shootHighPickUpAndShootHighAuto);
+    m_chooser.addOption("H3 - Three Balls High", m_ThreeBallsHigh);
+    m_chooser.addOption("H4 - Four Balls High", m_fourBallsHighAuto);
+    m_chooser.addOption("H4T - Four Balls High Terminal", m_fourBallsHighTerminal);
+
+    m_chooser.addOption("L1 - Shoot Low and Leave Tarmac", m_shootLowAndLeaveAuto);
+    m_chooser.addOption("L1P - Shoot Low and Pick Up", m_shootLowAndPickUpAuto);
+    m_chooser.addOption("L2A - Shoot Low, Pick Up, and Shoot Low", m_shootLowPickUpAndShootLowAuto);
+    m_chooser.addOption("L2B - Pick Up And Shoot High", m_pickUpAndShootHighAuto);
+    
+    m_chooser.addOption("00 - Do Nothing", new WaitCommand(1));
+    m_chooser.addOption("L0 - Shoot Low", new ShootLowWithWindUp(m_robotTransfer, m_robotShooter).withTimeout(4));
+    m_chooser.addOption("H0 - Shoot High", new ShootHighWithWindUp(m_robotTransfer, m_robotShooter).withTimeout(4));
+
+
 
 
     Shuffleboard.getTab("CompetitionView").add(m_chooser);
@@ -181,8 +194,12 @@ public class RobotContainer {
     new JoystickButton(m_climberStick, Constants.IOConstants.kLB) //Retract Elevator
       .whenHeld(new RetractElevator(m_robotElevator));
 
+  
     new JoystickButton(m_climberStick, Constants.IOConstants.kSTART) // Retract intake
       .whenPressed(new RetractIntake(m_robotIntake));
+
+    // new JoystickButton(m_driverStick, Constants.IOConstants.kSTART) //FAILED highshootmaintained
+    //   .whenHeld((new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, m_robotShooter, m_robotTransfer)));
 
     new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kRT) > 0.01) // Extend Elevator and Winches in sync
       .whileActiveOnce(new RaiseElevatorAndWinchesInSync(m_robotElevator, m_robotWinch));
@@ -201,9 +218,10 @@ public class RobotContainer {
 
 
     //DRIVER STICK
+    
     new JoystickButton(m_driverStick, Constants.IOConstants.kA) //Retract intake
       .whenHeld(new RetractIntake(m_robotIntake));
-    
+
     new JoystickButton(m_driverStick, Constants.IOConstants.kB) //Shoot Low
       .whenHeld(new ShootLowWithWindUp(m_robotTransfer, m_robotShooter));
 

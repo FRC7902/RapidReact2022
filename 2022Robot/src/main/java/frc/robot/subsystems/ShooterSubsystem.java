@@ -22,7 +22,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public final WPI_VictorSPX follower = new WPI_VictorSPX(Constants.ShooterConstants.kFollowerCAN); //right
 
   //Encoder
-  public final Encoder encoder = new Encoder(0, 1);
+  public final Encoder encoder = new Encoder(5, 4);
   public final BangBangController controller = new BangBangController(Constants.ShooterConstants.kTolerance);
 
   public String status = "Off";

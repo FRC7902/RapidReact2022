@@ -23,7 +23,7 @@ public class ShootHighWithWindUp extends ParallelCommandGroup {
     addCommands(
       new ShootHigh(shooterSubsystem),
       new SequentialCommandGroup(
-        new WaitCommand(0.5),
+        new WaitCommand(1.3),
         new TransferUp(transferSubsystem)
       )
     );
