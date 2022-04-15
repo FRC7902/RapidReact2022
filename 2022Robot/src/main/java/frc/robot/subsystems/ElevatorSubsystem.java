@@ -19,7 +19,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         m_elevator.setSmartCurrentLimit(ElevatorConstants.kCurrentLimit);
 
-        m_elevator.setInverted(true);
+        m_elevator.setInverted(false);
         
         m_encoder = m_elevator.getEncoder();
     }

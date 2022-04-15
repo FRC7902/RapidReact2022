@@ -24,7 +24,7 @@ public class ShootHighAndPickUp extends SequentialCommandGroup {
         addCommands(
             
             new ParallelCommandGroup(
-                new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, shooterSubsystem, transferSubsystem).withTimeout(2),
+                new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, shooterSubsystem, transferSubsystem).withTimeout(1.8),
                 new DeployIntake(intakeSubsystem).withTimeout(AutonConstants.intakeDeployTime)
             ),
             

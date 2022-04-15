@@ -30,10 +30,10 @@ public class AutoHighStage2 extends SequentialCommandGroup {
 
       new ParallelCommandGroup(
         new SequentialCommandGroup(
-          new WinchIn(winchSubsystem).withTimeout(4.3),
-          new RunWinches(0, 0.5, winchSubsystem).withTimeout(0.6)
+          new WinchIn(winchSubsystem).withTimeout(4.4)
+          //new RunWinches(0, 0.5, winchSubsystem).withTimeout(0.6)
         ),
-        new ExtendElevator(elevatorSubsystem).withTimeout(1)
+        new ExtendElevator(elevatorSubsystem).withTimeout(1.45)
       )
     );
 

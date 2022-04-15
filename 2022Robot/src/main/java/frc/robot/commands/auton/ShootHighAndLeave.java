@@ -19,6 +19,8 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 
 //H1
 
@@ -35,9 +37,12 @@ public class ShootHighAndLeave extends SequentialCommandGroup {
 
       new ParallelCommandGroup(
         //new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(AutonConstants.shootTime),
-        new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, shooterSubsystem, transferSubsystem).withTimeout(2),
+        new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, shooterSubsystem, transferSubsystem).withTimeout(1.8),
         new DeployIntake(intakeSubsystem).withTimeout(AutonConstants.intakeDeployTime)
       ),
+
+      new WaitCommand(8),
+
       new TimedDriveWithSpeed(0.5, 1.5, driveSubsystem)
     );
   }
