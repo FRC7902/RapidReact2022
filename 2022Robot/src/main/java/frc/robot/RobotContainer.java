@@ -197,10 +197,10 @@ public class RobotContainer {
 
   
     new JoystickButton(m_climberStick, Constants.IOConstants.kY) // Retract intake
-      .whenPressed(new RetractIntake(m_robotIntake));
+      .whenHeld(new RetractIntake(m_robotIntake));
 
     new JoystickButton(m_climberStick, Constants.IOConstants.kX) // Deploy intake
-      .whenPressed(new DeployIntake(m_robotIntake));
+      .whenHeld(new DeployIntake(m_robotIntake));
 
     // new JoystickButton(m_driverStick, Constants.IOConstants.kSTART) //FAILED highshootmaintained
     //   .whenHeld((new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, m_robotShooter, m_robotTransfer)));

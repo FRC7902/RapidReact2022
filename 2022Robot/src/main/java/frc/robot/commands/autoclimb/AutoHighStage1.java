@@ -18,7 +18,7 @@ public class AutoHighStage1 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RaiseElevatorAndWinchesInSync(elevatorSubsystem, winchSubsystem).withTimeout(3.3)
+      new RaiseElevatorAndWinchesInSync(elevatorSubsystem, winchSubsystem).withTimeout(3.4)
     );
   }
 }
