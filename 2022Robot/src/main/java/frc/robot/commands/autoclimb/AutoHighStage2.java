@@ -28,12 +28,15 @@ public class AutoHighStage2 extends SequentialCommandGroup {
       new RetractElevator(elevatorSubsystem).withTimeout(1.8),
       new TimedDriveWithSpeed(-0.5, 0.25, driveSubsystem), 
 
+      // new RunWinches(-0.6, 0.5, winchSubsystem).withTimeout(0.2),
+      new RunWinches(0.5, 0, winchSubsystem).withTimeout(0.6),
+
       new ParallelCommandGroup(
         new SequentialCommandGroup(
-          new WinchIn(winchSubsystem).withTimeout(4.4)
+          new WinchIn(winchSubsystem).withTimeout(4.3)
           //new RunWinches(0, 0.5, winchSubsystem).withTimeout(0.6)
         ),
-        new ExtendElevator(elevatorSubsystem).withTimeout(1.45)
+        new ExtendElevator(elevatorSubsystem).withTimeout(1.4)
       )
     );
 

@@ -89,7 +89,7 @@ public class RobotContainer {
   private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
   private final ElevatorSubsystem m_robotElevator = new ElevatorSubsystem(); 
   private final WinchSubsystem m_robotWinch = new WinchSubsystem();
-  private final CameraSubsystem m_robotCamera = new CameraSubsystem(); 
+  // private final CameraSubsystem m_robotCamera = new CameraSubsystem(); 
   
 
 

@@ -30,7 +30,7 @@ public class ThreeBallsHigh extends SequentialCommandGroup {
 
             new ShootHighAndPickUp(driveSubsystem, intakeSubsystem, transferSubsystem, shooterSubsystem),
             
-            new TimedTurnWithSpeed(0.5, 0.7, driveSubsystem),
+            new TimedTurnWithSpeed(0.5, 0.55, driveSubsystem),
 
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
