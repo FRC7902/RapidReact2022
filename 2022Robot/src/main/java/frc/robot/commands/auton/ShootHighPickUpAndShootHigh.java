@@ -8,16 +8,22 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.AutonConstants;
 import frc.robot.commands.PullBack;
 import frc.robot.commands.ShootHighWithWindUp;
 import frc.robot.commands.Suck;
 import frc.robot.commands.drivetrain.TimedDriveWithSpeed;
+import frc.robot.commands.intake.DeployIntake;
 import frc.robot.commands.shooter.ReverseShooter;
 import frc.robot.commands.transfer.TransferDown;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
+
+import frc.robot.commands.ShootMaintained;
+import frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -28,18 +34,13 @@ public class ShootHighPickUpAndShootHigh extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(4),
-      new ParallelDeadlineGroup(
-        new SequentialCommandGroup(
-          new TimedDriveWithSpeed(0.5, 1, driveSubsystem),
-          new WaitCommand(0.25),
-          new TimedDriveWithSpeed(-0.5, 1, driveSubsystem)
-        ), 
-        new Suck(intakeSubsystem, transferSubsystem)
-      ),
-      new PullBack(transferSubsystem, shooterSubsystem).withTimeout(0.5),
-      new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(4)
-      
+
+      new ShootHighAndPickUp(driveSubsystem, intakeSubsystem, transferSubsystem, shooterSubsystem),
+
+      new TimedDriveWithSpeed(-0.5, 0.9, driveSubsystem),
+      //new PullBack(transferSubsystem, shooterSubsystem).withTimeout(0.5),
+
+      new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, shooterSubsystem, transferSubsystem).withTimeout(3)
     );
   }
 }

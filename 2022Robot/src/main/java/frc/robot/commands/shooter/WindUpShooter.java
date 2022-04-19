@@ -7,15 +7,16 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ReverseShooter extends CommandBase {
+public class WindUpShooter extends CommandBase {
+  
+  int mainSpeed;
+
   ShooterSubsystem m_shooterSubsystem;
-
-  /** Creates a new ReverseShooter. */
-  public ReverseShooter(ShooterSubsystem shooterSubsystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
-
+  /** Creates a new ShootSetSpeed. */
+  public WindUpShooter(int mainShooterSpeed, ShooterSubsystem shooterSubsystem) {
+    mainSpeed = mainShooterSpeed;
     m_shooterSubsystem = shooterSubsystem;
-
+    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooterSubsystem);
   }
 
@@ -23,27 +24,27 @@ public class ReverseShooter extends CommandBase {
   @Override
   public void initialize() {
     m_shooterSubsystem.stop();
+    m_shooterSubsystem.coast();
 
-    System.out.println("ShooterSubsystem: Started reversing shooter");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooterSubsystem.setSpeed(-0.5);
+    m_shooterSubsystem.bangSpeed(mainSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_shooterSubsystem.brake();
     m_shooterSubsystem.stop();
 
-    System.out.println("ShooterSubsystem: Finished reversing shooter");
   }
 
-  // Returns true when the command should end. 
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_shooterSubsystem.atTargetSpeed();
   }
 }

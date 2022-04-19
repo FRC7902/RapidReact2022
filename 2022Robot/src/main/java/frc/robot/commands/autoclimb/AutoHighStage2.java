@@ -6,6 +6,7 @@ package frc.robot.commands.autoclimb;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.drivetrain.TimedDriveWithSpeed;
 import frc.robot.commands.elevator.ExtendElevator;
 import frc.robot.commands.elevator.RetractElevator;
@@ -25,10 +26,18 @@ public class AutoHighStage2 extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new RetractElevator(elevatorSubsystem).withTimeout(1.8),
-      new TimedDriveWithSpeed(-0.5, 0.25, driveSubsystem),
-      new WinchIn(winchSubsystem).withTimeout(4.3),
-      new RunWinches(0, 0.5, winchSubsystem).withTimeout(0.6),
-      new ExtendElevator(elevatorSubsystem).withTimeout(1)
+      new TimedDriveWithSpeed(-0.5, 0.25, driveSubsystem), 
+
+      // new RunWinches(-0.6, 0.5, winchSubsystem).withTimeout(0.2),
+      new RunWinches(0.5, 0, winchSubsystem).withTimeout(0.6),
+
+      new ParallelCommandGroup(
+        new SequentialCommandGroup(
+          new WinchIn(winchSubsystem).withTimeout(4.3)
+          //new RunWinches(0, 0.5, winchSubsystem).withTimeout(0.6)
+        ),
+        new ExtendElevator(elevatorSubsystem).withTimeout(1.4)
+      )
     );
 
   }

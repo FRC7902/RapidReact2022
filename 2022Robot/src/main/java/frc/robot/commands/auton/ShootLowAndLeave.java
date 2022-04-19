@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.Constants.AutonConstants;
 import frc.robot.commands.ShootLowWithWindUp;
 import frc.robot.commands.drivetrain.TimedDriveWithSpeed;
 import frc.robot.commands.intake.DeployIntake;
@@ -24,13 +25,13 @@ import frc.robot.subsystems.TransferSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ShootLowAndLeave extends SequentialCommandGroup {
   /** Creates a new ShootAndLeave. */
-  public ShootLowAndLeave(TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem, DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem) {
+  public ShootLowAndLeave(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ShootLowWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(3),
-      new DeployIntake(intakeSubsystem).withTimeout(0.1),
-      new TimedDriveWithSpeed(0.75, 1.5, driveSubsystem)
+      new ShootLowWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(AutonConstants.shootTime),
+      new DeployIntake(intakeSubsystem).withTimeout(AutonConstants.intakeDeployTime),
+      new TimedDriveWithSpeed(0.5, 1, driveSubsystem)
     );
   }
 }
