@@ -29,7 +29,8 @@ public class AutoHighStage2 extends SequentialCommandGroup {
       new TimedDriveWithSpeed(-0.5, 0.25, driveSubsystem), 
 
       // new RunWinches(-0.6, 0.5, winchSubsystem).withTimeout(0.2),
-      new RunWinches(0.5, 0, winchSubsystem).withTimeout(0.6),
+      new RunWinches(0.5, 0, winchSubsystem).withTimeout(0.2),
+      // new RunWinches(0.5, -0.2, winchSubsystem).withTimeout(0.2),
 
       new ParallelCommandGroup(
         new SequentialCommandGroup(

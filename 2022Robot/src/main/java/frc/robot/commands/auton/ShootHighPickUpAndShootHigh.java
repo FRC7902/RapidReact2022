@@ -20,6 +20,8 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
+import frc.robot.commands.PullBack;
+
 
 import frc.robot.commands.ShootMaintained;
 import frc.robot.Constants;
@@ -40,7 +42,9 @@ public class ShootHighPickUpAndShootHigh extends SequentialCommandGroup {
       new TimedDriveWithSpeed(-0.5, 0.9, driveSubsystem),
       //new PullBack(transferSubsystem, shooterSubsystem).withTimeout(0.5),
 
-      new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, shooterSubsystem, transferSubsystem).withTimeout(3)
+      new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, shooterSubsystem, transferSubsystem).withTimeout(3.5),
+
+      new TimedDriveWithSpeed(0.5, 1.2, driveSubsystem)
     );
   }
 }

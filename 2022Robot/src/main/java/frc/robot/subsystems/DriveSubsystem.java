@@ -149,8 +149,8 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   public void driveArcade(double fwd, double rot){
-    m_leftLeader.set(ControlMode.PercentOutput, fwd + rot);
-    m_rightLeader.set(ControlMode.PercentOutput, fwd - rot);
+    m_leftLeader.set(ControlMode.PercentOutput, 0.4*(fwd + rot));
+    m_rightLeader.set(ControlMode.PercentOutput, 0.4*(fwd - rot));
   }
 
 
@@ -201,8 +201,8 @@ public class DriveSubsystem extends SubsystemBase {
       }
     }
     
-    m_leftLeader.set(ControlMode.PercentOutput, yout + xout);
-    m_rightLeader.set(ControlMode.PercentOutput, (yout - xout)*1);
+    m_leftLeader.set(ControlMode.PercentOutput, 0.4*(yout + xout));
+    m_rightLeader.set(ControlMode.PercentOutput, 0.4*(yout - xout)*1);
 
   }
   

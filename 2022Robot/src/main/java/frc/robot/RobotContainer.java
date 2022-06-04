@@ -127,11 +127,11 @@ public class RobotContainer {
         m_robotDrive)
     );
 
-
-    m_robotWinch.setDefaultCommand(
-      // new RunWinches(m_climberStick.getRawAxis(Constants.IOConstants.kRY), m_climberStick.getRawAxis(Constants.IOConstants.kLY), m_robotWinch)
-      new RunCommand(() -> m_robotWinch.setWinches(m_climberStick.getRawAxis(Constants.IOConstants.kLY)*0.9, m_climberStick.getRawAxis(Constants.IOConstants.kRY)), m_robotWinch)
-    );
+//RE-ENABLE THIS LATER
+    // m_robotWinch.setDefaultCommand(
+    //   // new RunWinches(m_climberStick.getRawAxis(Constants.IOConstants.kRY), m_climberStick.getRawAxis(Constants.IOConstants.kLY), m_robotWinch)
+    //   new RunCommand(() -> m_robotWinch.setWinches(m_climberStick.getRawAxis(Constants.IOConstants.kLY)*0.9, m_climberStick.getRawAxis(Constants.IOConstants.kRY)), m_robotWinch)
+    // );
 
 
 
@@ -176,49 +176,48 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
 
-    //CLIMBER STICK
-    new JoystickButton(m_climberStick, Constants.IOConstants.kSTART)
-      .whenPressed(new AutoHighStage1(m_robotElevator, m_robotWinch));
-
-    new JoystickButton(m_climberStick, Constants.IOConstants.kMENU) //Winch Up 
-      .whenPressed(new AutoHighAllStages(m_robotElevator, m_robotWinch, m_robotDrive));
-
+    //SHOOT ONLY
     new JoystickButton(m_climberStick, Constants.IOConstants.kA) //Transfer Up
       .whenHeld(new TransferUp(m_robotTransfer));
 
     new JoystickButton(m_climberStick, Constants.IOConstants.kB) // Reverse shooter and transfer
     .whenHeld(new PullBack(m_robotTransfer, m_robotShooter));
     
-    new JoystickButton(m_climberStick, Constants.IOConstants.kRB) //Extend Elevator
-      .whenHeld(new ExtendElevator(m_robotElevator));
+    new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kRT) > 0.01) // Extend Elevator and Winches in sync
+      .whileActiveOnce((new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, m_robotShooter, m_robotTransfer)));
+      
+    
+    // //CLIMBER STICK
+    // new JoystickButton(m_climberStick, Constants.IOConstants.kSTART)
+    //   .whenPressed(new AutoHighStage1(m_robotElevator, m_robotWinch));
 
-    new JoystickButton(m_climberStick, Constants.IOConstants.kLB) //Retract Elevator
-      .whenHeld(new RetractElevator(m_robotElevator));
+    // new JoystickButton(m_climberStick, Constants.IOConstants.kMENU) //Winch Up 
+    //   .whenPressed(new AutoHighAllStages(m_robotElevator, m_robotWinch, m_robotDrive));
+
+    // new JoystickButton(m_climberStick, Constants.IOConstants.kA) //Transfer Up
+    //   .whenHeld(new TransferUp(m_robotTransfer));
+
+    // new JoystickButton(m_climberStick, Constants.IOConstants.kB) // Reverse shooter and transfer
+    // .whenHeld(new PullBack(m_robotTransfer, m_robotShooter));
+    
+    // new JoystickButton(m_climberStick, Constants.IOConstants.kRB) //Extend Elevator
+    //   .whenHeld(new ExtendElevator(m_robotElevator));
+
+    // new JoystickButton(m_climberStick, Constants.IOConstants.kLB) //Retract Elevator
+    //   .whenHeld(new RetractElevator(m_robotElevator));
 
   
-    new JoystickButton(m_climberStick, Constants.IOConstants.kY) // Retract intake
-      .whenHeld(new RetractIntake(m_robotIntake));
+    // new JoystickButton(m_climberStick, Constants.IOConstants.kY) // Retract intake
+    //   .whenHeld(new RetractIntake(m_robotIntake));
 
-    new JoystickButton(m_climberStick, Constants.IOConstants.kX) // Deploy intake
-      .whenHeld(new DeployIntake(m_robotIntake));
+    // new JoystickButton(m_climberStick, Constants.IOConstants.kX) // Deploy intake
+    //   .whenHeld(new DeployIntake(m_robotIntake));
 
-    // new JoystickButton(m_driverStick, Constants.IOConstants.kSTART) //FAILED highshootmaintained
-    //   .whenHeld((new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, m_robotShooter, m_robotTransfer)));
-
-    new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kRT) > 0.01) // Extend Elevator and Winches in sync
-      .whileActiveOnce(new RaiseElevatorAndWinchesInSync(m_robotElevator, m_robotWinch));
+    // new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kRT) > 0.01) // Extend Elevator and Winches in sync
+    //   .whileActiveOnce(new RaiseElevatorAndWinchesInSync(m_robotElevator, m_robotWinch));
       
-    new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kLT) > 0.01) //Retract Elevator and Winches in sync
-      .whileActiveOnce(new LowerElevatorAndWinchesInSync(m_robotElevator, m_robotWinch));
-
-    // new JoystickButton(m_climberStick, Constants.IOConstants.kMENU) // Shoot high without transfer
-    //   .whileHeld(new ShootHigh(m_robotShooter));
-
-    // new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kDY) > 0)
-    //   .whileActiveOnce(new RollForward(m_robotWinch));
-    
-    // new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kDY) < 0)
-    //   .whileActiveOnce(new RollBackwards(m_robotWinch));
+    // new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kLT) > 0.01) //Retract Elevator and Winches in sync
+    //   .whileActiveOnce(new LowerElevatorAndWinchesInSync(m_robotElevator, m_robotWinch));
 
 
     //DRIVER STICK
@@ -241,8 +240,8 @@ public class RobotContainer {
     new JoystickButton(m_driverStick, Constants.IOConstants.kRB) //Suck
       .whenHeld(new Suck(m_robotIntake, m_robotTransfer));
 
-    new JoystickButton(m_driverStick, Constants.IOConstants.kMENU); 
-      // .whenPressed(new InstantCommand(() -> m_robotDrive.toggleRobotFront()));
+    new JoystickButton(m_driverStick, Constants.IOConstants.kMENU) 
+      .whenPressed(new InstantCommand(() -> m_robotDrive.toggleRobotFront()));
 
     new JoystickButton(m_driverStick, Constants.IOConstants.kSTART) //Shoot High
       .whenHeld(new ShootHighWithWindUp(m_robotTransfer, m_robotShooter));
@@ -274,3 +273,15 @@ public class RobotContainer {
     return m_chooser.getSelected();
   }
 }
+
+    // new JoystickButton(m_driverStick, Constants.IOConstants.kSTART) //FAILED highshootmaintained
+    //   .whenHeld((new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, m_robotShooter, m_robotTransfer)));
+
+    // new JoystickButton(m_climberStick, Constants.IOConstants.kMENU) // Shoot high without transfer
+    //   .whileHeld(new ShootHigh(m_robotShooter));
+
+    // new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kDY) > 0)
+    //   .whileActiveOnce(new RollForward(m_robotWinch));
+    
+    // new Trigger(() -> m_climberStick.getRawAxis(Constants.IOConstants.kDY) < 0)
+    //   .whileActiveOnce(new RollBackwards(m_robotWinch));

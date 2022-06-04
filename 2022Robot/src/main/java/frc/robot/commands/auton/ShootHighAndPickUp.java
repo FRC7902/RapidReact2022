@@ -31,7 +31,7 @@ public class ShootHighAndPickUp extends SequentialCommandGroup {
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
                     new TimedDriveWithSpeed(0.5, 1.1, driveSubsystem),
-                    new WaitCommand(0.5)
+                    new WaitCommand(0.55)
                 ),
                 new Suck(intakeSubsystem, transferSubsystem)
             )

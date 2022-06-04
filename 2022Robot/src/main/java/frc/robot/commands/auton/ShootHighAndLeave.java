@@ -37,8 +37,8 @@ public class ShootHighAndLeave extends SequentialCommandGroup {
 
       new ParallelCommandGroup(
         //new ShootHighWithWindUp(transferSubsystem, shooterSubsystem).withTimeout(AutonConstants.shootTime),
-        new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, shooterSubsystem, transferSubsystem).withTimeout(1.8),
-        new DeployIntake(intakeSubsystem).withTimeout(AutonConstants.intakeDeployTime)
+        new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, shooterSubsystem, transferSubsystem).withTimeout(1.8)
+        //new DeployIntake(intakeSubsystem).withTimeout(AutonConstants.intakeDeployTime)
       ),
 
       new WaitCommand(8),
