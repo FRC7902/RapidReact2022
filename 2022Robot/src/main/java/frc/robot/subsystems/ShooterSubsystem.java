@@ -37,8 +37,8 @@ public class ShooterSubsystem extends SubsystemBase {
     master.configOpenloopRamp(Constants.ShooterConstants.kRampTime);
     follower.configOpenloopRamp(Constants.ShooterConstants.kRampTime);
 
-    master.setNeutralMode(NeutralMode.Brake);
-    follower.setNeutralMode(NeutralMode.Brake);
+    master.setNeutralMode(NeutralMode.Coast);
+    follower.setNeutralMode(NeutralMode.Coast);
 
   }
 
@@ -53,8 +53,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void stop() {
     master.stopMotor();
-    master.set(-0.04);
-    status = "Off";
+    master.set(-0.02);
+   
   }
 
   public void coast() {
@@ -82,6 +82,20 @@ public class ShooterSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
+
+    // This is very bad code practice and should be in a function but it is 03:00 in the night so deal with it
+    if (encoder.getRate() < 3000){
+      status = "backdriving";
+      master.set(-0.05);
+      brake();
+    }
+    else{
+      status = "Off";
+      coast();
+    }
+
+
+    
     SmartDashboard.putNumber("ShooterSubsystem/Shooter Power", master.getMotorOutputPercent());
     SmartDashboard.putNumber("ShooterSubsystem/Shooter Power 2", follower.getMotorOutputPercent());
     SmartDashboard.putString("ShooterSubsystem/Shooter Status", status);
