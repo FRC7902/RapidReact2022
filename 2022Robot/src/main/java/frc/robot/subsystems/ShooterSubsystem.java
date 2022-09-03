@@ -37,8 +37,8 @@ public class ShooterSubsystem extends SubsystemBase {
     master.configOpenloopRamp(Constants.ShooterConstants.kRampTime);
     follower.configOpenloopRamp(Constants.ShooterConstants.kRampTime);
 
-    master.setNeutralMode(NeutralMode.Coast);
-    follower.setNeutralMode(NeutralMode.Coast);
+    master.setNeutralMode(NeutralMode.Brake);
+    follower.setNeutralMode(NeutralMode.Brake);
 
   }
 
@@ -53,7 +53,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void stop() {
     master.stopMotor();
-    master.set(-0.02);
+    master.set(-0.04);
+    status= "off";
    
   }
 
@@ -84,15 +85,15 @@ public class ShooterSubsystem extends SubsystemBase {
 
 
     // This is very bad code practice and should be in a function but it is 03:00 in the night so deal with it
-    if (encoder.getRate() < 3000){
-      status = "backdriving";
-      master.set(-0.05);
-      brake();
-    }
-    else{
-      status = "Off";
-      coast();
-    }
+    // if (encoder.getRate() < 3000){
+    //   status = "backdriving";
+    //   master.set(-0.05);
+    //   brake();
+    // }
+    // else{
+    //   status = "Off";
+    //   coast();
+    // }
 
 
     

@@ -80,8 +80,8 @@ public final class Constants {
 
         public final static double kRampTime = 0;
 
-        public final static int kHighUnitsPerSec = 120000;
-        public final static int kTolerance = 3000;
+        public final static int kHighUnitsPerSec = 115000;
+        public final static int kTolerance = 2000;
     }
     
     public static final class ElevatorConstants {

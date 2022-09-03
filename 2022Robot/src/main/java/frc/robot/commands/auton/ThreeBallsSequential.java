@@ -26,18 +26,19 @@ public class ThreeBallsSequential extends SequentialCommandGroup {
     public ThreeBallsSequential(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem, ShooterSubsystem shooterSubsystem) {
         
         double turnSpeed = 0.5;
-        double turnAmt = 0.54;
+        double turnAmt = 0.57;
 
         double driveSpeed = 0.5;
-        double driveAmt = 1.8;
+        double driveAmt = 1.90;
 
         addCommands(
 
 
             new ShootHighAndPickUp(driveSubsystem, intakeSubsystem, transferSubsystem, shooterSubsystem),
             
-            new TimedDriveWithSpeed(-0.5, 0.9, driveSubsystem),
-            new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, shooterSubsystem, transferSubsystem).withTimeout(2.5),
+            //new TimedDriveWithSpeed(-0.5, 0.85, driveSubsystem),
+            //new WaitCommand(0.25),
+            //new ShootMaintained(Constants.ShooterConstants.kHighUnitsPerSec, shooterSubsystem, transferSubsystem).withTimeout(2.5),
             // ^ from two balls high
 
             new TimedTurnWithSpeed(turnSpeed,turnAmt, driveSubsystem),
@@ -50,6 +51,7 @@ public class ThreeBallsSequential extends SequentialCommandGroup {
                 new Suck(intakeSubsystem, transferSubsystem)
             ),
             new TimedDriveWithSpeed(-driveSpeed,(driveAmt),driveSubsystem),
+            new WaitCommand(0.25),
             new TimedTurnWithSpeed(-turnSpeed,(turnAmt),driveSubsystem),
 
             //shoot 3rd ball

@@ -52,7 +52,7 @@ public class ShootMaintained extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooterSubsystem.coast();
+    m_shooterSubsystem.brake();
     m_shooterSubsystem.stop();
     m_transferSubsystem.stop();
     System.out.println("Ended");
